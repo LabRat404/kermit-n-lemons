@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/GULAppEnvironmentUtil.h</key>
 		<data>
-		Ypl//gXqBLZ58fSbmkW9T2aHu/o=
+		MT6NpumMIS16WTW61244JN6gv/8=
 		</data>
 		<key>Headers/GULHeartbeatDateStorable.h</key>
 		<data>
@@ -36,6 +36,10 @@
 		<data>
 		kI/Q5XKyjxY19Tph/lUMaOC09ZE=
 		</data>
+		<key>Headers/GULNetworkInfo.h</key>
+		<data>
+		WsAAfsEiwFkuHGHVl5YZZPx/y7g=
+		</data>
 		<key>Headers/GULSecureCoding.h</key>
 		<data>
 		t/fXV0x5vnY3wbVku4mOWIkSf9o=
@@ -50,7 +54,7 @@
 		</data>
 		<key>Headers/GoogleUtilities-umbrella.h</key>
 		<data>
-		jsnQIMWVN0MItOiAE2X6hXCf+FI=
+		8oo0UajacJTYxC9fyqteyIbckqE=
 		</data>
 		<key>Headers/NSURLSession+GULPromises.h</key>
 		<data>
@@ -58,7 +62,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		ZW2xG4kUlOs38t1H51w/CBy7CrM=
+		t/+dFcZQGgsjpQRyCtXtDEhfNSE=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -71,11 +75,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Ypl//gXqBLZ58fSbmkW9T2aHu/o=
+			MT6NpumMIS16WTW61244JN6gv/8=
 			</data>
 			<key>hash2</key>
 			<data>
-			7lmqYrGOKkHypwVOmucCX7xVhqw0NFugiQv7sSLyIrs=
+			IgUrGFPeOFr74VJHh38uXGg0jy2TebCaQYCguJFZ43U=
 			</data>
 		</dict>
 		<key>Headers/GULHeartbeatDateStorable.h</key>
@@ -155,6 +159,17 @@
 			LiP2jwqqzSGdPL/LiTSObUXRHghVvIJYdV2SXCW8M+k=
 			</data>
 		</dict>
+		<key>Headers/GULNetworkInfo.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			WsAAfsEiwFkuHGHVl5YZZPx/y7g=
+			</data>
+			<key>hash2</key>
+			<data>
+			Y+INcPftnbj6InNVUO0nGGarNDqPaAK141x6EAzF3T8=
+			</data>
+		</dict>
 		<key>Headers/GULSecureCoding.h</key>
 		<dict>
 			<key>hash</key>
@@ -192,11 +207,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			jsnQIMWVN0MItOiAE2X6hXCf+FI=
+			8oo0UajacJTYxC9fyqteyIbckqE=
 			</data>
 			<key>hash2</key>
 			<data>
-			/OHySvkJ0fQ388vsZiFysk5TXx0XnPOYfnyYzDS7CDk=
+			5IKXzm0Vn73cN2nW9Vp/O8zpUrI4tE6VfG44kDO1w/Y=
 			</data>
 		</dict>
 		<key>Headers/NSURLSession+GULPromises.h</key>

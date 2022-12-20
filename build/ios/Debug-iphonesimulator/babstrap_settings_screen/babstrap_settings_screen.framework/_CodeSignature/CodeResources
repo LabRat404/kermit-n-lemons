@@ -18,15 +18,15 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		XRzJiCKdFWRldPoYj20CC8G4Fkw=
+		Eb6AuQU4+EoX6pl6HR6p9VbE0Ks=
 		</data>
 		<key>Modules/babstrap_settings_screen.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo</key>
 		<data>
-		xnb1vOckcJfMDoYQKM02FBlm8kE=
+		pbuJp6epglXhi6zyfOmL2KRkDQI=
 		</data>
 		<key>Modules/babstrap_settings_screen.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo</key>
 		<data>
-		jpVSUSlW1m0W3i/eooUAyj+jL/E=
+		DQqYbOgZUlIeyCmNGdTvDrnGhm4=
 		</data>
 		<key>Modules/babstrap_settings_screen.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
@@ -34,11 +34,11 @@
 		</data>
 		<key>Modules/babstrap_settings_screen.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		y/bgRQejv9xCcK0x16xI/FEEjQs=
+		Vcf0Tplo+8IQHMSzJ9kViIkIkQQ=
 		</data>
 		<key>Modules/babstrap_settings_screen.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		DcPOkcq7Id0BbJUs2M7PbFLxEtc=
+		Q2/ObB6sMPzuTBVAip5I8e5xFrI=
 		</data>
 		<key>Modules/babstrap_settings_screen.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
@@ -46,11 +46,11 @@
 		</data>
 		<key>Modules/babstrap_settings_screen.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		HEwQUtM1u9Uygx/xKqribBGLrIY=
+		rcOAHKrAAREywZ0rkVdMQshwe7k=
 		</data>
 		<key>Modules/babstrap_settings_screen.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		uHe60myvRgY/7KUO51CVMpnZtaQ=
+		qvzhYNj9xeuZIqXjOC34e7VgYrw=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -84,14 +84,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			yQRnHTD4ySezU0odsIi9GsL7rQfgLPCEiLv/yY0OLjc=
+			915i6RR+pmdd2/Zr8ZuEzcRqSjFjpD7a1/n+KEvnoSg=
 			</data>
 		</dict>
 		<key>Modules/babstrap_settings_screen.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			5g6e2zae8uQ2mKAk1IcIj8xqNB+vMNCmfrACOJfImdM=
+			r7qMd01cp2ZYNTVDT8B3Dg/ZOjhXVnxHlvicwXKo1mY=
 			</data>
 		</dict>
 		<key>Modules/babstrap_settings_screen.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
@@ -105,14 +105,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			29jvA3x6C2RDIkrEaFbgzVo5XHnJf6LBmZgItuxRU0c=
+			Q0lgWtyTOotm6JshwTAufupkXSf7rduCRDMrqs05bSE=
 			</data>
 		</dict>
 		<key>Modules/babstrap_settings_screen.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Vref/kDy/XCCc0shlBFfvE317vhTPK9/4AKXNLLybEE=
+			VbGUZQRlpQCGedJcxB3VS5ii2ddmT7T1GIi+9HqkSFo=
 			</data>
 		</dict>
 		<key>Modules/babstrap_settings_screen.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
@@ -126,14 +126,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			f191NGcFOjud8BtejQi+xHsR9RZzOCVn9y5hMwwMD8I=
+			CBLUbkNtX+sha6rcduFECzJhmFk4CipCi1aw5I5mvEQ=
 			</data>
 		</dict>
 		<key>Modules/babstrap_settings_screen.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			FcaVq8Jb591tO4SAcbAD/D9QqENqrFuL3gnCekPy9nE=
+			J6LPJE+GgojSG1gz++HXWyvp5/aRo1sCHzIV9k5mj7g=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

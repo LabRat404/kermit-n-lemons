@@ -126,24 +126,24 @@ class _UploadPageState extends State<UploadPage> {
     return _previewImages();
   }
 
-  Future<void> retrieveLostData() async {
-    final LostDataResponse response = await _picker.retrieveLostData();
-    if (response.isEmpty) {
-      return;
-    }
-    if (response.file != null) {
-      isVideo = false;
-      setState(() {
-        if (response.files == null) {
-          _setImageFileListFromFile(response.file);
-        } else {
-          _imageFileList = response.files;
-        }
-      });
-    } else {
-      _retrieveDataError = response.exception!.code;
-    }
-  }
+  // Future<void> retrieveLostData() async {
+  //   final LostDataResponse response = await _picker.retrieveLostData();
+  //   if (response.isEmpty) {
+  //     return;
+  //   }
+  //   if (response.file != null) {
+  //     isVideo = false;
+  //     setState(() {
+  //       if (response.files == null) {
+  //         _setImageFileListFromFile(response.file);
+  //       } else {
+  //         _imageFileList = response.files;
+  //       }
+  //     });
+  //   } else {
+  //     _retrieveDataError = response.exception!.code;
+  //   }
+  // }
 
   Text? _getRetrieveErrorWidget() {
     if (_retrieveDataError != null) {
@@ -262,7 +262,7 @@ class _UploadPageState extends State<UploadPage> {
       child: const Text('Upload image here'),
     );
     final Display = FutureBuilder<void>(
-      future: retrieveLostData(),
+      //future: retrieveLostData(),
       builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
