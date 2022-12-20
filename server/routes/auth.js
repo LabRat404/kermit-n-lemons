@@ -52,7 +52,7 @@ authRouter.post("/api/signin", async(req, res) => {
     }
 });
 
-authRouter.post("/api/signup", async (req, res) => {
+authRouter.post("/api/uploading", async (req, res) => {
     try {
         const {name, email, password} = req.body;
         // {
@@ -84,6 +84,16 @@ authRouter.post("/api/signup", async (req, res) => {
     } catch (e) {
         res.status(500).json({ error: e.message });
     }
+    authRouter.post("/api/bookinfo", async (req, res) => {
+        const { book_isbn } = req.body;
+    
+        isbn.resolve(book_isbn).then(function (book) {
+            return res.json(book);
+        }).catch(function (err) {
+            res.status(401).json({ error: err });
+        });
+    });
+    
 });
 
 module.exports = authRouter; //allow public access
