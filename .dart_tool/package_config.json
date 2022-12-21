@@ -170,6 +170,12 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "gallery_saver",
+      "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/gallery_saver-2.3.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "google_fonts",
       "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/google_fonts-3.0.1",
       "packageUri": "lib/",
@@ -590,7 +596,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2022-12-20T00:17:02.856426Z",
+  "generated": "2022-12-21T14:08:12.413254Z",
   "generator": "pub",
   "generatorVersion": "2.18.6"
 }

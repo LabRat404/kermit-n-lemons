@@ -30,7 +30,7 @@ class _SettingsPageState extends State<SettingsPage> {
               // user card
               SimpleUserCard(
                 userName: username,
-                userProfilePic: AssetImage("assets/avatar.jpg"),
+                userProfilePic: NetworkImage("https://i.imgur.com/k2XHNOy.jpg"),
               ),
               SettingsGroup(
                 items: [

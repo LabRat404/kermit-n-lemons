@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UploadPage extends StatefulWidget {
@@ -19,6 +20,14 @@ class UploadPage extends StatefulWidget {
 }
 
 class _UploadPageState extends State<UploadPage> {
+  Future<Directory?>? _tempDirectory;
+
+  void _requestTempDirectory() {
+    setState(() {
+      _tempDirectory = getTemporaryDirectory();
+    });
+  }
+
   List<XFile>? _imageFileList;
   void _setImageFileListFromFile(XFile? value) {
     _imageFileList = value == null ? null : <XFile>[value];
@@ -86,8 +95,15 @@ class _UploadPageState extends State<UploadPage> {
     request.fields['title'] = "dummyImage";
     request.headers['Authorization'] = "Client-ID " + "4556ad76cb684d8";
 
+    String tempPath = "";
+    String appDocPath = "";
+    Directory appDocDir = await getApplicationDocumentsDirectory();
+    appDocPath = appDocDir.path;
+    print(appDocPath);
+    final File newImage =
+        await File(_imageFileList![0].path).copy('$appDocPath/tmp.png');
     var picture = http.MultipartFile.fromBytes('image',
-        (await rootBundle.load('assets/avatar.jpg')).buffer.asUint8List(),
+        (await rootBundle.load('$appDocPath/tmp.png')).buffer.asUint8List(),
         filename: 'test1.png');
 
     request.files.add(picture);
