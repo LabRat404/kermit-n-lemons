@@ -30,6 +30,7 @@ class _UploadPageState extends State<UploadPage> {
   final TextEditingController maxWidthController = TextEditingController();
   final TextEditingController maxHeightController = TextEditingController();
   final TextEditingController qualityController = TextEditingController();
+
   Future<void> _onImageButtonPressed(ImageSource source,
       {BuildContext? context, bool isMultiImage = false}) async {
     if (isMultiImage) {
@@ -77,6 +78,8 @@ class _UploadPageState extends State<UploadPage> {
     super.deactivate();
   }
 
+  uploading(String title, File file) async {}
+
   @override
   void dispose() {
     maxWidthController.dispose();
@@ -102,7 +105,7 @@ class _UploadPageState extends State<UploadPage> {
               label: 'image_picker_example_picked_image',
               child: kIsWeb
                   ? Image.network(_imageFileList![index].path)
-                  : Image.file(File(_imageFileList![index].path)),
+                  : Image.file(File(_imageFileList![0].path)),
             );
           },
           itemCount: _imageFileList!.length,
@@ -387,6 +390,7 @@ class _UploadPageState extends State<UploadPage> {
             child: FloatingActionButton(
               onPressed: () {
                 //Upload the book user enter with ISBN and its thumbnail
+                if (_imageFileList != null) {}
               },
               heroTag: 'image2',
               tooltip: 'Upload your book!',
