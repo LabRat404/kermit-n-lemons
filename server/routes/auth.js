@@ -97,7 +97,7 @@ authRouter.post("/api/uploading", async (req, res) => {
             if (e)
               res.send(e);
             else
-              res.send("Ref: " + Document, congrats);
+              res.send("Ref: asdasdsd");
           });
         // get the data from client, 
         // post that data in db

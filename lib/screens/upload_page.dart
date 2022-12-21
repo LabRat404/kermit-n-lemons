@@ -1,10 +1,12 @@
 //new backup upload image
+
 import 'package:flutter/material.dart';
 import 'package:trade_app/widgets/reusable_widget.dart';
 import 'package:trade_app/screens/bookInfodetail.dart';
 import '/../widgets/camera.dart';
 import 'dart:async';
 import 'dart:io';
+import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
@@ -110,15 +112,21 @@ class _UploadPageState extends State<UploadPage> {
     request.files.add(picture);
     var response = await request.send();
     var responseData = await response.stream.toBytes();
-    var result = String.fromCharCodes(responseData);
+    var tmp2 = String.fromCharCodes(responseData);
+    Map<String, dynamic> result = json.decode(tmp2);
+    print(result);
+    String name2 = result['data']['name'];
+    String url2 = result['data']['link'];
 
-    if (result != null) {
-      AuthService().uploadIng(
-        name: "{result.id}",
-        url: "{result.link}",
-      );
-    }
-    //output img num and such
+    // if (result != null) {
+    AuthService().uploadIng(
+      name: name2,
+      url: "url2",
+    );
+    // }
+    print("this is name ->" + name2);
+    print("this is url ->" + url2);
+    //output img num and such and the luv to ah bee
   }
 
   @override

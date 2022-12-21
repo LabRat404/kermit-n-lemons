@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:trade_app/widgets/reusable_widget.dart';
 import 'package:trade_app/services/auth/connector.dart';
-import 'package:flutter/material.dart';
-
 import 'package:http/http.dart' as http;
 
 class RegisterPage extends StatefulWidget {
