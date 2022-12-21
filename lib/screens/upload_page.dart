@@ -115,13 +115,14 @@ class _UploadPageState extends State<UploadPage> {
     var tmp2 = String.fromCharCodes(responseData);
     Map<String, dynamic> result = json.decode(tmp2);
     print(result);
-    String name2 = result['data']['name'];
+    String name2 = result['data']['id'];
     String url2 = result['data']['link'];
+    String delhash = result['data']['deletehash'];
 
     // if (result != null) {
     AuthService().uploadIng(
       name: name2,
-      url: "url2",
+      url: url2,
     );
     // }
     print("this is name ->" + name2);

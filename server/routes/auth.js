@@ -107,6 +107,25 @@ authRouter.post("/api/uploading", async (req, res) => {
     }
 });
 
+authRouter.post("/api/grab", async (req, res) => {
+    try {
+          Image2.create({
+            name: req.body['name'],
+            url: req.body['url']
+          }, (e, results) => {
+            if (e)
+              res.send(e);
+            else
+              res.send("Ref: asdasdsd");
+          });
+        // get the data from client, 
+        // post that data in db
+        // return that data to the user
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
+});
+
 
 
 module.exports = authRouter; //allow public access
