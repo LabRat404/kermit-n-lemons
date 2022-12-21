@@ -5,6 +5,8 @@ import 'package:trade_app/screens/bookInfodetail.dart';
 import '/../widgets/camera.dart';
 import 'dart:async';
 import 'dart:io';
+import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -78,7 +80,26 @@ class _UploadPageState extends State<UploadPage> {
     super.deactivate();
   }
 
-  uploading(String title, File file) async {}
+  uploading() async {
+    var request = http.MultipartRequest(
+        "POST", Uri.parse("https://api.imgur.com/3/image"));
+    request.fields['title'] = "dummyImage";
+    request.headers['Authorization'] = "Client-ID " + "4556ad76cb684d8";
+
+    var picture = http.MultipartFile.fromBytes('image',
+        (await rootBundle.load('assets/avatar.jpg')).buffer.asUint8List(),
+        filename: 'test1.png');
+
+    request.files.add(picture);
+
+    var response = await request.send();
+
+    var responseData = await response.stream.toBytes();
+
+    var result = String.fromCharCodes(responseData);
+
+    print(result);
+  }
 
   @override
   void dispose() {
@@ -390,7 +411,9 @@ class _UploadPageState extends State<UploadPage> {
             child: FloatingActionButton(
               onPressed: () {
                 //Upload the book user enter with ISBN and its thumbnail
-                if (_imageFileList != null) {}
+                if (_imageFileList != null) {
+                  uploading();
+                }
               },
               heroTag: 'image2',
               tooltip: 'Upload your book!',
