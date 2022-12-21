@@ -1,9 +1,9 @@
 const express = require('express');
 const User = require("../models/user");
+const Image2 = require("../models/uploadImage");
 const isbn = require('node-isbn');
 const bcryptjs = require('bcryptjs');
 const jwt = require("jsonwebtoken");
-
 const authRouter = express.Router();
 
 authRouter.get("/test", (req, res) => {
@@ -53,7 +53,8 @@ authRouter.post("/api/signin", async(req, res) => {
     }
 });
 
-authRouter.post("/api/uploading", async (req, res) => {
+
+authRouter.post("/api/signup", async (req, res) => {
     try {
         const {name, email, password} = req.body;
         // {
@@ -85,16 +86,27 @@ authRouter.post("/api/uploading", async (req, res) => {
     } catch (e) {
         res.status(500).json({ error: e.message });
     }
-    authRouter.post("/api/bookinfo", async (req, res) => {
-        const { book_isbn } = req.body;
-    
-        isbn.resolve(book_isbn).then(function (book) {
-            return res.json(book);
-        }).catch(function (err) {
-            res.status(401).json({ error: err });
-        });
-    });
-    
 });
+
+authRouter.post("/api/uploading", async (req, res) => {
+    try {
+          Image2.create({
+            name: req.body['name'],
+            url: req.body['url']
+          }, (e, results) => {
+            if (e)
+              res.send(e);
+            else
+              res.send("Ref: " + Document, congrats);
+          });
+        // get the data from client, 
+        // post that data in db
+        // return that data to the user
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
+});
+
+
 
 module.exports = authRouter; //allow public access

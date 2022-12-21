@@ -3,13 +3,15 @@ const mongoose = require('mongoose');
 // set user model
 
 var imageSchema = new mongoose.Schema({
-    name: String,
-    desc: String,
-    img:
-    {
-        data: Buffer,
-        contentType: String
+    name: {
+        required: true,
+        type: String, 
+    },
+    url: {
+        required: true,
+        type: String,
     }
+
 });
  
 //Image is a model which has a schema imageSchema

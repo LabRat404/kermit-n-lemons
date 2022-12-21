@@ -11,6 +11,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:trade_app/services/auth/connector.dart';
 
 class UploadPage extends StatefulWidget {
   const UploadPage({Key? key, this.title}) : super(key: key);
@@ -100,21 +101,24 @@ class _UploadPageState extends State<UploadPage> {
     Directory appDocDir = await getApplicationDocumentsDirectory();
     appDocPath = appDocDir.path;
     print(appDocPath);
+    //get item num api
     final File newImage =
         await File(_imageFileList![0].path).copy('$appDocPath/tmp.png');
     var picture = http.MultipartFile.fromBytes('image',
         (await rootBundle.load('$appDocPath/tmp.png')).buffer.asUint8List(),
         filename: 'test1.png');
-
     request.files.add(picture);
-
     var response = await request.send();
-
     var responseData = await response.stream.toBytes();
-
     var result = String.fromCharCodes(responseData);
 
-    print(result);
+    if (result != null) {
+      AuthService().uploadIng(
+        name: "{result.id}",
+        url: "{result.link}",
+      );
+    }
+    //output img num and such
   }
 
   @override

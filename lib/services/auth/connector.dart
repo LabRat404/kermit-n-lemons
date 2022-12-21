@@ -84,4 +84,24 @@ class AuthService {
       print(e.toString());
     }
   }
+
+  void uploadIng({
+    required String name,
+    required String url,
+  }) async {
+    try {
+      http.Response res =
+          //await http.post(Uri.parse('http://localhost:3000/api/signup'),
+          await http.post(Uri.parse('http://172.20.10.3:3000/api/uploading'),
+              body: jsonEncode({
+                'name': name,
+                'url': url,
+              }),
+              headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          });
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 }
