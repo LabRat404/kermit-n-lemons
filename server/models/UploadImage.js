@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 // set user model
 
 var imageSchema = new mongoose.Schema({
+    id: {
+
+        type: String,
+    },
     name: {
         required: true,
         type: String, 
@@ -10,7 +14,19 @@ var imageSchema = new mongoose.Schema({
     url: {
         required: true,
         type: String,
-    }
+    },
+    ISBN: {
+    
+        type: String,
+    },
+    delhash: {
+ 
+        type: String,
+    },
+    username: {
+      
+        type: String,
+    },
 
 });
  

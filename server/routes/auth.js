@@ -90,6 +90,8 @@ authRouter.post("/api/signup", async (req, res) => {
 
 authRouter.post("/api/uploading", async (req, res) => {
     try {
+  
+
           Image2.create({
             name: req.body['name'],
             url: req.body['url']
@@ -108,22 +110,14 @@ authRouter.post("/api/uploading", async (req, res) => {
 });
 
 authRouter.post("/api/grab", async (req, res) => {
-    try {
-          Image2.create({
-            name: req.body['name'],
-            url: req.body['url']
-          }, (e, results) => {
-            if (e)
-              res.send(e);
-            else
-              res.send("Ref: asdasdsd");
-          });
-        // get the data from client, 
-        // post that data in db
-        // return that data to the user
-    } catch (e) {
-        res.status(500).json({ error: e.message });
-    }
+    Image2.find()
+    .exec();
+    (e, results) => {
+      if (e)
+        res.send("No event found, delete failed");
+      else
+        res.send(results);
+   }
 });
 
 
