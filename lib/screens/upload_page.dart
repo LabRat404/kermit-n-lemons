@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:trade_app/widgets/reusable_widget.dart';
 import 'package:trade_app/screens/bookInfodetail.dart';
 import '/../widgets/camera.dart';
+import 'package:trade_app/provider/user_provider.dart';
 import 'dart:async';
 import 'dart:io';
 import 'dart:convert';
@@ -13,6 +14,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:trade_app/services/auth/connector.dart';
 
 class UploadPage extends StatefulWidget {
@@ -95,7 +97,7 @@ class _UploadPageState extends State<UploadPage> {
     super.deactivate();
   }
 
-  uploading() async {
+  uploading(realusername) async {
     if (_imageFileList != null) {
       var request = http.MultipartRequest(
           "POST", Uri.parse("https://api.imgur.com/3/image"));
@@ -127,13 +129,14 @@ class _UploadPageState extends State<UploadPage> {
 
       // if (result != null) {
       AuthService().uploadIng(
-        name: name2,
-        url: url2,
-        delhash: delhash,
-        dbISBN: dbISBN,
-        comments: dbcomments,
-      );
+          name: name2,
+          url: url2,
+          delhash: delhash,
+          dbISBN: dbISBN,
+          comments: dbcomments,
+          username: realusername);
       // }
+      print("this is uname ->" + realusername);
       print("this is name ->" + name2);
       print("this is url ->" + url2);
       print("this is isbn ->" + dbISBN);
@@ -280,6 +283,8 @@ class _UploadPageState extends State<UploadPage> {
 
   @override
   Widget build(BuildContext context) {
+    var realusername = context.watch<UserProvider>().user.name;
+
     final ScanISBNButton = ElevatedButton(
       style: ElevatedButton.styleFrom(
         foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
@@ -454,14 +459,14 @@ class _UploadPageState extends State<UploadPage> {
                                   controller: ISBNController,
                                   decoration: InputDecoration(
                                     labelText: 'ISBN',
-                                    icon: Icon(Icons.account_box),
+                                    icon: Icon(Icons.camera),
                                   ),
                                 ),
                                 TextFormField(
                                   controller: commentsController,
                                   decoration: InputDecoration(
                                     labelText: 'comments',
-                                    icon: Icon(Icons.email),
+                                    icon: Icon(Icons.message),
                                   ),
                                 ),
                               ],
@@ -472,7 +477,7 @@ class _UploadPageState extends State<UploadPage> {
                           ElevatedButton(
                               child: Text("Submit"),
                               onPressed: () async {
-                                await uploading();
+                                await uploading(realusername);
                               })
                         ],
                       );

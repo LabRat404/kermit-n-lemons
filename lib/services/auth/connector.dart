@@ -85,13 +85,13 @@ class AuthService {
     }
   }
 
-  void uploadIng({
-    required String name,
-    required String url,
-    required String comments,
-    required String dbISBN,
-    required String delhash,
-  }) async {
+  void uploadIng(
+      {required String name,
+      required String url,
+      required String comments,
+      required String dbISBN,
+      required String delhash,
+      required String username}) async {
     try {
       http.Response res =
           //await http.post(Uri.parse('http://localhost:3000/api/signup'),
@@ -102,6 +102,7 @@ class AuthService {
                 'dbISBN': dbISBN,
                 'delhash': delhash,
                 'comments': comments,
+                'username': username,
               }),
               headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',

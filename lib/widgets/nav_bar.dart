@@ -6,6 +6,7 @@ import 'package:trade_app/screens/notification_page.dart';
 import 'package:trade_app/screens/register_page.dart';
 import 'package:trade_app/screens/settings_page.dart';
 import 'package:trade_app/screens/upload_page.dart';
+import 'package:trade_app/screens/userbooklist.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({Key? key}) : super(key: key);
@@ -31,7 +32,7 @@ class _NavBarState extends State<NavBar> {
     const HomePage(),
     const SearchPage(),
     const UploadPage(),
-    const NotificationPage(),
+    const UserList(),
     const SettingsPage(),
   ];
 
@@ -70,7 +71,7 @@ class _NavBarState extends State<NavBar> {
               ),
               GButton(
                 icon: Icons.notifications_outlined,
-                text: 'news',
+                text: 'User Book List',
                 onPressed: () => {},
               ),
               GButton(

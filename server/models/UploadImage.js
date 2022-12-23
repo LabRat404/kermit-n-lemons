@@ -11,6 +11,10 @@ var imageSchema = new mongoose.Schema({
         required: true,
         type: String, 
     },
+    username: {
+        required: true,
+        type: String, 
+    },
     url: {
         required: true,
         type: String,
