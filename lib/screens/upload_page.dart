@@ -358,20 +358,6 @@ class _UploadPageState extends State<UploadPage> {
       child: const Text('View details'),
     );
 
-    final SubmitButton = ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.green,
-        minimumSize: const Size(350, 50),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-      ),
-      onPressed: () {
-        //upload data to database
-      },
-      child: const Text('Upload book'),
-    );
-
     return MaterialApp(
         home: Scaffold(
       backgroundColor: const Color.fromARGB(255, 157, 85, 169),
@@ -439,10 +425,52 @@ class _UploadPageState extends State<UploadPage> {
             padding: const EdgeInsets.only(top: 16.0),
             child: FloatingActionButton(
               onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        scrollable: true,
+                        title: Text('Login'),
+                        content: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Form(
+                            child: Column(
+                              children: <Widget>[
+                                TextFormField(
+                                  decoration: InputDecoration(
+                                    labelText: 'Name',
+                                    icon: Icon(Icons.account_box),
+                                  ),
+                                ),
+                                TextFormField(
+                                  decoration: InputDecoration(
+                                    labelText: 'Email',
+                                    icon: Icon(Icons.email),
+                                  ),
+                                ),
+                                TextFormField(
+                                  decoration: InputDecoration(
+                                    labelText: 'Message',
+                                    icon: Icon(Icons.message),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        actions: [
+                          ElevatedButton(
+                              child: Text("Submit"),
+                              onPressed: () {
+                                if (_imageFileList != null) {
+                                  uploading();
+                                }
+                                // your code
+                              })
+                        ],
+                      );
+                    });
                 //Upload the book user enter with ISBN and its thumbnail
-                if (_imageFileList != null) {
-                  uploading();
-                }
               },
               heroTag: 'image2',
               tooltip: 'Upload your book!',
