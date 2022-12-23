@@ -91,10 +91,14 @@ authRouter.post("/api/signup", async (req, res) => {
 authRouter.post("/api/uploading", async (req, res) => {
     try {
   
-
-          Image2.create({
+            console.log(res);
+            Image2.create({
             name: req.body['name'],
-            url: req.body['url']
+            url: req.body['url'],
+            delhash: req.body['delhash'],
+            dbISBN: req.body['dbISBN'],
+            comments: req.body['comments']
+            
           }, (e, results) => {
             if (e)
               res.send(e);

@@ -15,16 +15,20 @@ var imageSchema = new mongoose.Schema({
         required: true,
         type: String,
     },
-    ISBN: {
-    
+    dbISBN: {
+        required: true,
         type: String,
     },
     delhash: {
- 
+        required: true,
         type: String,
     },
     username: {
       
+        type: String,
+    },
+    comments: {
+        required: true,
         type: String,
     },
 

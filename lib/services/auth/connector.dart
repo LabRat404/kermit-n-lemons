@@ -88,6 +88,9 @@ class AuthService {
   void uploadIng({
     required String name,
     required String url,
+    required String comments,
+    required String dbISBN,
+    required String delhash,
   }) async {
     try {
       http.Response res =
@@ -96,6 +99,9 @@ class AuthService {
               body: jsonEncode({
                 'name': name,
                 'url': url,
+                'dbISBN': dbISBN,
+                'delhash': delhash,
+                'comments': comments,
               }),
               headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',

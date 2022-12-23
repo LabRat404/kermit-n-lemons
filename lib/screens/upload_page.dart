@@ -23,6 +23,9 @@ class UploadPage extends StatefulWidget {
 }
 
 class _UploadPageState extends State<UploadPage> {
+  final ISBNController = TextEditingController();
+  final commentsController = TextEditingController();
+
   Future<Directory?>? _tempDirectory;
 
   void _requestTempDirectory() {
@@ -93,41 +96,50 @@ class _UploadPageState extends State<UploadPage> {
   }
 
   uploading() async {
-    var request = http.MultipartRequest(
-        "POST", Uri.parse("https://api.imgur.com/3/image"));
-    request.fields['title'] = "dummyImage";
-    request.headers['Authorization'] = "Client-ID " + "4556ad76cb684d8";
+    if (_imageFileList != null) {
+      var request = http.MultipartRequest(
+          "POST", Uri.parse("https://api.imgur.com/3/image"));
+      request.fields['title'] = "dummyImage";
+      request.headers['Authorization'] = "Client-ID " + "4556ad76cb684d8";
 
-    String tempPath = "";
-    String appDocPath = "";
-    Directory appDocDir = await getApplicationDocumentsDirectory();
-    appDocPath = appDocDir.path;
-    print(appDocPath);
-    //get item num api
-    final File newImage =
-        await File(_imageFileList![0].path).copy('$appDocPath/tmp.png');
-    var picture = http.MultipartFile.fromBytes('image',
-        (await rootBundle.load('$appDocPath/tmp.png')).buffer.asUint8List(),
-        filename: 'test1.png');
-    request.files.add(picture);
-    var response = await request.send();
-    var responseData = await response.stream.toBytes();
-    var tmp2 = String.fromCharCodes(responseData);
-    Map<String, dynamic> result = json.decode(tmp2);
-    print(result);
-    String name2 = result['data']['id'];
-    String url2 = result['data']['link'];
-    String delhash = result['data']['deletehash'];
+      String tempPath = "";
+      String appDocPath = "";
+      Directory appDocDir = await getApplicationDocumentsDirectory();
+      appDocPath = appDocDir.path;
+      print(appDocPath);
+      //get item num api
+      final File newImage =
+          await File(_imageFileList![0].path).copy('$appDocPath/tmp.png');
+      var picture = http.MultipartFile.fromBytes('image',
+          (await rootBundle.load('$appDocPath/tmp.png')).buffer.asUint8List(),
+          filename: 'test1.png');
+      request.files.add(picture);
+      var response = await request.send();
+      var responseData = await response.stream.toBytes();
+      var tmp2 = String.fromCharCodes(responseData);
+      Map<String, dynamic> result = json.decode(tmp2);
+      print(result);
+      String name2 = result['data']['id'];
+      String url2 = result['data']['link'];
+      String delhash = result['data']['deletehash'];
+      String dbISBN = ISBNController.text;
+      String dbcomments = commentsController.text;
 
-    // if (result != null) {
-    AuthService().uploadIng(
-      name: name2,
-      url: url2,
-    );
-    // }
-    print("this is name ->" + name2);
-    print("this is url ->" + url2);
-    //output img num and such and the luv to ah bee
+      // if (result != null) {
+      AuthService().uploadIng(
+        name: name2,
+        url: url2,
+        delhash: delhash,
+        dbISBN: dbISBN,
+        comments: dbcomments,
+      );
+      // }
+      print("this is name ->" + name2);
+      print("this is url ->" + url2);
+      print("this is isbn ->" + dbISBN);
+      //output img num and such and the luv to ah bee
+    }
+    // your code
   }
 
   @override
@@ -135,6 +147,8 @@ class _UploadPageState extends State<UploadPage> {
     maxWidthController.dispose();
     maxHeightController.dispose();
     qualityController.dispose();
+    ISBNController.dispose();
+    commentsController.dispose();
     super.dispose();
   }
 
@@ -437,21 +451,17 @@ class _UploadPageState extends State<UploadPage> {
                             child: Column(
                               children: <Widget>[
                                 TextFormField(
+                                  controller: ISBNController,
                                   decoration: InputDecoration(
-                                    labelText: 'Name',
+                                    labelText: 'ISBN',
                                     icon: Icon(Icons.account_box),
                                   ),
                                 ),
                                 TextFormField(
+                                  controller: commentsController,
                                   decoration: InputDecoration(
-                                    labelText: 'Email',
+                                    labelText: 'comments',
                                     icon: Icon(Icons.email),
-                                  ),
-                                ),
-                                TextFormField(
-                                  decoration: InputDecoration(
-                                    labelText: 'Message',
-                                    icon: Icon(Icons.message),
                                   ),
                                 ),
                               ],
@@ -461,11 +471,8 @@ class _UploadPageState extends State<UploadPage> {
                         actions: [
                           ElevatedButton(
                               child: Text("Submit"),
-                              onPressed: () {
-                                if (_imageFileList != null) {
-                                  uploading();
-                                }
-                                // your code
+                              onPressed: () async {
+                                await uploading();
                               })
                         ],
                       );
