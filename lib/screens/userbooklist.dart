@@ -1,6 +1,18 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:trade_app/services/auth/connector.dart';
+import 'package:trade_app/provider/user_provider.dart';
+import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:trade_app/widgets/nav_bar.dart';
+import '../../constants/error_handling.dart';
+import 'package:trade_app/screens/login_page.dart';
+import 'package:provider/provider.dart';
+import 'package:trade_app/provider/user_provider.dart';
 
 class UserList extends StatefulWidget {
   const UserList({Key? key}) : super(key: key);
@@ -11,21 +23,35 @@ class UserList extends StatefulWidget {
 
 class _UserListState extends State<UserList> {
   @override
+  String realusername = '';
+
   void initState() {
     super.initState();
+    //realusername = Provider.of<String>(context, listen: false);
     readJson();
   }
+
+  // void didChangeDependencies() {
+  //   debugPrint(
+  //       'Child widget: didChangeDependencies(), counter = $realusername');
+  //   super.didChangeDependencies();
+  // }
 
   List _items = [];
   // Fetch content from the json file
   Future<void> readJson() async {
     //load  the json here!!
     //fetch here
-
-    final String response = await rootBundle.loadString('assets/data.json');
-    final data = await json.decode(response);
+    http.Response resaa = await http.get(
+        Uri.parse('http://172.20.10.3:3000/api/grabuserlist/tangjaii'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        });
+    print(resaa);
+    final data = await json.decode(resaa.body);
+    print(data[0]["username"] + "asdsadsadasdlolz");
     setState(() {
-      _items = data["items"];
+      _items = data;
     });
   }
 
@@ -52,9 +78,10 @@ class _UserListState extends State<UserList> {
                           child: Column(
                             children: [
                               ListTile(
-                                title: Text(_items[index]["title"]),
+                                title: Text(
+                                    "Posted by: " + _items[index]["username"]),
                                 subtitle: Text(
-                                  _items[index]["subtitle"],
+                                  "ISBN code: " + _items[index]["dbISBN"],
                                   style: TextStyle(
                                       color: Colors.black.withOpacity(0.6)),
                                 ),
@@ -62,7 +89,7 @@ class _UserListState extends State<UserList> {
                               Padding(
                                 padding: const EdgeInsets.all(5.0),
                                 child: Text(
-                                  _items[index]["authors"][0],
+                                  "USer comments: " + _items[index]["comments"],
                                   style: TextStyle(
                                       color: Colors.black.withOpacity(0.6)),
                                 ),
@@ -71,8 +98,7 @@ class _UserListState extends State<UserList> {
                                 alignment: MainAxisAlignment.start,
                               ),
                               //Image.network(_items[index]["smallThumbnail"]),
-                              Image.network(_items[index]["imageLinks"]
-                                  ["smallThumbnail"]),
+                              Image.network(_items[index]["url"]),
                             ],
                           ),
                         );

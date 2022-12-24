@@ -91,7 +91,6 @@ authRouter.post("/api/signup", async (req, res) => {
 authRouter.post("/api/uploading", async (req, res) => {
     try {
   
-            console.log(res);
             Image2.create({
             name: req.body['name'],
             url: req.body['url'],
@@ -114,15 +113,22 @@ authRouter.post("/api/uploading", async (req, res) => {
     }
 });
 
-authRouter.post("/api/grab", async (req, res) => {
-    Image2.find()
-    .exec();
-    (e, results) => {
-      if (e)
-        res.send("No event found, delete failed");
-      else
+authRouter.get("/api/grabuserlist/:username", async (req, res) => {
+    console.log(req.params["username"]);
+    Image2
+    .find({username : req.params["username"]})
+    .exec( (e, results) => {
+        if (e)
+          res.send("Error not known");
+      else if(results == null)
+          res.send("404 not found. No records found!", 404);
+        else{
         res.send(results);
-   }
+        }
+     }
+     );
+   
+   
 });
 
 

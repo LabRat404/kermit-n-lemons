@@ -25,8 +25,23 @@ class UploadPage extends StatefulWidget {
 }
 
 class _UploadPageState extends State<UploadPage> {
-  final ISBNController = TextEditingController();
-  final commentsController = TextEditingController();
+  final ImagePicker _picker = ImagePicker();
+  var maxWidthController = TextEditingController();
+  var maxHeightController = TextEditingController();
+  var qualityController = TextEditingController();
+
+  var ISBNController = TextEditingController();
+  var commentsController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    ISBNController = new TextEditingController(text: '12345678');
+    commentsController = new TextEditingController(text: 'I luv ah bee');
+    maxHeightController = new TextEditingController(text: '350');
+    maxWidthController = new TextEditingController(text: '350');
+    qualityController = new TextEditingController(text: '100');
+  }
 
   Future<Directory?>? _tempDirectory;
 
@@ -44,11 +59,6 @@ class _UploadPageState extends State<UploadPage> {
   dynamic _pickImageError;
   bool isVideo = false;
   String? _retrieveDataError;
-
-  final ImagePicker _picker = ImagePicker();
-  final TextEditingController maxWidthController = TextEditingController();
-  final TextEditingController maxHeightController = TextEditingController();
-  final TextEditingController qualityController = TextEditingController();
 
   Future<void> _onImageButtonPressed(ImageSource source,
       {BuildContext? context, bool isMultiImage = false}) async {
