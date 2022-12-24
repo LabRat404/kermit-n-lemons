@@ -28,6 +28,7 @@ class _UserListState extends State<UserList> {
   void initState() {
     super.initState();
     //realusername = Provider.of<String>(context, listen: false);
+    //print(realusername);
     readJson();
   }
 
@@ -78,27 +79,28 @@ class _UserListState extends State<UserList> {
                           child: Column(
                             children: [
                               ListTile(
-                                title: Text(
-                                    "Posted by: " + _items[index]["username"]),
+                                title: Text("Posted by user: " +
+                                    _items[index]["username"]),
                                 subtitle: Text(
                                   "ISBN code: " + _items[index]["dbISBN"],
                                   style: TextStyle(
                                       color: Colors.black.withOpacity(0.6)),
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Text(
-                                  "USer comments: " + _items[index]["comments"],
-                                  style: TextStyle(
-                                      color: Colors.black.withOpacity(0.6)),
-                                ),
-                              ),
+
                               ButtonBar(
                                 alignment: MainAxisAlignment.start,
                               ),
                               //Image.network(_items[index]["smallThumbnail"]),
                               Image.network(_items[index]["url"]),
+                              Padding(
+                                padding: const EdgeInsets.all(5),
+                                child: Text(
+                                  _items[index]["comments"],
+                                  style: TextStyle(
+                                      color: Colors.black.withOpacity(0.6)),
+                                ),
+                              ),
                             ],
                           ),
                         );
