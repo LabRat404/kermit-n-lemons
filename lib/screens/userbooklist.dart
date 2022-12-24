@@ -1,19 +1,29 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:trade_app/models/user.dart';
-import 'package:trade_app/services/auth/connector.dart';
 import 'package:trade_app/provider/user_provider.dart';
-import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:trade_app/widgets/nav_bar.dart';
-import '../../constants/error_handling.dart';
-import 'package:trade_app/screens/login_page.dart';
-import 'package:provider/provider.dart';
-import 'package:trade_app/provider/user_provider.dart';
+import 'dart:convert';
+import 'dart:developer';
+import 'package:flutter/material.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
+import 'dart:io';
+import 'package:http/http.dart' as http;
+import 'package:trade_app/services/auth/connector.dart';
+import 'package:trade_app/screens/bookInfodetail.dart';
+
+class ISBN_info {
+  final String title;
+  final String publishedDate;
+
+  ISBN_info({required this.title, required this.publishedDate});
+
+  factory ISBN_info.fromJson(Map<String, dynamic> json) {
+    final title = json['subtitle'] as String;
+    final publishedDate = json['publishedDate'] as String;
+    return ISBN_info(title: title, publishedDate: publishedDate);
+  }
+}
 
 class UserList extends StatefulWidget {
   const UserList({Key? key}) : super(key: key);
@@ -62,6 +72,21 @@ class _UserListState extends State<UserList> {
     });
   }
 
+  // getdata(dbisbn) async {
+  //   var res = await http.post(
+  //       //localhost
+  //       //Uri.parse('http://172.20.10.3:3000/api/bookinfo'),
+  //       Uri.parse('http://172.20.10.3:3000/api/bookinfo'),
+  //       body: jsonEncode({"book_isbn": 0984782869}),
+  //       headers: <String, String>{
+  //         'Content-Type': 'application/json; charset=UTF-8',
+  //       });
+  //   var resBody = json.decode(res.toString());
+  //   debugPrint(resBody['title']); // can print title
+  //   print(resBody['title']);
+  //   return "asdasdsad";
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,6 +124,7 @@ class _UserListState extends State<UserList> {
                               ),
                               //Image.network(_items[index]["smallThumbnail"]),
                               Image.network(_items[index]["url"]),
+
                               Padding(
                                 padding: const EdgeInsets.all(5),
                                 child: Text(

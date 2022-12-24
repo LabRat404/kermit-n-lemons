@@ -16,6 +16,14 @@ import 'package:path_provider/path_provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:trade_app/services/auth/connector.dart';
+import 'dart:convert';
+import 'dart:developer';
+import 'package:flutter/material.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
+import 'dart:io';
+import 'package:http/http.dart' as http;
+import 'package:trade_app/services/auth/connector.dart';
+import 'package:trade_app/screens/bookInfodetail.dart';
 
 class UploadPage extends StatefulWidget {
   const UploadPage({Key? key, this.title}) : super(key: key);
@@ -36,7 +44,7 @@ class _UploadPageState extends State<UploadPage> {
   @override
   void initState() {
     super.initState();
-    ISBNController = new TextEditingController(text: '12345678');
+    //ISBNController = new TextEditingController(text: '12345678');
     commentsController = new TextEditingController(text: 'I luv ah bee');
     maxHeightController = new TextEditingController(text: '350');
     maxWidthController = new TextEditingController(text: '350');
@@ -114,6 +122,18 @@ class _UploadPageState extends State<UploadPage> {
       request.fields['title'] = "dummyImage";
       request.headers['Authorization'] = "Client-ID " + "4556ad76cb684d8";
 
+      var res = await http.post(
+          //localhost
+          //Uri.parse('http://172.20.10.3:3000/api/bookinfo'),
+          Uri.parse('http://172.20.10.3:3000/api/bookinfo'),
+          body: jsonEncode({"book_isbn": ISBNController.text}),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          });
+      var resBody = json.decode(res.body);
+      debugPrint("ISBN code is: " + ISBNController.text);
+      debugPrint("book title is:" + resBody['title']); // can print title
+      print(resBody);
       String tempPath = "";
       String appDocPath = "";
       Directory appDocDir = await getApplicationDocumentsDirectory();
