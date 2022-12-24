@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:trade_app/models/user.dart';
 import 'package:trade_app/services/auth/connector.dart';
 import 'package:trade_app/provider/user_provider.dart';
 import 'dart:convert';
@@ -23,13 +24,19 @@ class UserList extends StatefulWidget {
 
 class _UserListState extends State<UserList> {
   @override
-  String realusername = '';
+  //String realusername = 'doria';
 
   void initState() {
     super.initState();
-    //realusername = Provider.of<String>(context, listen: false);
-    //print(realusername);
-    readJson();
+    //var realusername = context.watch<UserProvider>().user.name;
+    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    //   realusername = Provider.of<String>(context, listen: false);
+    // });
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      final help = Provider.of<UserProvider>(context, listen: false);
+      String realusername = help.user.name;
+      readJson(realusername);
+    });
   }
 
   // void didChangeDependencies() {
@@ -40,17 +47,16 @@ class _UserListState extends State<UserList> {
 
   List _items = [];
   // Fetch content from the json file
-  Future<void> readJson() async {
+  Future<void> readJson(realusername) async {
     //load  the json here!!
     //fetch here
     http.Response resaa = await http.get(
-        Uri.parse('http://172.20.10.3:3000/api/grabuserlist/tangjaii'),
+        Uri.parse('http://172.20.10.3:3000/api/grabuserlist/$realusername'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         });
     print(resaa);
     final data = await json.decode(resaa.body);
-    print(data[0]["username"] + "asdsadsadasdlolz");
     setState(() {
       _items = data;
     });
