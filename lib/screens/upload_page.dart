@@ -156,15 +156,24 @@ class _UploadPageState extends State<UploadPage> {
       String delhash = result['data']['deletehash'];
       String dbISBN = ISBNController.text;
       String dbcomments = commentsController.text;
-
+      String googlelink = resBody['infoLink'];
+      String booktitle = resBody['title'];
+      String author = resBody['authors'][0];
+      print("this is googlelink ->" + googlelink);
+      print("this is booktitle ->" + booktitle);
+      print("this is author ->" + author);
       // if (result != null) {
       AuthService().uploadIng(
-          name: name2,
-          url: url2,
-          delhash: delhash,
-          dbISBN: dbISBN,
-          comments: dbcomments,
-          username: realusername);
+        name: name2,
+        url: url2,
+        delhash: delhash,
+        dbISBN: dbISBN,
+        comments: dbcomments,
+        username: realusername,
+        googlelink: googlelink,
+        booktitle: booktitle,
+        author: author,
+      );
       // }
       print("this is uname ->" + realusername);
       print("this is name ->" + name2);

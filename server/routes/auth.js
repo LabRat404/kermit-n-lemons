@@ -97,7 +97,10 @@ authRouter.post("/api/uploading", async (req, res) => {
             delhash: req.body['delhash'],
             dbISBN: req.body['dbISBN'],
             comments: req.body['comments'],
-            username: req.body['username']
+            username: req.body['username'],
+            booktitle: req.body['booktitle'],
+            author: req.body['author'],
+            googlelink: req.body['googlelink']
             
           }, (e, results) => {
             if (e)

@@ -113,7 +113,14 @@ class _UserListState extends State<UserList> {
                                 title: Text("Posted by user: " +
                                     _items[index]["username"]),
                                 subtitle: Text(
-                                  "ISBN code: " + _items[index]["dbISBN"],
+                                  "Book title: " +
+                                      _items[index]["booktitle"] +
+                                      '\n' +
+                                      "Book author " +
+                                      _items[index]["author"] +
+                                      '\n' +
+                                      "ISBN code: " +
+                                      _items[index]["dbISBN"],
                                   style: TextStyle(
                                       color: Colors.black.withOpacity(0.6)),
                                 ),

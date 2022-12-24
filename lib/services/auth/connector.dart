@@ -91,7 +91,10 @@ class AuthService {
       required String comments,
       required String dbISBN,
       required String delhash,
-      required String username}) async {
+      required String username,
+      required String googlelink,
+      required String author,
+      required String booktitle}) async {
     try {
       http.Response res =
           //await http.post(Uri.parse('http://localhost:3000/api/signup'),
@@ -103,6 +106,9 @@ class AuthService {
                 'delhash': delhash,
                 'comments': comments,
                 'username': username,
+                'booktitle': booktitle,
+                'author': author,
+                'googlelink': googlelink
               }),
               headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
