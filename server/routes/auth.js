@@ -136,7 +136,7 @@ authRouter.get("/api/grabuserlist/:username", async (req, res) => {
 });
 
 
-authRouter.delete("/api/grabuserlist/:username", async (req, res) => {
+authRouter.delete("/api/deluser/:username", async (req, res) => {
     console.log(req.params["username"]);
     Image2
     .find({username : req.params["username"]})
@@ -150,11 +150,29 @@ authRouter.delete("/api/grabuserlist/:username", async (req, res) => {
         }
      }
      );
+});
+
+
+authRouter.delete("/api/dellist/:dellist", async (req, res) => {
+    console.log("sadad");
+    Image2
+    .find({name : req.params["dellist"]})
+    .deleteOne()
+    .exec( (e, results) => {
+        if (e)
+          res.send("Error not known");
+      else if(results == null)
+          res.send("404 not found. No records found!", 404);
+        else{
+          
+        res.send(results);
+        }
+     }
+     );
    
      
    
 });
-
 
 
 module.exports = authRouter; //allow public access

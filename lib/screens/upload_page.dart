@@ -8,6 +8,8 @@ import 'package:trade_app/provider/user_provider.dart';
 import 'dart:async';
 import 'dart:io';
 import 'dart:convert';
+import 'package:trade_app/widgets/nav_bar.dart';
+
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
@@ -130,10 +132,18 @@ class _UploadPageState extends State<UploadPage> {
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
           });
+
+      print("Im res:: " + res.body);
       var resBody = json.decode(res.body);
       debugPrint("ISBN code is: " + ISBNController.text);
       debugPrint("book title is:" + resBody['title']); // can print title
-      print(resBody);
+      if (resBody["error"] != "") {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+              content:
+                  Text('ISBN code not found, please enter a correct code!')),
+        );
+      }
       String tempPath = "";
       String appDocPath = "";
       Directory appDocDir = await getApplicationDocumentsDirectory();
@@ -520,6 +530,15 @@ class _UploadPageState extends State<UploadPage> {
                               child: Text("Submit"),
                               onPressed: () async {
                                 await uploading(realusername);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text('Item uploaded! ')),
+                                );
+                                Navigator.pushNamedAndRemoveUntil(
+                                  context,
+                                  NavBar.routeName,
+                                  (route) => false,
+                                );
                               })
                         ],
                       );

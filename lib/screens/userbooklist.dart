@@ -12,6 +12,7 @@ import 'package:http/http.dart' as http;
 import 'package:trade_app/services/auth/connector.dart';
 import 'package:trade_app/screens/bookInfodetail.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:trade_app/widgets/nav_bar.dart';
 
 class ISBN_info {
   final String title;
@@ -38,6 +39,7 @@ class _UserListState extends State<UserList> {
   //String realusername = 'doria';
 
   void initState() {
+    print("Hi  Im loading");
     super.initState();
     //var realusername = context.watch<UserProvider>().user.name;
     // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -146,7 +148,36 @@ class _UserListState extends State<UserList> {
                                   ElevatedButton.icon(
                                     icon: Icon(Icons.playlist_remove),
                                     label: Text("Remove Item"),
-                                    onPressed: () {},
+                                    onPressed: () async {
+                                      var delname = _items[index]["name"];
+                                      var delhash = _items[index]["delhash"];
+                                      print("input is:  " +
+                                          _items[index]["name"]);
+                                      var res = await http.delete(
+                                          Uri.parse(
+                                              'http://172.20.10.3:3000/api/dellist/$delname'),
+                                          headers: <String, String>{
+                                            'Content-Type':
+                                                'application/json; charset=UTF-8',
+                                          });
+                                      var imguredel = await http.delete(
+                                          Uri.parse(
+                                              'https://api.imgur.com/3/image/$delhash'),
+                                          headers: <String, String>{
+                                            'Content-Type':
+                                                'application/json; charset=UTF-8',
+                                          });
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                            content: Text('Item deleted!')),
+                                      );
+                                      Navigator.pushNamedAndRemoveUntil(
+                                        context,
+                                        NavBar.routeName,
+                                        (route) => false,
+                                      );
+                                    },
                                     style: ElevatedButton.styleFrom(
                                       primary: Colors.red,
                                       shadowColor: Colors.orange,

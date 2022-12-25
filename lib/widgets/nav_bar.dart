@@ -70,8 +70,8 @@ class _NavBarState extends State<NavBar> {
                 onPressed: () => {},
               ),
               GButton(
-                icon: Icons.notifications_outlined,
-                text: 'User Book List',
+                icon: Icons.collections_bookmark_outlined,
+                text: 'Inventory',
                 onPressed: () => {},
               ),
               GButton(
