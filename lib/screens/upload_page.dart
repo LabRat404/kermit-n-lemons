@@ -312,7 +312,10 @@ class _UploadPageState extends State<UploadPage> {
                     final int? quality = qualityController.text.isNotEmpty
                         ? int.parse(qualityController.text)
                         : null;
-                    onPick(width, height, quality);
+                    onPick(
+                        double.parse(maxWidthController.text),
+                        double.parse(maxHeightController.text),
+                        int.parse(qualityController.text));
                     Navigator.of(context).pop();
                   }),
             ],

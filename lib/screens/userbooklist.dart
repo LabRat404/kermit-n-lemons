@@ -11,6 +11,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:trade_app/services/auth/connector.dart';
 import 'package:trade_app/screens/bookInfodetail.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ISBN_info {
   final String title;
@@ -140,9 +141,29 @@ class _UserListState extends State<UserList> {
                                       color: Colors.black.withOpacity(0.6)),
                                 ),
                               ),
+                              ButtonBar(
+                                children: [
+                                  ElevatedButton(
+                                    child: Text("Remove Item"),
+                                    onPressed: () {
+                                      (context as Element).reassemble();
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Colors.red,
+                                      shadowColor: Colors.orange,
+                                    ),
+                                  ),
+                                  ElevatedButton(
+                                    child:
+                                        Text("Show book on Google Play Books"),
+                                    onPressed: () {},
+                                  ),
+                                ],
+                              )
                             ],
                           ),
                         );
+                        return ButtonBar();
                       },
                     ),
                   )
