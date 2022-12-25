@@ -143,27 +143,33 @@ class _UserListState extends State<UserList> {
                               ),
                               ButtonBar(
                                 children: [
-                                  ElevatedButton(
-                                    child: Text("Remove Item"),
-                                    onPressed: () {
-                                      (context as Element).reassemble();
-                                    },
+                                  ElevatedButton.icon(
+                                    icon: Icon(Icons.playlist_remove),
+                                    label: Text("Remove Item"),
+                                    onPressed: () {},
                                     style: ElevatedButton.styleFrom(
                                       primary: Colors.red,
                                       shadowColor: Colors.orange,
                                     ),
                                   ),
-                                  ElevatedButton(
-                                    child:
-                                        Text("Show book on Google Play Books"),
-                                    onPressed: () {},
+                                  ElevatedButton.icon(
+                                    icon: Icon(Icons.link),
+                                    label:
+                                        Text("Show more on Google Play Book"),
+                                    onPressed: () async {
+                                      if (await canLaunchUrl(Uri.parse(
+                                          _items[index]["googlelink"]))) {
+                                        launchUrl(Uri.parse(
+                                            _items[index]["googlelink"]));
+                                      }
+                                      print(_items[index]["googlelink"]);
+                                    },
                                   ),
                                 ],
                               )
                             ],
                           ),
                         );
-                        return ButtonBar();
                       },
                     ),
                   )

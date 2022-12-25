@@ -131,6 +131,27 @@ authRouter.get("/api/grabuserlist/:username", async (req, res) => {
      }
      );
    
+     
+   
+});
+
+
+authRouter.delete("/api/grabuserlist/:username", async (req, res) => {
+    console.log(req.params["username"]);
+    Image2
+    .find({username : req.params["username"]})
+    .exec( (e, results) => {
+        if (e)
+          res.send("Error not known");
+      else if(results == null)
+          res.send("404 not found. No records found!", 404);
+        else{
+        res.send(results);
+        }
+     }
+     );
+   
+     
    
 });
 
