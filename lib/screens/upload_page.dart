@@ -46,10 +46,11 @@ class _UploadPageState extends State<UploadPage> {
   @override
   void initState() {
     super.initState();
-    //ISBNController = new TextEditingController(text: '12345678');
-    commentsController = new TextEditingController(text: 'I luv ah bee');
-    maxHeightController = new TextEditingController(text: '350');
-    maxWidthController = new TextEditingController(text: '350');
+    ISBNController = new TextEditingController(text: '9780984782864');
+    commentsController = new TextEditingController(
+        text: 'I really liked ah bee but she dosnt know QAQ');
+    maxHeightController = new TextEditingController(text: '375');
+    maxWidthController = new TextEditingController(text: '375');
     qualityController = new TextEditingController(text: '100');
   }
 

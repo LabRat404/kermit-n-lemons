@@ -204,7 +204,19 @@ class _UserListState extends State<UserList> {
                       },
                     ),
                   )
-                : Container()
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      new Text(
+                        'Bring doria back so its not empty here!',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 18),
+                      ),
+                      Center(
+                        child: Image.asset('assets/empty.png'),
+                      ),
+                    ],
+                  ),
           ],
         ),
       ),
