@@ -17,9 +17,8 @@ class _NotificationPageState extends State<NotificationPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
-              //child: Image.asset('assets/notification.png'),
-
-              ),
+            child: Image.asset('assets/notification.png'),
+          ),
           // new Text(
           //   'No notification so far',
           //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
