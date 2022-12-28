@@ -2,6 +2,34 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:trade_app/widgets/reusable_widget.dart';
+//new backup upload image
+
+import 'package:flutter/material.dart';
+import 'package:trade_app/widgets/reusable_widget.dart';
+import 'package:trade_app/screens/bookInfodetail.dart';
+import '/../widgets/camera.dart';
+import 'package:trade_app/provider/user_provider.dart';
+import 'dart:async';
+import 'dart:io';
+import 'dart:convert';
+import 'package:trade_app/widgets/nav_bar.dart';
+
+import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+import 'package:trade_app/services/auth/connector.dart';
+import 'dart:convert';
+import 'dart:developer';
+import 'package:flutter/material.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
+import 'dart:io';
+import 'package:http/http.dart' as http;
+import 'package:trade_app/services/auth/connector.dart';
+import 'package:trade_app/screens/bookInfodetail.dart';
 
 class InfoDetailPage extends StatefulWidget {
   final String isbncode;
@@ -20,10 +48,24 @@ class _InfoDetailPageState extends State<InfoDetailPage> {
   List _items = [];
   // Fetch content from the json file
   Future<void> readJson() async {
+    String isbncodes = widget.isbncode;
+    http.Response resa = await http.post(
+        //localhost
+        //Uri.parse('http://172.20.10.3:3000/api/bookinfo'),
+        Uri.parse('http://172.20.10.3:3000/api/bookinfo'),
+        body: jsonEncode({"book_isbn": isbncodes}),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        });
     //load  the json here!!
-    final String response =
-        await rootBundle.loadString('assets/singledata.json');
+    //print(res);
+
+    //print("resbody2 -->" + data[0]);
+    // print("resbody3 -->" + data['title']);
+    //print("resbody4 -->" + data[0]['title']);
+    final String response = await rootBundle.loadString('assets/data.json');
     final data = await json.decode(response);
+
     setState(() {
       _items = data["items"];
     });
@@ -31,20 +73,12 @@ class _InfoDetailPageState extends State<InfoDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    String isbncodes = widget.isbncode;
     return Scaffold(
       appBar: ReusableWidgets.LoginPageAppBar('Book Detailed Info'),
       body: Padding(
         padding: const EdgeInsets.all(25),
         child: Column(
           children: [
-            //auto load
-            // ElevatedButton(
-            //   onPressed: readJson,
-            //   child: const Text('Load Book (gets data from json)'),
-            // ),
-
-            // Display the data loaded from sample.json
             _items.isNotEmpty
                 ? Expanded(
                     child: ListView.builder(
@@ -55,24 +89,21 @@ class _InfoDetailPageState extends State<InfoDetailPage> {
                           child: Column(
                             children: [
                               ListTile(
-                                title: Text(
-                                    "Book Name: " + _items[index]["title"]),
+                                title: Text(_items[index]["title"]),
                                 subtitle: Text(
-                                  "Subtitle: " +
-                                      _items[index]["subtitle"] +
-                                      "Authors: " +
-                                      _items[index]["authors"][0] +
-                                      "\n" +
-                                      "Descriptions: " +
-                                      _items[index]["description"] +
-                                      "\n" +
-                                      "ISBN: " +
-                                      isbncodes,
+                                  _items[index]["subtitle"],
                                   style: TextStyle(
                                       color: Colors.black.withOpacity(0.6)),
                                 ),
                               ),
-
+                              Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Text(
+                                  _items[index]["authors"][0],
+                                  style: TextStyle(
+                                      color: Colors.black.withOpacity(0.6)),
+                                ),
+                              ),
                               ButtonBar(
                                 alignment: MainAxisAlignment.start,
                               ),
@@ -85,7 +116,20 @@ class _InfoDetailPageState extends State<InfoDetailPage> {
                       },
                     ),
                   )
-                : Container()
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      new Text(
+                        'Bring doria back so its not empty here!' +
+                            _items.toString(),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 18),
+                      ),
+                      Center(
+                        child: Image.asset('assets/empty.png'),
+                      ),
+                    ],
+                  ),
           ],
         ),
       ),

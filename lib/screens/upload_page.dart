@@ -46,9 +46,9 @@ class _UploadPageState extends State<UploadPage> {
   @override
   void initState() {
     super.initState();
-    ISBNController = new TextEditingController(text: '9780984782864');
+    //ISBNController = new TextEditingController(text: '12345678');
     commentsController = new TextEditingController(
-        text: 'I really liked ah bee but she dosnt know QAQ');
+        text: 'I really liked her but she dosnt know.');
     maxHeightController = new TextEditingController(text: '375');
     maxWidthController = new TextEditingController(text: '375');
     qualityController = new TextEditingController(text: '100');
@@ -424,8 +424,9 @@ class _UploadPageState extends State<UploadPage> {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) =>
-                  InfoDetailPage(isbncode: ISBNController.text)),
+              builder: (context) => InfoDetailPage(
+                    isbncode: ISBNController.text,
+                  )),
         );
         //this button should be disabled at first, if there is data fetched from ISBN, then it is enabled
       },
@@ -449,7 +450,7 @@ class _UploadPageState extends State<UploadPage> {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => const Camera()));
                 },
-                heroTag: 'isbnscanner',
+                heroTag: 'image2',
                 tooltip: 'ISBN Scanner',
                 child: Image.asset(
                   "assets/icons8-barcode-64.png",
@@ -462,12 +463,13 @@ class _UploadPageState extends State<UploadPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                          InfoDetailPage(isbncode: ISBNController.text)),
+                      builder: (context) => InfoDetailPage(
+                            isbncode: ISBNController.text,
+                          )),
                 );
                 //this button should be disabled at first, if there is data fetched from ISBN, then it is enabled
               },
-              heroTag: 'bookdetail',
+              heroTag: 'image2',
               tooltip: 'Scanned Book Detail',
               child: const Icon(Icons.library_books_outlined),
             ),
@@ -479,7 +481,7 @@ class _UploadPageState extends State<UploadPage> {
                 isVideo = false;
                 _onImageButtonPressed(ImageSource.gallery, context: context);
               },
-              heroTag: 'pickImage',
+              heroTag: 'image0',
               tooltip: 'Pick Image from gallery',
               child: const Icon(Icons.photo),
             ),
@@ -491,7 +493,7 @@ class _UploadPageState extends State<UploadPage> {
                 isVideo = false;
                 _onImageButtonPressed(ImageSource.camera, context: context);
               },
-              heroTag: 'Takephoto',
+              heroTag: 'image2',
               tooltip: 'Take a Photo',
               child: const Icon(Icons.camera_alt),
             ),
@@ -549,7 +551,7 @@ class _UploadPageState extends State<UploadPage> {
                     });
                 //Upload the book user enter with ISBN and its thumbnail
               },
-              heroTag: 'uploadbook',
+              heroTag: 'image2',
               tooltip: 'Upload your book!',
               child: const Icon(Icons.upload),
             ),
