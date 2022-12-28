@@ -4,7 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:trade_app/widgets/reusable_widget.dart';
 
 class InfoDetailPage extends StatefulWidget {
-  const InfoDetailPage({Key? key}) : super(key: key);
+  final String isbncode;
+  InfoDetailPage({required this.isbncode, Key? key}) : super(key: key);
   static const String routeName = '/bookinfodetail';
   @override
   State<InfoDetailPage> createState() => _InfoDetailPageState();
@@ -30,6 +31,7 @@ class _InfoDetailPageState extends State<InfoDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    String isbncodes = widget.isbncode;
     return Scaffold(
       appBar: ReusableWidgets.LoginPageAppBar('Book Detailed Info'),
       body: Padding(
@@ -65,8 +67,7 @@ class _InfoDetailPageState extends State<InfoDetailPage> {
                                       _items[index]["description"] +
                                       "\n" +
                                       "ISBN: " +
-                                      _items[index]["industryIdentifiers"][0]
-                                          ["identifier"],
+                                      isbncodes,
                                   style: TextStyle(
                                       color: Colors.black.withOpacity(0.6)),
                                 ),

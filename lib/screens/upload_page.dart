@@ -423,7 +423,9 @@ class _UploadPageState extends State<UploadPage> {
       onPressed: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const InfoDetailPage()),
+          MaterialPageRoute(
+              builder: (context) =>
+                  InfoDetailPage(isbncode: ISBNController.text)),
         );
         //this button should be disabled at first, if there is data fetched from ISBN, then it is enabled
       },
@@ -447,7 +449,7 @@ class _UploadPageState extends State<UploadPage> {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => const Camera()));
                 },
-                heroTag: 'image2',
+                heroTag: 'isbnscanner',
                 tooltip: 'ISBN Scanner',
                 child: Image.asset(
                   "assets/icons8-barcode-64.png",
@@ -460,11 +462,12 @@ class _UploadPageState extends State<UploadPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const InfoDetailPage()),
+                      builder: (context) =>
+                          InfoDetailPage(isbncode: ISBNController.text)),
                 );
                 //this button should be disabled at first, if there is data fetched from ISBN, then it is enabled
               },
-              heroTag: 'image2',
+              heroTag: 'bookdetail',
               tooltip: 'Scanned Book Detail',
               child: const Icon(Icons.library_books_outlined),
             ),
@@ -476,7 +479,7 @@ class _UploadPageState extends State<UploadPage> {
                 isVideo = false;
                 _onImageButtonPressed(ImageSource.gallery, context: context);
               },
-              heroTag: 'image0',
+              heroTag: 'pickImage',
               tooltip: 'Pick Image from gallery',
               child: const Icon(Icons.photo),
             ),
@@ -488,7 +491,7 @@ class _UploadPageState extends State<UploadPage> {
                 isVideo = false;
                 _onImageButtonPressed(ImageSource.camera, context: context);
               },
-              heroTag: 'image2',
+              heroTag: 'Takephoto',
               tooltip: 'Take a Photo',
               child: const Icon(Icons.camera_alt),
             ),
@@ -546,7 +549,7 @@ class _UploadPageState extends State<UploadPage> {
                     });
                 //Upload the book user enter with ISBN and its thumbnail
               },
-              heroTag: 'image2',
+              heroTag: 'uploadbook',
               tooltip: 'Upload your book!',
               child: const Icon(Icons.upload),
             ),

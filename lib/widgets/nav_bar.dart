@@ -31,7 +31,7 @@ class _NavBarState extends State<NavBar> {
   final List<Widget> _children = [
     const HomePage(),
     const SearchPage(),
-    const UploadPage(),
+    UploadPage(),
     const UserList(),
     const SettingsPage(),
   ];
