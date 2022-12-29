@@ -46,6 +46,7 @@ class _InfoDetailPageState extends State<InfoDetailPage> {
   }
 
   List _items = [];
+  List<String> info = [];
   // Fetch content from the json file
   Future<void> readJson() async {
     String isbncodes = widget.isbncode;
@@ -65,8 +66,15 @@ class _InfoDetailPageState extends State<InfoDetailPage> {
     //print("resbody4 -->" + data[0]['title']);
     final String response = await rootBundle.loadString('assets/data.json');
     final data = await json.decode(response);
+    final data2 = await json.decode(resa.body);
 
     setState(() {
+      info.addAll([
+        data2["title"],
+        data2["subtitle"],
+        data2["authors"][0],
+        data2["imageLinks"]["smallThumbnail"]
+      ]);
       _items = data["items"];
     });
   }
@@ -79,49 +87,40 @@ class _InfoDetailPageState extends State<InfoDetailPage> {
         padding: const EdgeInsets.all(25),
         child: Column(
           children: [
-            _items.isNotEmpty
-                ? Expanded(
-                    child: ListView.builder(
-                      itemCount: _items.length,
-                      itemBuilder: (context, index) {
-                        return Card(
-                          clipBehavior: Clip.antiAlias,
-                          child: Column(
-                            children: [
-                              ListTile(
-                                title: Text(_items[index]["title"]),
-                                subtitle: Text(
-                                  _items[index]["subtitle"],
-                                  style: TextStyle(
-                                      color: Colors.black.withOpacity(0.6)),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Text(
-                                  _items[index]["authors"][0],
-                                  style: TextStyle(
-                                      color: Colors.black.withOpacity(0.6)),
-                                ),
-                              ),
-                              ButtonBar(
-                                alignment: MainAxisAlignment.start,
-                              ),
-                              //Image.network(_items[index]["smallThumbnail"]),
-                              Image.network(_items[index]["imageLinks"]
-                                  ["smallThumbnail"]),
-                            ],
+            info.isNotEmpty
+                ? Card(
+                    clipBehavior: Clip.antiAlias,
+                    child: Column(
+                      children: [
+                        ListTile(
+                          title: Text(info[0]),
+                          subtitle: Text(
+                            info[1],
+                            style:
+                                TextStyle(color: Colors.black.withOpacity(0.6)),
                           ),
-                        );
-                      },
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Text(
+                            info[2],
+                            style:
+                                TextStyle(color: Colors.black.withOpacity(0.6)),
+                          ),
+                        ),
+                        ButtonBar(
+                          alignment: MainAxisAlignment.start,
+                        ),
+                        //Image.network(_items[index]["smallThumbnail"]),
+                        Image.network(info[3]),
+                      ],
                     ),
                   )
                 : Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       new Text(
-                        'Bring doria back so its not empty here!' +
-                            _items.toString(),
+                        'Bring doria back so its not empty here!',
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 18),
                       ),
