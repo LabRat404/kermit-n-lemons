@@ -1,35 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
-import 'package:flutter/services.dart';
 import 'package:trade_app/widgets/reusable_widget.dart';
 //new backup upload image
-
-import 'package:flutter/material.dart';
-import 'package:trade_app/widgets/reusable_widget.dart';
-import 'package:trade_app/screens/bookInfodetail.dart';
-import '/../widgets/camera.dart';
-import 'package:trade_app/provider/user_provider.dart';
-import 'dart:async';
-import 'dart:io';
-import 'dart:convert';
-import 'package:trade_app/widgets/nav_bar.dart';
-
-import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:provider/provider.dart';
-import 'package:trade_app/services/auth/connector.dart';
-import 'dart:convert';
-import 'dart:developer';
-import 'package:flutter/material.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
-import 'dart:io';
-import 'package:http/http.dart' as http;
-import 'package:trade_app/services/auth/connector.dart';
-import 'package:trade_app/screens/bookInfodetail.dart';
+
+import 'package:url_launcher/url_launcher.dart';
 
 class InfoDetailPage extends StatefulWidget {
   final String isbncode;
@@ -45,7 +20,6 @@ class _InfoDetailPageState extends State<InfoDetailPage> {
     readJson();
   }
 
-  List _items = [];
   List<String> info = [];
   // Fetch content from the json file
   Future<void> readJson() async {
@@ -64,8 +38,7 @@ class _InfoDetailPageState extends State<InfoDetailPage> {
     //print("resbody2 -->" + data[0]);
     // print("resbody3 -->" + data['title']);
     //print("resbody4 -->" + data[0]['title']);
-    final String response = await rootBundle.loadString('assets/data.json');
-    final data = await json.decode(response);
+
     final data2 = await json.decode(resa.body);
 
     setState(() {
@@ -73,9 +46,10 @@ class _InfoDetailPageState extends State<InfoDetailPage> {
         data2["title"],
         data2["subtitle"],
         data2["authors"][0],
-        data2["imageLinks"]["smallThumbnail"]
+        data2["imageLinks"]["smallThumbnail"],
+        data2['infoLink'],
+        data2['description'],
       ]);
-      _items = data["items"];
     });
   }
 
@@ -93,26 +67,41 @@ class _InfoDetailPageState extends State<InfoDetailPage> {
                     child: Column(
                       children: [
                         ListTile(
-                          title: Text(info[0]),
+                          title: Text("Book title: " + info[0]),
                           subtitle: Text(
-                            info[1],
+                            info[1] +
+                                '\n' +
+                                "Book author " +
+                                info[2] +
+                                '\n' +
+                                "ISBN code: " +
+                                widget.isbncode +
+                                '\n' +
+                                "Description: " +
+                                info[5],
                             style:
                                 TextStyle(color: Colors.black.withOpacity(0.6)),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Text(
-                            info[2],
-                            style:
-                                TextStyle(color: Colors.black.withOpacity(0.6)),
-                          ),
-                        ),
-                        ButtonBar(
-                          alignment: MainAxisAlignment.start,
-                        ),
+
                         //Image.network(_items[index]["smallThumbnail"]),
                         Image.network(info[3]),
+                        Center(
+                            child: ButtonBar(
+                          mainAxisSize: MainAxisSize.min,
+                          //alignment: Alignment.center,
+                          children: [
+                            ElevatedButton.icon(
+                              icon: Icon(Icons.link),
+                              label: Text("Show more on Google Play Book"),
+                              onPressed: () async {
+                                if (await canLaunchUrl(Uri.parse(info[4]))) {
+                                  launchUrl(Uri.parse(info[4]));
+                                }
+                              },
+                            ),
+                          ],
+                        ))
                       ],
                     ),
                   )
@@ -120,7 +109,8 @@ class _InfoDetailPageState extends State<InfoDetailPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       new Text(
-                        'Bring doria back so its not empty here!',
+                        'Bring doria back so its not empty here!' +
+                            'no books for code: ${widget.isbncode}',
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 18),
                       ),

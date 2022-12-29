@@ -3,14 +3,6 @@ import 'dart:convert';
 import 'package:provider/provider.dart';
 import 'package:trade_app/provider/user_provider.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'dart:developer';
-import 'package:flutter/material.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
-import 'dart:io';
-import 'package:http/http.dart' as http;
-import 'package:trade_app/services/auth/connector.dart';
-import 'package:trade_app/screens/bookInfodetail.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:trade_app/widgets/nav_bar.dart';
 
