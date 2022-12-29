@@ -61,6 +61,7 @@ class AuthService {
                 'name': name,
                 'email': email,
                 'password': password,
+                'address': "https://i.imgur.com/k2XHNOy.jpg",
               }),
               headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',

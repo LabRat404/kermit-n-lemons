@@ -7,6 +7,13 @@ import 'package:trade_app/screens/change_page.dart';
 import 'package:trade_app/widgets/reusable_widget.dart';
 import 'package:trade_app/provider/user_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:provider/provider.dart';
+import 'package:trade_app/provider/user_provider.dart';
+import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
+import 'package:trade_app/widgets/nav_bar.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -16,6 +23,50 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  @override
+  //String realusername = 'doria';
+
+  void initState() {
+    print("Hi  Im loading settings");
+    super.initState();
+    //var realusername = context.watch<UserProvider>().user.name;
+    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    //   realusername = Provider.of<String>(context, listen: false);
+    // });
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      final help = Provider.of<UserProvider>(context, listen: false);
+      String realusername = help.user.name;
+      readJson(realusername);
+      //print("lol she did it" + help.user.address);
+    });
+  }
+
+  // void didChangeDependencies() {
+  //   debugPrint(
+  //       'Child widget: didChangeDependencies(), counter = $realusername');
+  //   super.didChangeDependencies();
+  // }
+
+  String links = "";
+  // Fetch content from the json file
+  Future<void> readJson(realusername) async {
+    //load  the json here!!
+    //fetch here
+    print("asdassadasdasdasdasdasdas");
+    print("username is:" + realusername);
+    http.Response resaa = await http.get(
+        Uri.parse('http://172.20.10.3:3000/api/grabuserdata/$realusername'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        });
+
+    print(resaa);
+    final data = await json.decode(resaa.body);
+    setState(() {
+      links = data["address"];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var username = context.watch<UserProvider>().user.name;
@@ -28,10 +79,15 @@ class _SettingsPageState extends State<SettingsPage> {
           child: ListView(
             children: [
               // user card
-              SimpleUserCard(
-                userName: username,
-                userProfilePic: NetworkImage("https://i.imgur.com/k2XHNOy.jpg"),
-              ),
+              links.isEmpty
+                  ? SimpleUserCard(
+                      userName: username,
+                      userProfilePic: AssetImage("assets/empty.png"),
+                    )
+                  : SimpleUserCard(
+                      userName: username,
+                      userProfilePic: NetworkImage(links),
+                    ),
               SettingsGroup(
                 items: [
                   SettingsItem(

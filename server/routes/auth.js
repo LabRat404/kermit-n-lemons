@@ -56,7 +56,7 @@ authRouter.post("/api/signin", async(req, res) => {
 
 authRouter.post("/api/signup", async (req, res) => {
     try {
-        const {name, email, password} = req.body;
+        const {name, email, password, address} = req.body;
         // {
         //     'name':name,
         //     'email':email,
@@ -75,6 +75,7 @@ authRouter.post("/api/signup", async (req, res) => {
             email,
             password: hashedPassword,
             name,
+            address,
         })
         user = await user.save();
         res.json(user);
@@ -129,10 +130,25 @@ authRouter.get("/api/grabuserlist/:username", async (req, res) => {
         res.send(results);
         }
      }
+     );   
+});
+
+authRouter.get("/api/grabuserdata/:username", async (req, res) => {
+    console.log(req.params["username"]);
+    User
+    .findOne({name : req.params["username"]})
+    .exec( (e, results) => {
+        if (e)
+          res.send("Error not known");
+      else if(results == null)
+          res.send("404 not found. No records found!", 404);
+        else{
+        res.send(results);
+        console.log(results);
+        }
+     }
      );
-   
-     
-   
+
 });
 
 
