@@ -41,8 +41,14 @@ class _HomePageState extends State<HomePage> {
     children: [
       Image.network(
           "http://books.google.com/books/content?id=gvB1DQAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"),
-      Image.network(
-          "http://books.google.com/books/content?id=ZRdbmjRjljkC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"),
+      IconButton(
+        icon: Image.network(
+            "http://books.google.com/books/content?id=gvB1DQAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"),
+        iconSize: 50,
+        onPressed: () {
+          print("Asdsadasdasdasdsdsadasd + yayayy");
+        },
+      )
     ],
   );
   final bm = Text.rich(
