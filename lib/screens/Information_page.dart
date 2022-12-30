@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trade_app/widgets/reusable_widget.dart';
 
 class InformationPage extends StatefulWidget {
   static String tag = 'information';
@@ -26,9 +27,9 @@ class _InformationPageState extends State<InformationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: ReusableWidgets.LoginPageAppBar("About Us"),
       body: Column(
         children: <Widget>[
-          AppBar(),
           SizedBox(height: 70.0),
           heading,
           SizedBox(height: 20.0),

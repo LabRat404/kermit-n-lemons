@@ -4,6 +4,7 @@ import 'package:babstrap_settings_screen/babstrap_settings_screen.dart';
 import 'package:trade_app/screens/information_page.dart';
 import 'package:trade_app/screens/login_page.dart';
 import 'package:trade_app/screens/change_page.dart';
+import 'package:trade_app/screens/avatarchange.dart';
 import 'package:trade_app/widgets/reusable_widget.dart';
 import 'package:trade_app/provider/user_provider.dart';
 import 'package:provider/provider.dart';
@@ -91,11 +92,16 @@ class _SettingsPageState extends State<SettingsPage> {
               SettingsGroup(
                 items: [
                   SettingsItem(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AvatarChange()));
+                    },
                     icons: CupertinoIcons.pencil_outline,
                     iconStyle: IconStyle(),
                     title: 'Appearance',
-                    subtitle: "Change your avator!",
+                    subtitle: "Change your avatar!",
                   ),
                   SettingsItem(
                     onTap: () {},

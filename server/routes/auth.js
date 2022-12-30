@@ -151,7 +151,29 @@ authRouter.get("/api/grabuserdata/:username", async (req, res) => {
 
 });
 
+authRouter.put("/api/changeavatar/:username", async (req, res) => {
+    console.log(req.params["username"]+ req.body['url']);
+  
+    User
+    .findOne({name : req.params["username"]})
+    .exec((e, results) => {
+        if (e)
+          res.send("Error not known");
+      else if(results == null)
+          res.send("404 not found. No records found!", 404);
+        else{
+        results.address = req.body['url'];
+        results.save();
+        res.send(results);
 
+        //console.log(results  + "ASdasdsadasdsad test" + req.body['url']);
+        }
+     }
+     );
+
+});
+
+//not yet done
 authRouter.delete("/api/deluser/:username", async (req, res) => {
     console.log(req.params["username"]);
     Image2

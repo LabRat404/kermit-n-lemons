@@ -2,53 +2,35 @@
 
 import 'package:flutter/material.dart';
 import 'package:trade_app/widgets/reusable_widget.dart';
-import 'package:trade_app/screens/bookInfodetail.dart';
-import '/../widgets/camera.dart';
+
 import 'package:trade_app/provider/user_provider.dart';
 import 'dart:async';
 import 'dart:io';
 import 'dart:convert';
 import 'package:trade_app/widgets/nav_bar.dart';
-
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+
 import 'package:path_provider/path_provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:trade_app/services/auth/connector.dart';
-import 'dart:convert';
-import 'dart:developer';
-import 'package:flutter/material.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
-import 'dart:io';
-import 'package:http/http.dart' as http;
-import 'package:trade_app/services/auth/connector.dart';
-import 'package:trade_app/screens/bookInfodetail.dart';
 
-class UploadPage extends StatefulWidget {
-  const UploadPage({Key? key, this.title}) : super(key: key);
-  final String? title;
+class AvatarChange extends StatefulWidget {
+  const AvatarChange({Key? key}) : super(key: key);
   @override
-  State<UploadPage> createState() => _UploadPageState();
+  State<AvatarChange> createState() => _AvatarChangeState();
 }
 
-class _UploadPageState extends State<UploadPage> {
+class _AvatarChangeState extends State<AvatarChange> {
   final ImagePicker _picker = ImagePicker();
   var maxWidthController = TextEditingController();
   var maxHeightController = TextEditingController();
   var qualityController = TextEditingController();
 
-  var ISBNController = TextEditingController();
-  var commentsController = TextEditingController();
-
   @override
   void initState() {
     super.initState();
-    ISBNController = new TextEditingController(text: '9780316453264');
-    commentsController = new TextEditingController(
-        text: 'I really liked her but she dosnt know.');
     maxHeightController = new TextEditingController(text: '375');
     maxWidthController = new TextEditingController(text: '375');
     qualityController = new TextEditingController(text: '100');
@@ -125,33 +107,6 @@ class _UploadPageState extends State<UploadPage> {
       request.fields['title'] = "dummyImage";
       request.headers['Authorization'] = "Client-ID " + "4556ad76cb684d8";
 
-      var res = await http.post(
-          //localhost
-          //Uri.parse('http://172.20.10.3:3000/api/bookinfo'),
-          Uri.parse('http://172.20.10.3:3000/api/bookinfo'),
-          body: jsonEncode({"book_isbn": ISBNController.text}),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
-          });
-
-      print("Im res:: " + res.body);
-      var resBody = await json.decode(res.body);
-      debugPrint("ISBN code is: " + ISBNController.text);
-      debugPrint("book title is:" + resBody['title']); // can print title
-
-      if (resBody["error"] != null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-              content:
-                  Text('ISBN code not found, please enter a correct code!')),
-        );
-      } else {
-        ScaffoldMessenger.of(context).removeCurrentSnackBar();
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Uploading Book...')),
-        );
-      }
-
       String tempPath = "";
       String appDocPath = "";
       Directory appDocDir = await getApplicationDocumentsDirectory();
@@ -168,35 +123,15 @@ class _UploadPageState extends State<UploadPage> {
       var responseData = await response.stream.toBytes();
       var tmp2 = String.fromCharCodes(responseData);
       Map<String, dynamic> result = json.decode(tmp2);
-      print(result);
       String name2 = result['data']['id'];
       String url2 = result['data']['link'];
-      String delhash = result['data']['deletehash'];
-      String dbISBN = ISBNController.text;
-      String dbcomments = commentsController.text;
-      String googlelink = resBody['infoLink'];
-      String booktitle = resBody['title'];
-      String author = resBody['authors'][0];
-      print("this is googlelink ->" + googlelink);
-      print("this is booktitle ->" + booktitle);
-      print("this is author ->" + author);
-      // if (result != null) {
-      AuthService().uploadIng(
-        name: name2,
-        url: url2,
-        delhash: delhash,
-        dbISBN: dbISBN,
-        comments: dbcomments,
-        username: realusername,
-        googlelink: googlelink,
-        booktitle: booktitle,
-        author: author,
-      );
-      // }
-      print("this is uname ->" + realusername);
-      print("this is name ->" + name2);
-      print("this is url ->" + url2);
-      print("this is isbn ->" + dbISBN);
+      print("this is uname ->" + realusername + "the url is: " + url2);
+      var ress = await http.put(
+          Uri.parse('http://172.20.10.3:3000/api/changeavatar/$realusername'),
+          body: jsonEncode({"url": url2}),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          });
       //output img num and such and the luv to ah bee
     }
     // your code
@@ -207,8 +142,6 @@ class _UploadPageState extends State<UploadPage> {
     maxWidthController.dispose();
     maxHeightController.dispose();
     qualityController.dispose();
-    ISBNController.dispose();
-    commentsController.dispose();
     super.dispose();
   }
 
@@ -345,22 +278,6 @@ class _UploadPageState extends State<UploadPage> {
   Widget build(BuildContext context) {
     var realusername = context.watch<UserProvider>().user.name;
 
-    final ScanISBNButton = ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
-        minimumSize: const Size(350, 50),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-      ),
-      onPressed: () {
-        //open camera widget
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const Camera()));
-      },
-      child: const Text('Scan ISBN'),
-    );
-
     final CancelButton = ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.redAccent,
@@ -419,68 +336,16 @@ class _UploadPageState extends State<UploadPage> {
         }
       },
     );
-    final ViewDetailsButton = ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.pinkAccent,
-        minimumSize: const Size(350, 50),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-      ),
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => InfoDetailPage(
-                    isbncode: ISBNController.text,
-                  )),
-        );
-        //this button should be disabled at first, if there is data fetched from ISBN, then it is enabled
-      },
-      child: const Text('View details'),
-    );
 
-    return MaterialApp(
-        home: Scaffold(
+    return Scaffold(
+      appBar: ReusableWidgets.LoginPageAppBar('Change Avatar'),
       backgroundColor: const Color.fromARGB(255, 157, 85, 169),
-      appBar: ReusableWidgets.accountPageAppBar("Upload your book!"),
       body: Center(
         child: _handlePreview(),
       ),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(top: 16.0),
-            child: FloatingActionButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const Camera()));
-                },
-                heroTag: 'image2',
-                tooltip: 'ISBN Scanner',
-                child: Image.asset(
-                  "assets/icons8-barcode-64.png",
-                )),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
-            child: FloatingActionButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => InfoDetailPage(
-                            isbncode: ISBNController.text,
-                          )),
-                );
-                //this button should be disabled at first, if there is data fetched from ISBN, then it is enabled
-              },
-              heroTag: 'image2',
-              tooltip: 'Scanned Book Detail',
-              child: const Icon(Icons.library_books_outlined),
-            ),
-          ),
           Semantics(
             label: 'image_picker_example_from_gallery',
             child: FloatingActionButton(
@@ -508,57 +373,22 @@ class _UploadPageState extends State<UploadPage> {
           Padding(
             padding: const EdgeInsets.only(top: 16.0),
             child: FloatingActionButton(
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        scrollable: true,
-                        title: Text('Login'),
-                        content: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Form(
-                            child: Column(
-                              children: <Widget>[
-                                TextFormField(
-                                  controller: ISBNController,
-                                  decoration: InputDecoration(
-                                    labelText: 'ISBN',
-                                    icon: Icon(Icons.camera),
-                                  ),
-                                ),
-                                TextFormField(
-                                  controller: commentsController,
-                                  decoration: InputDecoration(
-                                    labelText: 'comments',
-                                    icon: Icon(Icons.message),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        actions: [
-                          ElevatedButton(
-                              child: Text("Submit"),
-                              onPressed: () async {
-                                await uploading(realusername);
-                                ScaffoldMessenger.of(context)
-                                    .removeCurrentSnackBar();
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content: Text('Item uploaded! ')),
-                                );
-                                Navigator.pushNamedAndRemoveUntil(
-                                  context,
-                                  NavBar.routeName,
-                                  (route) => false,
-                                );
-                              })
-                        ],
-                      );
-                    });
-                //Upload the book user enter with ISBN and its thumbnail
+              onPressed: () async {
+                {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Uploading Item...')),
+                  );
+                  await uploading(realusername);
+                  ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Item uploaded! ')),
+                  );
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    NavBar.routeName,
+                    (route) => false,
+                  );
+                }
               },
               heroTag: 'image2',
               tooltip: 'Upload your book!',
@@ -567,7 +397,7 @@ class _UploadPageState extends State<UploadPage> {
           ),
         ],
       ),
-    ));
+    );
   }
 }
 
