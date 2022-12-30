@@ -5,6 +5,23 @@ import 'package:trade_app/screens/bookInfo.dart';
 import 'package:trade_app/widgets/reusable_widget.dart';
 import 'package:trade_app/provider/user_provider.dart';
 import 'package:provider/provider.dart';
+import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:provider/provider.dart';
+import 'package:trade_app/provider/user_provider.dart';
+import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
+import 'package:trade_app/widgets/nav_bar.dart';
+
+import 'package:trade_app/widgets/nav_bar.dart';
+
+import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter/foundation.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   static const String routeName = '/home';
@@ -15,6 +32,27 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  void loadBookData() async {
+    List<String> booklist1 = [
+      "9781603095020",
+      "9781495088247",
+      "9780393327342"
+    ];
+    List<String> booklist2 = ["9780984782857", "9780446310789"];
+
+    // for (var i = 0; i < booklist1.length; i++) {
+    //   var res = await http.post(
+    //       //localhost
+    //       //Uri.parse('http://172.20.10.3:3000/api/bookinfo'),
+    //       Uri.parse('http://172.20.10.3:3000/api/bookinfo'),
+    //       body: jsonEncode({"book_isbn": booklist1[i]}),
+    //       headers: <String, String>{
+    //         'Content-Type': 'application/json; charset=UTF-8',
+    //       });
+
+    // }
+  }
+
   final slide = ImageSlideshow(
     indicatorColor: Colors.white,
     onPageChanged: (value) {
@@ -39,15 +77,36 @@ class _HomePageState extends State<HomePage> {
     autoPlayInterval: 3000,
     isLoop: true,
     children: [
-      Image.network(
-          "http://books.google.com/books/content?id=gvB1DQAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"),
       IconButton(
         icon: Image.network(
             "http://books.google.com/books/content?id=gvB1DQAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"),
         iconSize: 50,
-        onPressed: () {
-          print("Asdsadasdasdasdsdsadasd + yayayy");
+        onPressed: () async {
+          if (await canLaunchUrl(Uri.parse(
+              "https://books.google.com.hk/books?id=V8wizwEACAAJ&dq=isbn:9780316453264&hl=&source=gbs_api"))) {
+            launchUrl(Uri.parse(
+                "https://books.google.com.hk/books?id=V8wizwEACAAJ&dq=isbn:9780316453264&hl=&source=gbs_api"));
+          }
         },
+      ),
+      TextButton.icon(
+        style: ButtonStyle(backgroundColor: null),
+        onPressed: () async {
+          if (await canLaunchUrl(Uri.parse(
+              "https://books.google.com.hk/books?id=V8wizwEACAAJ&dq=isbn:9780316453264&hl=&source=gbs_api"))) {
+            launchUrl(Uri.parse(
+                "https://books.google.com.hk/books?id=V8wizwEACAAJ&dq=isbn:9780316453264&hl=&source=gbs_api"));
+          }
+        },
+        icon: Image.network(
+            "http://books.google.com/books/content?id=gvB1DQAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"),
+        label: Text(
+          'Button Text',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       )
     ],
   );

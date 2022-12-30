@@ -13,19 +13,10 @@ import 'package:trade_app/widgets/nav_bar.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:trade_app/services/auth/connector.dart';
-import 'dart:convert';
-import 'dart:developer';
-import 'package:flutter/material.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
-import 'dart:io';
-import 'package:http/http.dart' as http;
-import 'package:trade_app/services/auth/connector.dart';
-import 'package:trade_app/screens/bookInfodetail.dart';
 
 class UploadPage extends StatefulWidget {
   const UploadPage({Key? key, this.title}) : super(key: key);
