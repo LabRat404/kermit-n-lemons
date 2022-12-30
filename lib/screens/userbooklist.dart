@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
+import 'package:trade_app/widgets/reusable_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:trade_app/provider/user_provider.dart';
 import 'package:http/http.dart' as http;
@@ -31,7 +32,7 @@ class _UserListState extends State<UserList> {
   //String realusername = 'doria';
 
   void initState() {
-    print("Hi  Im loading");
+    //print("Hi  Im loading");
     super.initState();
     //var realusername = context.watch<UserProvider>().user.name;
     // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -85,12 +86,7 @@ class _UserListState extends State<UserList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text(
-          'book info',
-        ),
-      ),
+      appBar: ReusableWidgets.LoginPageAppBar("Your Inventory"),
       body: Padding(
         padding: const EdgeInsets.all(25),
         child: Column(

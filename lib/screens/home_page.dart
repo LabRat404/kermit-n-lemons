@@ -12,16 +12,6 @@ import 'package:provider/provider.dart';
 import 'package:trade_app/provider/user_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
-import 'package:trade_app/widgets/nav_bar.dart';
-
-import 'package:trade_app/widgets/nav_bar.dart';
-
-import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
-import 'package:flutter/foundation.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   static const String routeName = '/home';

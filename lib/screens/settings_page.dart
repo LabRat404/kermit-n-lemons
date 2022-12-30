@@ -8,13 +8,8 @@ import 'package:trade_app/screens/avatarchange.dart';
 import 'package:trade_app/widgets/reusable_widget.dart';
 import 'package:trade_app/provider/user_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/material.dart';
 import 'dart:convert';
-import 'package:provider/provider.dart';
-import 'package:trade_app/provider/user_provider.dart';
 import 'package:http/http.dart' as http;
-import 'package:url_launcher/url_launcher.dart';
-import 'package:trade_app/widgets/nav_bar.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
