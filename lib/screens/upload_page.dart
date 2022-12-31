@@ -9,7 +9,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:convert';
 import 'package:trade_app/widgets/nav_bar.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
@@ -428,7 +428,22 @@ class _UploadPageState extends State<UploadPage> {
     return MaterialApp(
         home: Scaffold(
       backgroundColor: const Color.fromARGB(255, 157, 85, 169),
-      appBar: ReusableWidgets.accountPageAppBar("Upload your book!"),
+      appBar: AppBar(
+        title: Text('Upload your book!'),
+        backgroundColor: Colors.green,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.info_outline),
+            tooltip: 'User Menu',
+            onPressed: () async {
+              // handle the press
+              if (await canLaunchUrl(Uri.parse("http://www.google.com"))) {
+                launchUrl(Uri.parse("http://www.google.com"));
+              }
+            },
+          ),
+        ],
+      ),
       body: Center(
         child: _handlePreview(),
       ),
