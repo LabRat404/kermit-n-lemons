@@ -32,6 +32,7 @@ class _InfoDetailPageState extends State<InfoDetailPage> {
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         });
+    print(resa.body);
     //load  the json here!!
     //print(res);
 
@@ -40,15 +41,26 @@ class _InfoDetailPageState extends State<InfoDetailPage> {
     //print("resbody4 -->" + data[0]['title']);
 
     final data2 = await json.decode(resa.body);
+    String btitle = "Not found";
+    String bsubtitle = "Not found";
+    String bauthors = "Not found";
+    String binfoLink = "Not found";
+    String bdescription = "Not found";
+    if (data2["title"] != null) btitle = data2["title"].toString();
+    if (data2["subtitle"] != null) bsubtitle = data2["subtitle"].toString();
+    if (data2["authors"] != null) bauthors = data2["authors"].toString();
+    if (data2["infoLink"] != null) binfoLink = data2["infoLink"].toString();
+    if (data2["description"] != null)
+      bdescription = data2["description"].toString();
 
     setState(() {
       info.addAll([
-        data2["title"],
-        data2["subtitle"],
-        data2["authors"][0],
+        btitle,
+        bsubtitle,
+        bauthors,
         data2["imageLinks"]["smallThumbnail"],
-        data2['infoLink'],
-        data2['description'],
+        binfoLink,
+        bdescription
       ]);
     });
   }
@@ -66,10 +78,12 @@ class _InfoDetailPageState extends State<InfoDetailPage> {
                     clipBehavior: Clip.antiAlias,
                     child: Column(
                       children: [
+                        Image.network(info[3]),
                         ListTile(
                           title: Text("Book title: " + info[0]),
                           subtitle: Text(
-                            info[1] +
+                            "Subtitle: " +
+                                info[1] +
                                 '\n' +
                                 "Book author " +
                                 info[2] +
@@ -85,7 +99,7 @@ class _InfoDetailPageState extends State<InfoDetailPage> {
                         ),
 
                         //Image.network(_items[index]["smallThumbnail"]),
-                        Image.network(info[3]),
+
                         Center(
                             child: ButtonBar(
                           mainAxisSize: MainAxisSize.min,

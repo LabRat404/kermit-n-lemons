@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:trade_app/widgets/app_title_homepage.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
@@ -22,32 +24,65 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  void loadBookData() async {
-    List<String> booklist1 = [
+  @override
+  void initState() {
+    super.initState();
+    loadBookData();
+  }
+
+  Future<void> loadBookData() async {
+    List<String> BookOfMonth = [
       "9781603095020",
-      "9781495088247",
-      "9780393327342"
+      "9781503519770",
+      "9781447220039"
     ];
-    List<String> booklist2 = ["9780984782857", "9780446310789"];
+    List<String> Recommendation = ["9780984782857", "9781406317848"];
+    List<dynamic> BookOfMonthList;
+    List<dynamic> RecommendationList;
 
-    // for (var i = 0; i < booklist1.length; i++) {
-    //   var res = await http.post(
-    //       //localhost
-    //       //Uri.parse('http://172.20.10.3:3000/api/bookinfo'),
-    //       Uri.parse('http://172.20.10.3:3000/api/bookinfo'),
-    //       body: jsonEncode({"book_isbn": booklist1[i]}),
-    //       headers: <String, String>{
-    //         'Content-Type': 'application/json; charset=UTF-8',
-    //       });
-
-    // }
+    for (var i = 0; i < BookOfMonth.length; i++) {
+      var res = await http.post(
+          //localhost
+          //Uri.parse('http://172.20.10.3:3000/api/bookinfo'),
+          Uri.parse('http://172.20.10.3:3000/api/bookinfo'),
+          body: jsonEncode({"book_isbn": BookOfMonth[i]}),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          });
+      print("res" + res.body);
+      final data1 = json.decode(res.body);
+      String btitle = "Not found";
+      String bauthors = "Not found";
+      String binfoLink = "Not found";
+      if (data1["title"] != null) btitle = data1["title"].toString();
+      if (data1["authors"] != null) bauthors = data1["authors"].toString();
+      if (data1["infoLink"] != null) binfoLink = data1["infoLink"].toString();
+      setState(() {});
+    }
+    for (var i = 0; i < Recommendation.length; i++) {
+      var res2 = await http.post(
+          //localhost
+          //Uri.parse('http://172.20.10.3:3000/api/bookinfo'),
+          Uri.parse('http://172.20.10.3:3000/api/bookinfo'),
+          body: jsonEncode({"book_isbn": Recommendation[i]}),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          });
+      print("res" + res2.body);
+      final data2 = json.decode(res2.body);
+      String btitle = "Not found";
+      String bauthors = "Not found";
+      String binfoLink = "Not found";
+      if (data2["title"] != null) btitle = data2["title"].toString();
+      if (data2["authors"] != null) bauthors = data2["authors"].toString();
+      if (data2["infoLink"] != null) binfoLink = data2["infoLink"].toString();
+      setState(() {});
+    }
   }
 
   final slide = ImageSlideshow(
     indicatorColor: Colors.white,
-    onPageChanged: (value) {
-      debugPrint('Page changed: $value');
-    },
+    onPageChanged: (value) {},
     autoPlayInterval: 3000,
     isLoop: true,
     children: [
@@ -91,7 +126,7 @@ class _HomePageState extends State<HomePage> {
         icon: Image.network(
             "http://books.google.com/books/content?id=gvB1DQAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"),
         label: Text(
-          'Button Text',
+          'Book Title:' + '\n' + 'The Last Wish',
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
