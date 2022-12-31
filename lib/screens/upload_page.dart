@@ -428,22 +428,7 @@ class _UploadPageState extends State<UploadPage> {
     return MaterialApp(
         home: Scaffold(
       backgroundColor: const Color.fromARGB(255, 157, 85, 169),
-      appBar: AppBar(
-        title: Text('Upload your book!'),
-        backgroundColor: Colors.green,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.info_outline),
-            tooltip: 'User Menu',
-            onPressed: () async {
-              // handle the press
-              if (await canLaunchUrl(Uri.parse("http://www.google.com"))) {
-                launchUrl(Uri.parse("http://www.google.com"));
-              }
-            },
-          ),
-        ],
-      ),
+      appBar: ReusableWidgets.UploadItem('Upload your book!'),
       body: Center(
         child: _handlePreview(),
       ),

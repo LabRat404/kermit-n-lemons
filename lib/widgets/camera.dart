@@ -54,13 +54,9 @@ class _CameraState extends State<Camera> {
         debugPrint(stringValue);
         debugPrint(code);
         debugPrint(resBody['title']); // can print title
+        //can done!
         // ignore: use_build_context_synchronously
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => FoundCodeScreen(
-                    screenClosed: _screenWasClosed,
-                    value: resBody['subtitle'])));
+        Navigator.pop(context, code);
       }
     }
     return "Success!";

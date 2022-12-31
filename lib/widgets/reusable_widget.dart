@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ReusableWidgets {
   static accountPageAppBar(String title) {
@@ -7,6 +8,47 @@ class ReusableWidgets {
       toolbarHeight: 70,
       backgroundColor: Colors.green,
       title: Text(title),
+    );
+  }
+
+  static UploadItem(String title) {
+    return AppBar(
+      title: Text('Upload your book!'),
+      backgroundColor: Colors.green,
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.info_outline),
+          tooltip: 'Upload Book Menu',
+          onPressed: () async {
+            // handle the press
+            if (await canLaunchUrl(Uri.parse("https://imgur.com/a/PwLrDxY"))) {
+              launchUrl(Uri.parse("https://imgur.com/a/PwLrDxY"));
+            }
+          },
+        ),
+      ],
+    );
+  }
+
+  static changeAvatar(String title) {
+    return AppBar(
+      title: Text('Chane your Avatar!'),
+      flexibleSpace: Image(
+        image: AssetImage('assets/book_title.jpg'),
+        fit: BoxFit.cover,
+      ),
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.info_outline),
+          tooltip: 'Change Avatar Menu',
+          onPressed: () async {
+            // handle the press
+            if (await canLaunchUrl(Uri.parse("https://imgur.com/a/PwLrDxY"))) {
+              launchUrl(Uri.parse("https://imgur.com/a/PwLrDxY"));
+            }
+          },
+        ),
+      ],
     );
   }
 

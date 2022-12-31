@@ -334,7 +334,7 @@ class _AvatarChangeState extends State<AvatarChange> {
     );
 
     return Scaffold(
-      appBar: ReusableWidgets.LoginPageAppBar('Change Avatar'),
+      appBar: ReusableWidgets.changeAvatar('Change Avatar'),
       backgroundColor: const Color.fromARGB(255, 157, 85, 169),
       body: Center(
         child: _handlePreview(),
