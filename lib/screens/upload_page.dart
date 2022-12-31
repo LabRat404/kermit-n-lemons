@@ -37,7 +37,7 @@ class _UploadPageState extends State<UploadPage> {
   @override
   void initState() {
     super.initState();
-    ISBNController = new TextEditingController(text: '9780547928227');
+    //ISBNController = new TextEditingController(text: '9780547928227');
     commentsController = new TextEditingController(
         text: 'I really liked her but she dosnt know.');
     maxHeightController = new TextEditingController(text: '375');
@@ -336,21 +336,12 @@ class _UploadPageState extends State<UploadPage> {
   Widget build(BuildContext context) {
     var realusername = context.watch<UserProvider>().user.name;
 
-    final ScanISBNButton = ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
-        minimumSize: const Size(350, 50),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-      ),
-      onPressed: () {
-        //open camera widget
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const Camera()));
-      },
-      child: const Text('Scan ISBN'),
-    );
+    Future<void> _cameraResults(BuildContext context) async {
+      final isbn = await Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const Camera()));
+      if (!mounted) return;
+      ISBNController.text = isbn;
+    }
 
     final CancelButton = ElevatedButton(
       style: ElevatedButton.styleFrom(
@@ -445,8 +436,7 @@ class _UploadPageState extends State<UploadPage> {
             padding: const EdgeInsets.only(top: 16.0),
             child: FloatingActionButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const Camera()));
+                  _cameraResults(context);
                 },
                 heroTag: 'image2',
                 tooltip: 'ISBN Scanner',
