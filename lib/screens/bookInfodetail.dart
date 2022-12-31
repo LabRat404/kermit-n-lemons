@@ -43,6 +43,7 @@ class _InfoDetailPageState extends State<InfoDetailPage> {
     final data2 = await json.decode(resa.body);
     String btitle = "Not found";
     String bsubtitle = "Not found";
+    String blink = "Not found";
     String bauthors = "Not found";
     String binfoLink = "Not found";
     String bdescription = "Not found";
@@ -52,16 +53,12 @@ class _InfoDetailPageState extends State<InfoDetailPage> {
     if (data2["infoLink"] != null) binfoLink = data2["infoLink"].toString();
     if (data2["description"] != null)
       bdescription = data2["description"].toString();
+    if (data2["imageLinks"] != null)
+      blink = data2["imageLinks"]["smallThumbnail"].toString();
 
     setState(() {
-      info.addAll([
-        btitle,
-        bsubtitle,
-        bauthors,
-        data2["imageLinks"]["smallThumbnail"],
-        binfoLink,
-        bdescription
-      ]);
+      info.addAll(
+          [btitle, bsubtitle, bauthors, blink, binfoLink, bdescription]);
     });
   }
 
@@ -78,7 +75,9 @@ class _InfoDetailPageState extends State<InfoDetailPage> {
                     clipBehavior: Clip.antiAlias,
                     child: Column(
                       children: [
-                        Image.network(info[3]),
+                        (info[3] == "Not found")
+                            ? Image.asset('assets/empty.png')
+                            : Image.network(info[3]),
                         ListTile(
                           title: Text("Book title: " + info[0]),
                           subtitle: Text(

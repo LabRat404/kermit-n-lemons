@@ -341,6 +341,9 @@ class _UploadPageState extends State<UploadPage> {
           context, MaterialPageRoute(builder: (context) => const Camera()));
       if (!mounted) return;
       ISBNController.text = isbn;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Book Scanned with ISBN: $isbn")),
+      );
     }
 
     final CancelButton = ElevatedButton(
