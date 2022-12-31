@@ -30,6 +30,7 @@ class _HomePageState extends State<HomePage> {
     loadBookData();
   }
 
+  var abc = "111";
   Future<void> loadBookData() async {
     List<String> BookOfMonth = [
       "9781603095020",
@@ -57,7 +58,9 @@ class _HomePageState extends State<HomePage> {
       if (data1["title"] != null) btitle = data1["title"].toString();
       if (data1["authors"] != null) bauthors = data1["authors"].toString();
       if (data1["infoLink"] != null) binfoLink = data1["infoLink"].toString();
-      setState(() {});
+      setState(() {
+        abc = "sadad";
+      });
     }
     for (var i = 0; i < Recommendation.length; i++) {
       var res2 = await http.post(
@@ -94,6 +97,36 @@ class _HomePageState extends State<HomePage> {
           "http://books.google.com/books/content?id=T929zgEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"),
     ],
   );
+
+  final loopBOM = ImageSlideshow(
+    indicatorColor: Colors.white,
+    onPageChanged: (value) {},
+    autoPlayInterval: 3000,
+    isLoop: true,
+    children: [
+      //for(int i=0, i<x; i++)
+      TextButton.icon(
+        style: ButtonStyle(backgroundColor: null),
+        onPressed: () async {
+          if (await canLaunchUrl(Uri.parse(
+              "https://books.google.com.hk/books?id=V8wizwEACAAJ&dq=isbn:9780316453264&hl=&source=gbs_api"))) {
+            launchUrl(Uri.parse(
+                "https://books.google.com.hk/books?id=V8wizwEACAAJ&dq=isbn:9780316453264&hl=&source=gbs_api"));
+          }
+        },
+        icon: Image.network(
+            "http://books.google.com/books/content?id=gvB1DQAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"),
+        label: Text(
+          'Book Title:' + '\n' + 'The Last Wish',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      )
+    ],
+  );
+
   final slide2 = ImageSlideshow(
     indicatorColor: Colors.white,
     onPageChanged: (value) {
@@ -102,10 +135,8 @@ class _HomePageState extends State<HomePage> {
     autoPlayInterval: 3000,
     isLoop: true,
     children: [
-      IconButton(
-        icon: Image.network(
-            "http://books.google.com/books/content?id=gvB1DQAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"),
-        iconSize: 50,
+      TextButton.icon(
+        style: ButtonStyle(backgroundColor: null),
         onPressed: () async {
           if (await canLaunchUrl(Uri.parse(
               "https://books.google.com.hk/books?id=V8wizwEACAAJ&dq=isbn:9780316453264&hl=&source=gbs_api"))) {
@@ -113,6 +144,15 @@ class _HomePageState extends State<HomePage> {
                 "https://books.google.com.hk/books?id=V8wizwEACAAJ&dq=isbn:9780316453264&hl=&source=gbs_api"));
           }
         },
+        icon: Image.network(
+            "http://books.google.com/books/content?id=gvB1DQAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"),
+        label: Text(
+          'Book Title:' + '\n' + 'The Last Wish',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       TextButton.icon(
         style: ButtonStyle(backgroundColor: null),
