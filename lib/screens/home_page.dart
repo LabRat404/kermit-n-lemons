@@ -30,12 +30,13 @@ class _HomePageState extends State<HomePage> {
     loadBookData();
   }
 
-  var abc = "111";
+  //I dont like this, its hard coding and I tried not to, but maybe will fix it later
   Future<void> loadBookData() async {
     List<String> BookOfMonth = [
       "9781603095020",
       "9781503519770",
-      "9781447220039"
+      "9781447220039",
+      "9780593189641"
     ];
     List<String> Recommendation = ["9780984782857", "9781406317848"];
     List<dynamic> BookOfMonthList;
@@ -55,12 +56,17 @@ class _HomePageState extends State<HomePage> {
       String btitle = "Not found";
       String bauthors = "Not found";
       String binfoLink = "Not found";
+      String blink = "Not found";
       if (data1["title"] != null) btitle = data1["title"].toString();
       if (data1["authors"] != null) bauthors = data1["authors"].toString();
       if (data1["infoLink"] != null) binfoLink = data1["infoLink"].toString();
-      setState(() {
-        abc = "sadad";
-      });
+      if (data1["imageLinks"] != null)
+        blink = data1["imageLinks"]["smallThumbnail"].toString();
+      setState(() {});
+      print("title:" + btitle);
+      print("bauthors:" + bauthors);
+      print("infoLink:" + binfoLink);
+      print("blink:" + blink);
     }
     for (var i = 0; i < Recommendation.length; i++) {
       var res2 = await http.post(
@@ -76,28 +82,35 @@ class _HomePageState extends State<HomePage> {
       String btitle = "Not found";
       String bauthors = "Not found";
       String binfoLink = "Not found";
+      String blink = "Not found";
       if (data2["title"] != null) btitle = data2["title"].toString();
       if (data2["authors"] != null) bauthors = data2["authors"].toString();
       if (data2["infoLink"] != null) binfoLink = data2["infoLink"].toString();
+      if (data2["imageLinks"] != null)
+        blink = data2["imageLinks"]["smallThumbnail"].toString();
+      print("title:" + btitle);
+      print("bauthors:" + bauthors);
+      print("infoLink:" + binfoLink);
+      print("blink:" + blink);
       setState(() {});
     }
   }
 
-  final slide = ImageSlideshow(
-    indicatorColor: Colors.white,
-    onPageChanged: (value) {},
-    autoPlayInterval: 3000,
-    isLoop: true,
-    children: [
-      Image.network(
-          "http://books.google.com/books/content?id=-VfNSAAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"),
-      Image.network(
-          "http://books.google.com/books/content?id=fltxyAEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api"),
-      Image.network(
-          "http://books.google.com/books/content?id=T929zgEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"),
-    ],
-  );
-
+  // final slide = ImageSlideshow(
+  //   indicatorColor: Colors.white,
+  //   onPageChanged: (value) {},
+  //   autoPlayInterval: 3000,
+  //   isLoop: true,
+  //   children: [
+  //     Image.network(
+  //         "http://books.google.com/books/content?id=-VfNSAAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"),
+  //     Image.network(
+  //         "http://books.google.com/books/content?id=fltxyAEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api"),
+  //     Image.network(
+  //         "http://books.google.com/books/content?id=T929zgEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"),
+  //   ],
+  // );
+  //I dont like this, its hard coding and I tried not to, but maybe will fix it later
   final loopBOM = ImageSlideshow(
     indicatorColor: Colors.white,
     onPageChanged: (value) {},
@@ -109,25 +122,63 @@ class _HomePageState extends State<HomePage> {
         style: ButtonStyle(backgroundColor: null),
         onPressed: () async {
           if (await canLaunchUrl(Uri.parse(
-              "https://books.google.com.hk/books?id=V8wizwEACAAJ&dq=isbn:9780316453264&hl=&source=gbs_api"))) {
+              "http://books.google.com.hk/books?id=ClWQEAAAQBAJ&dq=isbn:9781603095020&hl=&source=gbs_api"))) {
             launchUrl(Uri.parse(
-                "https://books.google.com.hk/books?id=V8wizwEACAAJ&dq=isbn:9780316453264&hl=&source=gbs_api"));
+                "http://books.google.com.hk/books?id=ClWQEAAAQBAJ&dq=isbn:9781603095020&hl=&source=gbs_api"));
           }
         },
         icon: Image.network(
-            "http://books.google.com/books/content?id=gvB1DQAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"),
+            "http://books.google.com/books/content?id=ClWQEAAAQBAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api"),
         label: Text(
-          'Book Title:' + '\n' + 'The Last Wish',
+          'Animal Stories' + '\n' + 'By ' + 'Peter Hoey',
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
           ),
         ),
-      )
+      ),
+      TextButton.icon(
+        style: ButtonStyle(backgroundColor: null),
+        onPressed: () async {
+          if (await canLaunchUrl(Uri.parse(
+              "https://play.google.com/store/books/details?id=APbMBQAAQBAJ&source=gbs_api"))) {
+            launchUrl(Uri.parse(
+                "https://play.google.com/store/books/details?id=APbMBQAAQBAJ&source=gbs_api"));
+          }
+        },
+        icon: Image.network(
+            "http://books.google.com/books/content?id=APbMBQAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"),
+        label: Text(
+          'La-La Land' + '\n' + 'By ' + 'Jean Thompson',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      TextButton.icon(
+        style: ButtonStyle(backgroundColor: null),
+        onPressed: () async {
+          if (await canLaunchUrl(Uri.parse(
+              "http://books.google.com.hk/books?id=f1CuuQAACAAJ&dq=isbn:9781447220039&hl=&source=gbs_api"))) {
+            launchUrl(Uri.parse(
+                "http://books.google.com.hk/books?id=f1CuuQAACAAJ&dq=isbn:9781447220039&hl=&source=gbs_api"));
+          }
+        },
+        icon: Image.network(
+            "http://books.google.com/books/content?id=f1CuuQAACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api"),
+        label: Text(
+          'Jaws' + '\n' + 'By ' + 'Peter Benchley',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
     ],
   );
-
-  final slide2 = ImageSlideshow(
+  //I dont like this, its hard coding and I tried not to, but maybe will fix it later
+  final loopRec = ImageSlideshow(
     indicatorColor: Colors.white,
     onPageChanged: (value) {
       //debugPrint('Page changed: $value');
@@ -139,15 +190,18 @@ class _HomePageState extends State<HomePage> {
         style: ButtonStyle(backgroundColor: null),
         onPressed: () async {
           if (await canLaunchUrl(Uri.parse(
-              "https://books.google.com.hk/books?id=V8wizwEACAAJ&dq=isbn:9780316453264&hl=&source=gbs_api"))) {
+              "http://books.google.com.hk/books?id=jD8iswEACAAJ&dq=isbn:9780984782857&hl=&source=gbs_api"))) {
             launchUrl(Uri.parse(
-                "https://books.google.com.hk/books?id=V8wizwEACAAJ&dq=isbn:9780316453264&hl=&source=gbs_api"));
+                "http://books.google.com.hk/books?id=jD8iswEACAAJ&dq=isbn:9780984782857&hl=&source=gbs_api"));
           }
         },
         icon: Image.network(
-            "http://books.google.com/books/content?id=gvB1DQAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"),
+            "http://books.google.com/books/content?id=jD8iswEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api"),
         label: Text(
-          'Book Title:' + '\n' + 'The Last Wish',
+          'Cracking the Coding Interview' +
+              '\n' +
+              'By ' +
+              'Gayle Laakmann McDowell',
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -158,15 +212,15 @@ class _HomePageState extends State<HomePage> {
         style: ButtonStyle(backgroundColor: null),
         onPressed: () async {
           if (await canLaunchUrl(Uri.parse(
-              "https://books.google.com.hk/books?id=V8wizwEACAAJ&dq=isbn:9780316453264&hl=&source=gbs_api"))) {
+              "http://books.google.com.hk/books?id=AEO7bwAACAAJ&dq=isbn:9781406317848&hl=&source=gbs_api"))) {
             launchUrl(Uri.parse(
-                "https://books.google.com.hk/books?id=V8wizwEACAAJ&dq=isbn:9780316453264&hl=&source=gbs_api"));
+                "http://books.google.com.hk/books?id=AEO7bwAACAAJ&dq=isbn:9781406317848&hl=&source=gbs_api"));
           }
         },
         icon: Image.network(
-            "http://books.google.com/books/content?id=gvB1DQAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"),
+            "http://books.google.com/books/content?id=AEO7bwAACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api"),
         label: Text(
-          'Book Title:' + '\n' + 'The Last Wish',
+          "Rosen's Sad Book" + '\n' + 'By ' + 'Michael Rosen',
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -202,6 +256,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    //loadBookData();
     var username = context.watch<UserProvider>().user.name;
     return Scaffold(
       appBar: ReusableWidgets.LoginPageAppBar('Welcome Back! $username'),
@@ -210,11 +265,11 @@ class _HomePageState extends State<HomePage> {
           SizedBox(height: 70.0),
           bm,
           SizedBox(height: 20.0),
-          slide,
+          loopBOM,
           SizedBox(height: 70.0),
           heading,
           SizedBox(height: 20.0),
-          slide2,
+          loopRec,
           SizedBox(height: 20.0),
           //category_text,
         ],
