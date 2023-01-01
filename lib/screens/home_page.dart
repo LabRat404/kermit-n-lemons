@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
           });
-      print("res" + res.body);
+      //print("res" + res.body);
       final data1 = json.decode(res.body);
       String btitle = "Not found";
       String bauthors = "Not found";
@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
           });
-      print("res" + res2.body);
+      //print("res" + res2.body);
       final data2 = json.decode(res2.body);
       String btitle = "Not found";
       String bauthors = "Not found";
@@ -130,7 +130,7 @@ class _HomePageState extends State<HomePage> {
   final slide2 = ImageSlideshow(
     indicatorColor: Colors.white,
     onPageChanged: (value) {
-      debugPrint('Page changed: $value');
+      //debugPrint('Page changed: $value');
     },
     autoPlayInterval: 3000,
     isLoop: true,

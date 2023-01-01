@@ -43,8 +43,8 @@ class ReusableWidgets {
           tooltip: 'Change Avatar Menu',
           onPressed: () async {
             // handle the press
-            if (await canLaunchUrl(Uri.parse("https://imgur.com/a/PwLrDxY"))) {
-              launchUrl(Uri.parse("https://imgur.com/a/PwLrDxY"));
+            if (await canLaunchUrl(Uri.parse("https://imgur.com/a/Sr7FBbi"))) {
+              launchUrl(Uri.parse("https://imgur.com/a/Sr7FBbi"));
             }
           },
         ),
