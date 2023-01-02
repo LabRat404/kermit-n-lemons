@@ -21,6 +21,7 @@ class ReusableWidgets {
           tooltip: 'Upload Book Menu',
           onPressed: () async {
             // handle the press
+
             if (await canLaunchUrl(Uri.parse("https://imgur.com/a/PwLrDxY"))) {
               launchUrl(Uri.parse("https://imgur.com/a/PwLrDxY"));
             }

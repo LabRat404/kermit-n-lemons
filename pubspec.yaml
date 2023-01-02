@@ -53,6 +53,7 @@ dependencies:
   gallery_saver: ^2.3.2
   path_provider: ^2.0.11
   url_launcher: ^6.1.7
+  rflutter_alert: ^2.0.4
   
 
 dev_dependencies:

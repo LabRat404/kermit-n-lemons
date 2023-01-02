@@ -1,5 +1,4 @@
-//new backup upload image
-
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:trade_app/widgets/reusable_widget.dart';
 import 'package:trade_app/screens/bookInfodetail.dart';
@@ -360,22 +359,23 @@ class _UploadPageState extends State<UploadPage> {
       child: const Text('Upload image of the item'),
     );
 
-    final UploadImageButton = ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
-        backgroundColor: const Color.fromARGB(100, 217, 217, 217),
-        minimumSize: const Size(350, 350),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-      ),
-      onPressed: () {
-        //let user to choose photo from album
-        // isVideo = false;
-        // _onImageButtonPressed(ImageSource.gallery, context: context);
-      },
-      child: const Text('Upload image here'),
-    );
+    // final UploadImageButton = ElevatedButton(
+
+    //   style: ElevatedButton.styleFrom(
+    //     foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+    //     backgroundColor: const Color.fromARGB(100, 217, 217, 217),
+    //     minimumSize: const Size(350, 350),
+    //     shape: RoundedRectangleBorder(
+    //       borderRadius: BorderRadius.circular(10.0),
+    //     ),
+    //   ),
+    //   onPressed: () {
+    //     //let user to choose photo from album
+    //     // isVideo = false;
+    //     // _onImageButtonPressed(ImageSource.gallery, context: context);
+    //   },
+    //   child: const Text('Upload image here'),
+    // );
     final Display = FutureBuilder<void>(
       //future: retrieveLostData(),
       builder: (BuildContext context, AsyncSnapshot<void> snapshot) {

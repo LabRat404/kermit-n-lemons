@@ -48,7 +48,6 @@ class _SettingsPageState extends State<SettingsPage> {
   Future<void> readJson(realusername) async {
     //load  the json here!!
     //fetch here
-    print("asdassadasdasdasdasdasdas");
     print("username is:" + realusername);
     http.Response resaa = await http.get(
         Uri.parse('http://172.20.10.3:3000/api/grabuserdata/$realusername'),

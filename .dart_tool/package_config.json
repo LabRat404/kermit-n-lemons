@@ -416,6 +416,12 @@
       "languageVersion": "2.14"
     },
     {
+      "name": "rflutter_alert",
+      "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/rflutter_alert-2.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "sasl_scram",
       "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/sasl_scram-0.1.1",
       "packageUri": "lib/",
@@ -644,7 +650,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2022-12-27T23:36:50.844426Z",
+  "generated": "2023-01-02T15:14:17.852524Z",
   "generator": "pub",
   "generatorVersion": "2.18.6"
 }
