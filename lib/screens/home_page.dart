@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    loadBookData();
+    //loadBookData();
   }
 
   //I dont like this, its hard coding and I tried not to, but maybe will fix it later

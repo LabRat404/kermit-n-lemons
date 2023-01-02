@@ -101,13 +101,10 @@ class _UserListState extends State<UserList> {
                           child: Column(
                             children: [
                               ListTile(
-                                title: Text("Posted by user: " +
-                                    _items[index]["username"]),
+                                title: Text("Book title: " +
+                                    _items[index]["booktitle"]),
                                 subtitle: Text(
-                                  "Book title: " +
-                                      _items[index]["booktitle"] +
-                                      '\n' +
-                                      "Book author " +
+                                  "Book author: " +
                                       _items[index]["author"] +
                                       '\n' +
                                       "ISBN code: " +
@@ -167,7 +164,7 @@ class _UserListState extends State<UserList> {
                                       );
                                     },
                                     style: ElevatedButton.styleFrom(
-                                      primary: Colors.red,
+                                      backgroundColor: Colors.green,
                                       shadowColor: Colors.orange,
                                     ),
                                   ),

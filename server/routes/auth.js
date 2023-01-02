@@ -132,6 +132,21 @@ authRouter.get("/api/grabuserlist/:username", async (req, res) => {
      }
      );   
 });
+authRouter.get("/api/graballuserbook", async (req, res) => {
+   
+    Image2
+    .find().sort( { booktitle: 1 } )
+    .exec( (e, results) => {
+        if (e)
+          res.send("Error not known");
+      else if(results == null)
+          res.send("404 not found. No records found!", 404);
+        else{
+        res.send(results);
+        }
+     }
+     );   
+});
 
 authRouter.get("/api/grabuserdata/:username", async (req, res) => {
     console.log(req.params["username"]);
@@ -150,6 +165,7 @@ authRouter.get("/api/grabuserdata/:username", async (req, res) => {
      );
 
 });
+
 
 authRouter.put("/api/changeavatar/:username", async (req, res) => {
     console.log(req.params["username"]+ req.body['url']);
