@@ -135,6 +135,12 @@ class _SearchPageState extends State<SearchPage> {
                                         _items[index]["username"]),
                                     onPressed: () async {
                                       print("Trade!");
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                            content:
+                                                Text('Trade Request Sent!')),
+                                      );
                                     },
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.green,
@@ -232,21 +238,29 @@ class CustomSearchDelegate extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     List<String> seacrhTerms = [];
-    List<String> matchQueryLink = [];
-    List<String> matchQueryName = [];
-    List<String> matchQueryHashName = [];
+    List<String> matchQueryLinkTerms = [];
+    List<String> matchQueryNameTerms = [];
+    List<String> matchQueryHashNameTerms = [];
     //_items_full.isNotEmpty ? {print("hi")} : {print("bye")};
     _items_full.forEach((element) {
       seacrhTerms.add(element["booktitle"]);
-      matchQueryLink.add(element["url"]);
-      matchQueryName.add(element["username"]);
-      matchQueryHashName.add(element["name"]);
+      matchQueryLinkTerms.add(element["url"]);
+      matchQueryNameTerms.add(element["username"]);
+      matchQueryHashNameTerms.add(element["name"]);
     });
     List<String> matchQuery = [];
-
+    List<String> matchQueryLink = [];
+    List<String> matchQueryName = [];
+    List<String> matchQueryHashName = [];
+    int i = 0;
     for (var item in seacrhTerms) {
-      if (item.toLowerCase().contains(query.toLowerCase()))
+      if (item.toLowerCase().contains(query.toLowerCase())) {
         matchQuery.add(item);
+        matchQueryLink.add(matchQueryLinkTerms[i]);
+        matchQueryName.add(matchQueryNameTerms[i]);
+        matchQueryHashName.add(matchQueryHashNameTerms[i]);
+      }
+      i++;
     }
 
     return ListView.builder(

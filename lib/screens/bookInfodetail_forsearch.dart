@@ -41,31 +41,33 @@ class _InfoDetailPageSearchState extends State<InfoDetailPageSearch> {
 
     final data2 = await json.decode(resa.body);
     String btitle = "Not found";
-    String bsubtitle = "Not found";
     String blink = "Not found";
     String bauthors = "Not found";
     String binfoLink = "Not found";
-    String bdescription = "Not found";
+    String bcomments = "Not found";
     String postby = "Not found";
-    print("asdsadsadsad" + postby);
-    print("data name is" + data2[0]["name"]);
-    // if (data2["name"] != null) btitle = data2["name"].toString();
-    // if (data2["name"] != null) bsubtitle = data2["name"].toString();
-    // if (data2["name"] != null) bauthors = data2["name"].toString();
-    // if (data2["name"] != null) binfoLink = data2["name"].toString();
-    // if (data2["name"] != null) postby = data2["name"].toString();
-    // if (data2["name"] != null) bdescription = data2["name"].toString();
-    // if (data2["name"] != null) blink = data2["name"].toString();
-
+    String bdbISBN = "Not found";
+    if (data2[0]["booktitle"] != null)
+      btitle = data2[0]["booktitle"].toString();
+    if (data2[0]["author"] != null) bauthors = data2[0]["author"].toString();
+    if (data2[0]["googlelink"] != null)
+      binfoLink = data2[0]["googlelink"].toString();
+    if (data2[0]["username"] != null) postby = data2[0]["username"].toString();
+    if (data2[0]["comments"] != null)
+      bcomments = data2[0]["comments"].toString();
+    if (data2[0]["url"] != null) blink = data2[0]["url"].toString();
+    bcomments = data2[0]["comments"].toString();
+    if (data2[0]["dbISBN"] != null) bdbISBN = data2[0]["dbISBN"].toString();
     setState(() {
       info.addAll([
         btitle,
-        bsubtitle,
         bauthors,
-        blink,
         binfoLink,
-        bdescription,
-        postby
+        postby,
+        bcomments,
+        blink,
+        bdbISBN,
+        widget.hashname
       ]);
     });
   }
@@ -83,23 +85,24 @@ class _InfoDetailPageSearchState extends State<InfoDetailPageSearch> {
                 clipBehavior: Clip.antiAlias,
                 child: Column(
                   children: [
-                    (info[3] == "Not found")
+                    (info[5] == "Not found")
                         ? Image.asset('assets/empty.png')
-                        : Image.network(info[3]),
+                        : Image.network(info[5]),
                     ListTile(
-                      title: Text("Book title: " + info[0]),
+                      title: Text(info[0]),
                       subtitle: Text(
-                        "Subtitle: " +
+                        "By " +
                             info[1] +
                             '\n' +
-                            "Book author " +
-                            info[2] +
+                            "Posted by User: " +
+                            info[3] +
                             '\n' +
                             "ISBN code: " +
-                            widget.hashname +
+                            info[6] +
                             '\n' +
-                            "Description: " +
-                            info[5],
+                            "Comments by user: " +
+                            '\n' +
+                            info[4],
                         style: TextStyle(color: Colors.black.withOpacity(0.6)),
                       ),
                     ),
@@ -112,11 +115,26 @@ class _InfoDetailPageSearchState extends State<InfoDetailPageSearch> {
                       //alignment: Alignment.center,
                       children: [
                         ElevatedButton.icon(
+                          icon: Icon(Icons.recycling),
+                          label: Text("Trade with user " + info[3]),
+                          onPressed: () async {
+                            print("Trade!Book hash is " + info[7]);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text('Trade Request Sent!')),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green,
+                            shadowColor: Colors.orange,
+                          ),
+                        ),
+                        ElevatedButton.icon(
                           icon: Icon(Icons.link),
                           label: Text("Show more on Google Play Book"),
                           onPressed: () async {
-                            if (await canLaunchUrl(Uri.parse(info[4]))) {
-                              launchUrl(Uri.parse(info[4]));
+                            if (await canLaunchUrl(Uri.parse(info[2]))) {
+                              launchUrl(Uri.parse(info[2]));
                             }
                           },
                         ),
