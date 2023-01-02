@@ -132,6 +132,23 @@ authRouter.get("/api/grabuserlist/:username", async (req, res) => {
      }
      );   
 });
+
+authRouter.get("/api/grabdbbook/:hashname", async (req, res) => {
+    console.log(req.params["hashname"]);
+    Image2
+    .find({name : req.params["hashname"]})
+    .exec( (e, results) => {
+        if (e)
+          res.send("Error not known");
+      else if(results == null)
+          res.send("404 not found. No records found!", 404);
+        else{
+        res.send(results);
+        }
+     }
+     );   
+});
+
 authRouter.get("/api/graballuserbook", async (req, res) => {
    
     Image2
@@ -159,7 +176,7 @@ authRouter.get("/api/grabuserdata/:username", async (req, res) => {
           res.send("404 not found. No records found!", 404);
         else{
         res.send(results);
-        console.log(results);
+        //console.log(results);
         }
      }
      );

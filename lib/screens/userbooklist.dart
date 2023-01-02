@@ -61,7 +61,7 @@ class _UserListState extends State<UserList> {
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         });
-    print(resaa);
+    //print(resaa);
     final data = await json.decode(resaa.body);
     setState(() {
       _items = data;
@@ -136,8 +136,7 @@ class _UserListState extends State<UserList> {
                                     onPressed: () async {
                                       var delname = _items[index]["name"];
                                       var delhash = _items[index]["delhash"];
-                                      print("input is:  " +
-                                          _items[index]["name"]);
+                                      //print("input is:  " +_items[index]["name"]);
                                       var res = await http.delete(
                                           Uri.parse(
                                               'http://172.20.10.3:3000/api/dellist/$delname'),
@@ -164,7 +163,7 @@ class _UserListState extends State<UserList> {
                                       );
                                     },
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.green,
+                                      backgroundColor: Colors.red,
                                       shadowColor: Colors.orange,
                                     ),
                                   ),
@@ -178,7 +177,7 @@ class _UserListState extends State<UserList> {
                                         launchUrl(Uri.parse(
                                             _items[index]["googlelink"]));
                                       }
-                                      print(_items[index]["googlelink"]);
+                                      //print(_items[index]["googlelink"]);
                                     },
                                   ),
                                 ],

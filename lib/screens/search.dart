@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:trade_app/screens/userbooklist.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
+import 'package:trade_app/screens/bookInfodetail_forsearch.dart';
 import 'package:trade_app/widgets/reusable_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:trade_app/provider/user_provider.dart';
@@ -17,6 +18,8 @@ class SearchPage extends StatefulWidget {
   @override
   State<SearchPage> createState() => _SearchPageState();
 }
+
+List _items_full = [];
 
 class _SearchPageState extends State<SearchPage> {
   @override
@@ -45,10 +48,11 @@ class _SearchPageState extends State<SearchPage> {
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         });
-    print(resaa);
+    //print(resaa);
     final data = await json.decode(resaa.body);
     setState(() {
       _items = data;
+      _items_full = _items;
     });
   }
 
@@ -133,7 +137,7 @@ class _SearchPageState extends State<SearchPage> {
                                       print("Trade!");
                                     },
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.red,
+                                      backgroundColor: Colors.green,
                                       shadowColor: Colors.orange,
                                     ),
                                   ),
@@ -147,7 +151,7 @@ class _SearchPageState extends State<SearchPage> {
                                         launchUrl(Uri.parse(
                                             _items[index]["googlelink"]));
                                       }
-                                      print(_items[index]["googlelink"]);
+                                      //print(_items[index]["googlelink"]);
                                     },
                                   ),
                                 ],
@@ -179,11 +183,6 @@ class _SearchPageState extends State<SearchPage> {
 }
 
 class CustomSearchDelegate extends SearchDelegate {
-  List<String> seacrhTerms = [
-    'Atomic Habits',
-    'Cracking the Coding Interview, Fourth Edition Book 1',
-    'The Last Wish',
-  ];
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -191,7 +190,6 @@ class CustomSearchDelegate extends SearchDelegate {
         icon: const Icon(Icons.clear),
         onPressed: () {
           query = '';
-          print("hi");
         },
       ),
     ];
@@ -209,6 +207,11 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
+    List<String> seacrhTerms = [
+      'Atomic Habits',
+      'Cracking the Coding Interview, Fourth Edition Book 2',
+      'The Last Wish',
+    ];
     List<String> matchQuery = [];
     for (var fruit in seacrhTerms) {
       if (fruit.toLowerCase().contains(query.toLowerCase())) {
@@ -228,26 +231,43 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    List<String> seacrhTerms = [];
+    List<String> matchQueryLink = [];
+    List<String> matchQueryName = [];
+    List<String> matchQueryHashName = [];
+    //_items_full.isNotEmpty ? {print("hi")} : {print("bye")};
+    _items_full.forEach((element) {
+      seacrhTerms.add(element["booktitle"]);
+      matchQueryLink.add(element["url"]);
+      matchQueryName.add(element["username"]);
+      matchQueryHashName.add(element["name"]);
+    });
     List<String> matchQuery = [];
-    for (var fruit in seacrhTerms) {
-      if (fruit.toLowerCase().contains(query.toLowerCase()))
-        matchQuery.add(fruit);
+
+    for (var item in seacrhTerms) {
+      if (item.toLowerCase().contains(query.toLowerCase()))
+        matchQuery.add(item);
     }
+
     return ListView.builder(
       itemCount: matchQuery.length,
       itemBuilder: (context, index) {
         var result = matchQuery[index];
+        var link = matchQueryLink[index];
+        var usernames = matchQueryName[index];
+        var hashname = matchQueryHashName[index];
         return ListTile(
+          leading: Image.network(link),
           title: Text(result),
           subtitle: Text(
-            "Asddsad",
+            "Posted by user: " + usernames,
             style: TextStyle(color: Colors.black.withOpacity(0.6)),
           ),
           onTap: () {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => UserList(),
+                builder: (context) => InfoDetailPageSearch(hashname: hashname),
               ),
             );
           },
