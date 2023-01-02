@@ -1,16 +1,9 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:trade_app/widgets/app_title_homepage.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:trade_app/widgets/reusable_widget.dart';
 import 'package:trade_app/provider/user_provider.dart';
 import 'package:provider/provider.dart';
 import 'dart:convert';
-import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:provider/provider.dart';
-import 'package:trade_app/provider/user_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 

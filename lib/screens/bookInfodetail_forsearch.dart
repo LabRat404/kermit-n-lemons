@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:trade_app/widgets/reusable_widget.dart';
-//new backup upload image
 import 'package:http/http.dart' as http;
-
 import 'package:url_launcher/url_launcher.dart';
 
 class InfoDetailPageSearch extends StatefulWidget {

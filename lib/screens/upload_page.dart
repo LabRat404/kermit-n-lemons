@@ -9,7 +9,6 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:convert';
 import 'package:trade_app/widgets/nav_bar.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';

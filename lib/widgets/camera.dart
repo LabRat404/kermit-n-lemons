@@ -1,11 +1,7 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:trade_app/services/auth/connector.dart';
-import 'package:trade_app/screens/bookInfodetail.dart';
 
 class ISBN_info {
   final String title;

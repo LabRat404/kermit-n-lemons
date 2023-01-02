@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:trade_app/widgets/reusable_widget.dart';
-import 'package:trade_app/screens/settings_page.dart';
 
 class ChangePage extends StatefulWidget {
   static String tag = 'change-page';
