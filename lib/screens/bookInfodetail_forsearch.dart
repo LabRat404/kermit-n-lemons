@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:trade_app/widgets/reusable_widget.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
+import 'package:trade_app/screens/showOtherUser.dart';
 
 class InfoDetailPageSearch extends StatefulWidget {
   final String hashname;
@@ -135,6 +136,24 @@ class _InfoDetailPageSearchState extends State<InfoDetailPageSearch> {
                               launchUrl(Uri.parse(info[2]));
                             }
                           },
+                        ),
+                        ElevatedButton.icon(
+                          icon: Icon(Icons.add),
+                          label: Text("See profile" + info[3]),
+                          onPressed: () async {
+                            print("Trade!Book hash is " + info[7]);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ShowotherUser(otherusername: info[3]),
+                              ),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green,
+                            shadowColor: Colors.orange,
+                          ),
                         ),
                       ],
                     ))
