@@ -32,14 +32,16 @@ class ISBN_info {
   }
 }
 
-class UserList extends StatefulWidget {
-  const UserList({Key? key}) : super(key: key);
-  static const String routeName = '/bookinfo';
+class ShowotherUser extends StatefulWidget {
+  final String otherusername;
+  const ShowotherUser({required this.otherusername, Key? key})
+      : super(key: key);
+  static const String routeName = '/showotheruser';
   @override
-  State<UserList> createState() => _UserListState();
+  State<ShowotherUser> createState() => _ShowotherUserState();
 }
 
-class _UserListState extends State<UserList> {
+class _ShowotherUserState extends State<ShowotherUser> {
   @override
   //String realusername = 'doria';
 
@@ -50,6 +52,7 @@ class _UserListState extends State<UserList> {
     // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
     //   realusername = Provider.of<String>(context, listen: false);
     // });
+    String realusername = widget.otherusername;
     readJson(realusername);
     readJson2(realusername);
   }
