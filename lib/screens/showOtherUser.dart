@@ -117,22 +117,14 @@ class _ShowotherUserState extends State<ShowotherUser> {
   @override
   Widget build(BuildContext context) {
     var username = widget.otherusername;
+    var flag = 0;
+
     return Scaffold(
       appBar: ReusableWidgets.LoginPageAppBar(username),
       body: Padding(
         padding: const EdgeInsets.all(25),
         child: Column(
           children: [
-            if (links.isEmpty)
-              SimpleUserCard(
-                userName: username,
-                userProfilePic: AssetImage("assets/empty.png"),
-              )
-            else
-              SimpleUserCard(
-                userName: username,
-                userProfilePic: NetworkImage(links),
-              ),
             if (_items.isNotEmpty)
               Expanded(
                 child: ListView.builder(
@@ -142,6 +134,17 @@ class _ShowotherUserState extends State<ShowotherUser> {
                       clipBehavior: Clip.antiAlias,
                       child: Column(
                         children: [
+                          if (links.isEmpty && index == 0)
+                            SimpleUserCard(
+                              userName: username,
+                              userProfilePic: AssetImage("assets/empty.png"),
+                            )
+                          else if (index == 0)
+                            SimpleUserCard(
+                              userName: username,
+                              userProfilePic: NetworkImage(links),
+                            ),
+
                           ListTile(
                             title: Text(
                                 "Book title: " + _items[index]["booktitle"]),
@@ -212,8 +215,18 @@ class _ShowotherUserState extends State<ShowotherUser> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  if (links.isEmpty)
+                    SimpleUserCard(
+                      userName: username,
+                      userProfilePic: AssetImage("assets/empty.png"),
+                    )
+                  else
+                    SimpleUserCard(
+                      userName: username,
+                      userProfilePic: NetworkImage(links),
+                    ),
                   new Text(
-                    'Bring doria back so its not empty here!',
+                    'Bring doria back so its not empty here!(User have no item yet!)',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                   Center(
