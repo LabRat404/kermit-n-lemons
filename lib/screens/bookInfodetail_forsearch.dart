@@ -4,6 +4,7 @@ import 'package:trade_app/widgets/reusable_widget.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:trade_app/screens/showOtherUser.dart';
+import 'package:trade_app/screens/chatter.dart';
 
 class InfoDetailPageSearch extends StatefulWidget {
   final String hashname;
@@ -121,6 +122,12 @@ class _InfoDetailPageSearchState extends State<InfoDetailPageSearch> {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                   content: Text('Trade Request Sent!')),
+                            );
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Chatter(title: "hihi"),
+                              ),
                             );
                           },
                           style: ElevatedButton.styleFrom(

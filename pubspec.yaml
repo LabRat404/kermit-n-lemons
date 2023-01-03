@@ -54,6 +54,10 @@ dependencies:
   path_provider: ^2.0.11
   url_launcher: ^6.1.7
   rflutter_alert: ^2.0.4
+  flutter_chat_ui: ^1.6.6
+  chat_bubbles: ^1.4.0
+  cached_network_image: ^3.2.3
+  audioplayers: ^1.2.0
   
 
 dev_dependencies:

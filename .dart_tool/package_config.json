@@ -8,6 +8,48 @@
       "languageVersion": "2.14"
     },
     {
+      "name": "audioplayers",
+      "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers-1.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "audioplayers_android",
+      "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers_android-1.1.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "audioplayers_darwin",
+      "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers_darwin-1.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "audioplayers_linux",
+      "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers_linux-1.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "audioplayers_platform_interface",
+      "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers_platform_interface-2.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "audioplayers_web",
+      "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers_web-2.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "audioplayers_windows",
+      "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/audioplayers_windows-1.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
       "name": "babstrap_settings_screen",
       "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/babstrap_settings_screen-0.1.3",
       "packageUri": "lib/",
@@ -38,6 +80,24 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "cached_network_image",
+      "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/cached_network_image-3.2.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "cached_network_image_platform_interface",
+      "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/cached_network_image_platform_interface-2.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "cached_network_image_web",
+      "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/cached_network_image_web-1.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
       "name": "carousel_slider",
       "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/carousel_slider-4.1.1",
       "packageUri": "lib/",
@@ -46,6 +106,12 @@
     {
       "name": "characters",
       "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/characters-1.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "chat_bubbles",
+      "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/chat_bubbles-1.4.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -98,6 +164,18 @@
       "languageVersion": "2.14"
     },
     {
+      "name": "diffutil_dart",
+      "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/diffutil_dart-3.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "equatable",
+      "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/equatable-2.0.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "fake_async",
       "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/fake_async-1.3.1",
       "packageUri": "lib/",
@@ -134,6 +212,30 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "flutter_blurhash",
+      "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_blurhash-0.7.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.15"
+    },
+    {
+      "name": "flutter_cache_manager",
+      "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_cache_manager-3.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "flutter_chat_types",
+      "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_chat_types-3.6.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "flutter_chat_ui",
+      "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_chat_ui-1.6.6",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
       "name": "flutter_image_compress",
       "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_image_compress-1.1.3",
       "packageUri": "lib/",
@@ -146,10 +248,28 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_link_previewer",
+      "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_link_previewer-3.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "flutter_linkify",
+      "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_linkify-5.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_lints",
       "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_lints-2.0.1",
       "packageUri": "lib/",
       "languageVersion": "2.17"
+    },
+    {
+      "name": "flutter_parsed_text",
+      "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_parsed_text-2.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "flutter_plugin_android_lifecycle",
@@ -236,6 +356,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "intl",
+      "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/intl-0.17.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "js",
       "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/js-0.6.4",
       "packageUri": "lib/",
@@ -246,6 +372,12 @@
       "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/json_annotation-4.7.0",
       "packageUri": "lib/",
       "languageVersion": "2.17"
+    },
+    {
+      "name": "linkify",
+      "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/linkify-4.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "lints",
@@ -304,6 +436,12 @@
     {
       "name": "nested",
       "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/nested-1.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "octo_image",
+      "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/octo_image-1.0.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -368,6 +506,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "photo_view",
+      "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/photo_view-0.14.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "platform",
       "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/platform-3.1.0",
       "packageUri": "lib/",
@@ -422,6 +566,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "rxdart",
+      "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/rxdart-0.27.7",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "sasl_scram",
       "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/sasl_scram-0.1.1",
       "packageUri": "lib/",
@@ -430,6 +580,12 @@
     {
       "name": "saslprep",
       "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/saslprep-1.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "scroll_to_index",
+      "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/scroll_to_index-3.0.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -494,6 +650,18 @@
       "languageVersion": "2.14"
     },
     {
+      "name": "sqflite",
+      "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/sqflite-2.2.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "sqflite_common",
+      "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/sqflite_common-2.4.0+2",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
       "name": "stack_trace",
       "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/stack_trace-1.10.0",
       "packageUri": "lib/",
@@ -510,6 +678,12 @@
       "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/string_scanner-1.1.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "synchronized",
+      "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/synchronized-3.0.0+3",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
     },
     {
       "name": "term_glyph",
@@ -626,6 +800,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "visibility_detector",
+      "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/visibility_detector-0.3.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "vy_string_utils",
       "rootUri": "file:///Users/tangjaii/Desktop/flutter/.pub-cache/hosted/pub.dartlang.org/vy_string_utils-0.4.5",
       "packageUri": "lib/",
@@ -650,7 +830,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2023-01-02T15:14:17.852524Z",
+  "generated": "2023-01-03T23:29:43.033136Z",
   "generator": "pub",
   "generatorVersion": "2.18.6"
 }
