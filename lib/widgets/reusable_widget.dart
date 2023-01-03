@@ -11,6 +11,27 @@ class ReusableWidgets {
     );
   }
 
+  static otherUserProfile(String title) {
+    var namee = title;
+    return AppBar(
+      title: Text(
+        "$namee's Profile",
+        style: GoogleFonts.montserrat(
+            textStyle: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                height: 0.9,
+                fontSize: 25)),
+        textAlign: TextAlign.left,
+      ),
+      flexibleSpace: Image(
+        image: AssetImage('assets/book_title.jpg'),
+        fit: BoxFit.cover,
+      ),
+      backgroundColor: Colors.transparent,
+    );
+  }
+
   static UploadItem(String title) {
     return AppBar(
       title: Text('Upload your book!'),

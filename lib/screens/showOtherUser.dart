@@ -116,95 +116,111 @@ class _ShowotherUserState extends State<ShowotherUser> {
 
   @override
   Widget build(BuildContext context) {
-    var username = context.watch<UserProvider>().user.name;
+    var username = widget.otherusername;
     return Scaffold(
-      appBar: ReusableWidgets.LoginPageAppBar("Your Inventory"),
+      appBar: ReusableWidgets.LoginPageAppBar(username),
       body: Padding(
         padding: const EdgeInsets.all(25),
         child: Column(
           children: [
-            links.isEmpty
-                ? SimpleUserCard(
-                    userName: username,
-                    userProfilePic: AssetImage("assets/empty.png"),
-                  )
-                : SimpleUserCard(
-                    userName: username,
-                    userProfilePic: NetworkImage(links),
-                  ),
-            _items.isNotEmpty
-                ? Expanded(
-                    child: ListView.builder(
-                      itemCount: _items.length,
-                      itemBuilder: (context, index) {
-                        return Card(
-                          clipBehavior: Clip.antiAlias,
-                          child: Column(
-                            children: [
-                              ListTile(
-                                title: Text("Book title: " +
-                                    _items[index]["booktitle"]),
-                                subtitle: Text(
-                                  "Book author: " +
-                                      _items[index]["author"] +
-                                      '\n' +
-                                      "ISBN code: " +
-                                      _items[index]["dbISBN"],
-                                  style: TextStyle(
-                                      color: Colors.black.withOpacity(0.6)),
-                                ),
-                              ),
-
-                              ButtonBar(
-                                alignment: MainAxisAlignment.start,
-                              ),
-                              //Image.network(_items[index]["smallThumbnail"]),
-                              Image.network(_items[index]["url"]),
-
-                              Padding(
-                                padding: const EdgeInsets.all(5),
-                                child: Text(
-                                  _items[index]["comments"],
-                                  style: TextStyle(
-                                      color: Colors.black.withOpacity(0.6)),
-                                ),
-                              ),
-                              ButtonBar(
-                                children: [
-                                  ElevatedButton.icon(
-                                    icon: Icon(Icons.link),
-                                    label:
-                                        Text("Show more on Google Play Book"),
-                                    onPressed: () async {
-                                      if (await canLaunchUrl(Uri.parse(
-                                          _items[index]["googlelink"]))) {
-                                        launchUrl(Uri.parse(
-                                            _items[index]["googlelink"]));
-                                      }
-                                      //print(_items[index]["googlelink"]);
-                                    },
-                                  ),
-                                ],
-                              )
-                            ],
+            if (links.isEmpty)
+              SimpleUserCard(
+                userName: username,
+                userProfilePic: AssetImage("assets/empty.png"),
+              )
+            else
+              SimpleUserCard(
+                userName: username,
+                userProfilePic: NetworkImage(links),
+              ),
+            if (_items.isNotEmpty)
+              Expanded(
+                child: ListView.builder(
+                  itemCount: _items.length,
+                  itemBuilder: (context, index) {
+                    return Card(
+                      clipBehavior: Clip.antiAlias,
+                      child: Column(
+                        children: [
+                          ListTile(
+                            title: Text(
+                                "Book title: " + _items[index]["booktitle"]),
+                            subtitle: Text(
+                              "Book author: " +
+                                  _items[index]["author"] +
+                                  '\n' +
+                                  "ISBN code: " +
+                                  _items[index]["dbISBN"],
+                              style: TextStyle(
+                                  color: Colors.black.withOpacity(0.6)),
+                            ),
                           ),
-                        );
-                      },
-                    ),
-                  )
-                : Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      new Text(
-                        'Bring doria back so its not empty here!',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18),
+
+                          ButtonBar(
+                            alignment: MainAxisAlignment.start,
+                          ),
+                          //Image.network(_items[index]["smallThumbnail"]),
+                          Image.network(_items[index]["url"]),
+
+                          Padding(
+                            padding: const EdgeInsets.all(5),
+                            child: Text(
+                              _items[index]["comments"],
+                              style: TextStyle(
+                                  color: Colors.black.withOpacity(0.6)),
+                            ),
+                          ),
+                          ButtonBar(
+                            children: [
+                              ElevatedButton.icon(
+                                icon: Icon(Icons.recycling),
+                                label: Text("Trade with user " + username),
+                                onPressed: () async {
+                                  print("Trade!Book hash is " +
+                                      _items[index]["name"]);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content: Text('Trade Request Sent!')),
+                                  );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.green,
+                                  shadowColor: Colors.orange,
+                                ),
+                              ),
+                              ElevatedButton.icon(
+                                icon: Icon(Icons.link),
+                                label: Text("Show more on Google Play Book"),
+                                onPressed: () async {
+                                  if (await canLaunchUrl(
+                                      Uri.parse(_items[index]["googlelink"]))) {
+                                    launchUrl(
+                                        Uri.parse(_items[index]["googlelink"]));
+                                  }
+                                  //print(_items[index]["googlelink"]);
+                                },
+                              ),
+                            ],
+                          )
+                        ],
                       ),
-                      Center(
-                        child: Image.asset('assets/empty.png'),
-                      ),
-                    ],
+                    );
+                  },
+                ),
+              )
+            else
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  new Text(
+                    'Bring doria back so its not empty here!',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   ),
+                  Center(
+                    child: Image.asset('assets/empty.png'),
+                  ),
+                ],
+              ),
           ],
         ),
       ),
