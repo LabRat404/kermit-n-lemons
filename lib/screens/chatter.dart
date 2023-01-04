@@ -136,8 +136,8 @@ class _ChatterState extends State<Chatter> {
                   for (j = 0; j < data2["chats"][i]["chatter"].length; j++)
                     if (j == 0)
                       DateChip(
-                        date: new DateTime(now.year, now.month, now.day - 2),
-                      )
+                          date: DateTime.parse(
+                              data2["chats"][i]["chatter"][j]["dates"]))
                     else
                       // if (data2["chats"][i]["chatter"][j]["user"] ==
                       //     "tanjaii")

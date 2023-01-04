@@ -61,6 +61,7 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    var self = context.watch<UserProvider>().user.name;
     return Scaffold(
       appBar: AppBar(
         title: Text('Search for a book!',
@@ -132,32 +133,34 @@ class _SearchPageState extends State<SearchPage> {
                               ),
                               ButtonBar(
                                 children: [
-                                  ElevatedButton.icon(
-                                    icon: Icon(Icons.recycling),
-                                    label: Text("Trade with user " +
-                                        _items[index]["username"]),
-                                    onPressed: () async {
-                                      print("Trade!Book hash is " +
-                                          _items[index]["name"]);
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        const SnackBar(
-                                            content:
-                                                Text('Trade Request Sent!')),
-                                      );
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => Chatter(
-                                              title: _items[index]["username"]),
-                                        ),
-                                      );
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.green,
-                                      shadowColor: Colors.orange,
+                                  if (_items[index]["username"] != self)
+                                    ElevatedButton.icon(
+                                      icon: Icon(Icons.recycling),
+                                      label: Text("Trade with user " +
+                                          _items[index]["username"]),
+                                      onPressed: () async {
+                                        print("Trade!Book hash is " +
+                                            _items[index]["name"]);
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                              content:
+                                                  Text('Trade Request Sent!')),
+                                        );
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => Chatter(
+                                                title: _items[index]
+                                                    ["username"]),
+                                          ),
+                                        );
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.green,
+                                        shadowColor: Colors.orange,
+                                      ),
                                     ),
-                                  ),
                                   ElevatedButton.icon(
                                     icon: Icon(Icons.link),
                                     label:

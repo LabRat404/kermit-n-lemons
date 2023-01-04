@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
+import 'package:trade_app/provider/user_provider.dart';
 import 'package:trade_app/widgets/reusable_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:trade_app/provider/user_provider.dart';
@@ -116,6 +117,7 @@ class _ShowotherUserState extends State<ShowotherUser> {
 
   @override
   Widget build(BuildContext context) {
+    var self = context.watch<UserProvider>().user.name;
     var username = widget.otherusername;
     var flag = 0;
 
@@ -175,22 +177,23 @@ class _ShowotherUserState extends State<ShowotherUser> {
                           ),
                           ButtonBar(
                             children: [
-                              ElevatedButton.icon(
-                                icon: Icon(Icons.recycling),
-                                label: Text("Trade with user " + username),
-                                onPressed: () async {
-                                  print("Trade!Book hash is " +
-                                      _items[index]["name"]);
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        content: Text('Trade Request Sent!')),
-                                  );
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.green,
-                                  shadowColor: Colors.orange,
+                              if (username != self)
+                                ElevatedButton.icon(
+                                  icon: Icon(Icons.recycling),
+                                  label: Text("Trade with user " + username),
+                                  onPressed: () async {
+                                    print("Trade!Book hash is " +
+                                        _items[index]["name"]);
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text('Trade Request Sent!')),
+                                    );
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.green,
+                                    shadowColor: Colors.orange,
+                                  ),
                                 ),
-                              ),
                               ElevatedButton.icon(
                                 icon: Icon(Icons.link),
                                 label: Text("Show more on Google Play Book"),
