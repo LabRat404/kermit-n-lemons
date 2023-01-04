@@ -2,6 +2,41 @@ import 'package:flutter/material.dart';
 import 'package:chat_bubbles/chat_bubbles.dart';
 import 'package:audioplayers/audioplayers.dart';
 import "package:cached_network_image/cached_network_image.dart";
+import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:trade_app/widgets/reusable_widget.dart';
+import 'package:provider/provider.dart';
+import 'package:trade_app/provider/user_provider.dart';
+import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
+import 'package:trade_app/widgets/nav_bar.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:babstrap_settings_screen/babstrap_settings_screen.dart';
+import 'package:trade_app/screens/information_page.dart';
+import 'package:trade_app/screens/login_page.dart';
+import 'package:trade_app/screens/change_page.dart';
+import 'package:trade_app/screens/avatarchange.dart';
+import 'package:trade_app/widgets/reusable_widget.dart';
+import 'package:trade_app/provider/user_provider.dart';
+import 'package:provider/provider.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:trade_app/services/auth/connector.dart';
+import 'package:trade_app/provider/user_provider.dart';
+import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:trade_app/widgets/nav_bar.dart';
+import '../../constants/error_handling.dart';
+import 'package:trade_app/screens/login_page.dart';
+import 'package:provider/provider.dart';
+import 'package:trade_app/provider/user_provider.dart';
 
 class Chatter extends StatefulWidget {
   final String title;
@@ -12,6 +47,33 @@ class Chatter extends StatefulWidget {
 }
 
 class _ChatterState extends State<Chatter> {
+  void initState() {
+    super.initState();
+    readJson();
+  }
+
+  List _items = [];
+  // Fetch content from the json file
+  Future<void> readJson() async {
+    //load  the json here!!
+    //fetch here
+
+    final String response = await rootBundle.loadString('assets/chatter.json');
+    // final data = await json.decode(response);
+    // http.Response resaa = await http.get(
+    //     Uri.parse('http://172.20.10.3:3000/api/grabuserlist/tangjaii'),
+    //     headers: <String, String>{
+    //       'Content-Type': 'application/json; charset=UTF-8',
+    //     });
+    // print(resaa);
+    final data = await json.decode(response);
+    print(data[0]);
+    setState(() {
+      // _items = data["items"];
+      // _items = data;
+    });
+  }
+
   AudioPlayer audioPlayer = new AudioPlayer();
   Duration duration = new Duration();
   Duration position = new Duration();
@@ -31,152 +93,21 @@ class _ChatterState extends State<Chatter> {
           SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                BubbleNormalImage(
-                  id: 'id001',
-                  image: _image(),
-                  color: Colors.purpleAccent,
-                  tail: true,
-                  delivered: true,
-                ),
-                BubbleNormalAudio(
-                  color: Color(0xFFE8E8EE),
-                  duration: duration.inSeconds.toDouble(),
-                  position: position.inSeconds.toDouble(),
-                  isPlaying: isPlaying,
-                  isLoading: isLoading,
-                  isPause: isPause,
-                  onSeekChanged: _changeSeek,
-                  onPlayPauseButtonClick: _playAudio,
-                  sent: true,
-                ),
-                BubbleNormal(
-                  text: 'bubble normal with tail',
-                  isSender: false,
-                  color: Color(0xFF1B97F3),
-                  tail: true,
-                  textStyle: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                  ),
-                ),
-                BubbleNormal(
-                  text: 'bubble normal with tail',
-                  isSender: true,
-                  color: Color(0xFFE8E8EE),
-                  tail: true,
-                  sent: true,
-                ),
-                DateChip(
-                  date: new DateTime(now.year, now.month, now.day - 2),
-                ),
-                BubbleNormal(
-                  text: 'bubble normal without tail',
-                  isSender: false,
-                  color: Color(0xFF1B97F3),
-                  tail: false,
-                  textStyle: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                  ),
-                ),
-                BubbleNormal(
-                  text: 'bubble normal without tail',
-                  color: Color(0xFFE8E8EE),
-                  tail: false,
-                  sent: true,
-                  seen: true,
-                  delivered: true,
-                ),
+                // BubbleNormalImage(
+                //   id: 'id001',
+                //   image: _image(),
+                //   color: Colors.purpleAccent,
+                //   tail: true,
+                //   delivered: true,
+                // ),
                 BubbleSpecialOne(
-                  text: 'bubble special one with tail',
+                  text: 'I reaaly loved u and miss u QAQ',
                   isSender: false,
                   color: Color(0xFF1B97F3),
                   textStyle: TextStyle(
                     fontSize: 20,
                     color: Colors.white,
                   ),
-                ),
-                DateChip(
-                  date: new DateTime(now.year, now.month, now.day - 1),
-                ),
-                BubbleSpecialOne(
-                  text: 'bubble special one with tail',
-                  color: Color(0xFFE8E8EE),
-                  seen: true,
-                ),
-                BubbleSpecialOne(
-                  text: 'bubble special one without tail',
-                  isSender: false,
-                  tail: false,
-                  color: Color(0xFF1B97F3),
-                  textStyle: TextStyle(
-                    fontSize: 20,
-                    color: Colors.black,
-                  ),
-                ),
-                BubbleSpecialOne(
-                  text: 'bubble special one without tail',
-                  tail: false,
-                  color: Color(0xFFE8E8EE),
-                  sent: true,
-                ),
-                BubbleSpecialTwo(
-                  text: 'bubble special tow with tail',
-                  isSender: false,
-                  color: Color(0xFF1B97F3),
-                  textStyle: TextStyle(
-                    fontSize: 20,
-                    color: Colors.black,
-                  ),
-                ),
-                DateChip(
-                  date: now,
-                ),
-                BubbleSpecialTwo(
-                  text: 'bubble special tow with tail',
-                  isSender: true,
-                  color: Color(0xFFE8E8EE),
-                  sent: true,
-                ),
-                BubbleSpecialTwo(
-                  text: 'bubble special tow without tail',
-                  isSender: false,
-                  tail: false,
-                  color: Color(0xFF1B97F3),
-                  textStyle: TextStyle(
-                    fontSize: 20,
-                    color: Colors.black,
-                  ),
-                ),
-                BubbleSpecialTwo(
-                  text: 'bubble special tow without tail',
-                  tail: false,
-                  color: Color(0xFFE8E8EE),
-                  delivered: true,
-                ),
-                BubbleSpecialThree(
-                  text: 'bubble special three without tail',
-                  color: Color(0xFF1B97F3),
-                  tail: false,
-                  textStyle: TextStyle(color: Colors.white, fontSize: 16),
-                ),
-                BubbleSpecialThree(
-                  text: 'bubble special three with tail',
-                  color: Color(0xFF1B97F3),
-                  tail: true,
-                  textStyle: TextStyle(color: Colors.white, fontSize: 16),
-                ),
-                BubbleSpecialThree(
-                  text: "bubble special three without tail",
-                  color: Color(0xFFE8E8EE),
-                  tail: false,
-                  isSender: false,
-                ),
-                BubbleSpecialThree(
-                  text: "bubble special three with tail",
-                  color: Color(0xFFE8E8EE),
-                  tail: true,
-                  isSender: false,
                 ),
                 SizedBox(
                   height: 100,
