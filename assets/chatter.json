@@ -1,0 +1,30 @@
+{
+  "chats": [
+    {
+  "dates": "4-Jan-2023",
+  "chatter": [
+    {
+      "user": "tanjaii",
+      "text": "Hey I love u"
+    },
+    {
+      "user": "Doria",
+      "identifier": "Bye"
+    }
+  ]
+  },
+  {
+    "dates": "5-Jan-2023",
+    "chatter": [
+      {
+        "user": "tanjaii",
+        "text": "Hey I love u"
+      },
+      {
+        "user": "Doria",
+        "identifier": "Bye"
+      }
+    ]
+    } 
+]
+}
