@@ -17,7 +17,7 @@
     },
     {
       "user": "Doria",
-      "identifier": "Bye"
+      "text": "Bye"
     }
   ]
   },
@@ -30,7 +30,7 @@
       },
       {
         "user": "Doria",
-        "identifier": "Bye"
+        "text": "Bye"
       }
     ]
     } 

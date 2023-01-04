@@ -52,7 +52,10 @@ class _ChatterState extends State<Chatter> {
     readJson();
   }
 
+  var data2;
+
   List _items = [];
+
   // Fetch content from the json file
   Future<void> readJson() async {
     //load  the json here!!
@@ -68,20 +71,22 @@ class _ChatterState extends State<Chatter> {
     // print(resaa);
 
     final data = await json.decode(response);
-    print(data["chats"][0]["chatter"].length);
-
-    data["chats"].forEach((value) {
-      value["chatter"].forEach((userchat) {
-        if (userchat["user"] == "tanjaii") {
-          print(userchat["text"].toString());
-        }
-        print("hi");
-      });
-    });
 
     setState(() {
       // _items = data["items"];
       // _items = data;
+      //data2 = data;
+      data2 = data;
+    });
+    print(data);
+    print("compare\n");
+    print(data2);
+    data2["chats"].forEach((value) {
+      value["chatter"].forEach((userchat) {
+        if (userchat["user"] == "tanjaii") {
+          print(userchat["text"].toString());
+        }
+      });
     });
   }
 
@@ -91,6 +96,13 @@ class _ChatterState extends State<Chatter> {
   bool isPlaying = false;
   bool isLoading = false;
   bool isPause = false;
+
+  // printchat() {
+  //   return
+  // }
+  int j = 0;
+
+  printchat(int i, int j) {}
 
   @override
   Widget build(BuildContext context) {
@@ -104,22 +116,46 @@ class _ChatterState extends State<Chatter> {
           SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                // BubbleNormalImage(
-                //   id: 'id001',
-                //   image: _image(),
-                //   color: Colors.purpleAccent,
-                //   tail: true,
-                //   delivered: true,
-                // ),
-                BubbleSpecialOne(
-                  text: 'I reaaly loved u and miss u QAQ',
-                  isSender: false,
-                  color: Color(0xFF1B97F3),
-                  textStyle: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                  ),
+                BubbleNormalImage(
+                  id: 'id001',
+                  image: _image(),
+                  color: Colors.purpleAccent,
+                  tail: true,
+                  delivered: true,
                 ),
+                //printchat(),data2["chats"].forEach((value) {
+                //   value["chatter"].forEach((userchat) {
+                //     if (userchat["user"] == "tanjaii") {
+                //       print(userchat["text"].toString());
+                //     }
+                //   });
+                // });
+
+                for (int i = 0; i < data2["chats"].length; i++)
+                  for (j = 0; j < data2["chats"][i]["chatter"].length; j++)
+                    if (data2["chats"][i]["chatter"][j]["user"] == "tanjaii")
+                      BubbleSpecialOne(
+                        text:
+                            data2["chats"][i]["chatter"][j]["text"].toString(),
+                        isSender: false,
+                        color: Colors.black,
+                        textStyle: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                        ),
+                      )
+                    else
+                      BubbleSpecialOne(
+                        text:
+                            data2["chats"][i]["chatter"][j]["text"].toString(),
+                        isSender: true,
+                        color: Color(0xFF1B97F3),
+                        textStyle: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                        ),
+                      ),
+
                 SizedBox(
                   height: 100,
                 )
