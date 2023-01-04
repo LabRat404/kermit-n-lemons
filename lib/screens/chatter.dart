@@ -66,8 +66,19 @@ class _ChatterState extends State<Chatter> {
     //       'Content-Type': 'application/json; charset=UTF-8',
     //     });
     // print(resaa);
+
     final data = await json.decode(response);
-    print(data[0]);
+    print(data["chats"][0]["chatter"].length);
+
+    data["chats"].forEach((value) {
+      value["chatter"].forEach((userchat) {
+        if (userchat["user"] == "tanjaii") {
+          print(userchat["text"].toString());
+        }
+        print("hi");
+      });
+    });
+
     setState(() {
       // _items = data["items"];
       // _items = data;
