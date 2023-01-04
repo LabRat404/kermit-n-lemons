@@ -1,40 +1,108 @@
 {
-  "self" : "tanjaii",
-  "notself" : "Doria",
+  "self" : "tangjaii",
+  "notself" : "doria",
   "chats": [
     {
  
   "chatter": [
-    {   "dates": "4-Jan-2023"},
+    {   "dates": "2023-01-04 23:45:41.098379"},
     {
-      "user": "tanjaii",
+      "user": "tangjaii",
       "text": "Hey I love u"
     },
     {
-      "user": "tanjaii",
+      "user": "tangjaii",
       "text": "I wana hug u QAQQQQQ"
     },
     {
-      "user": "tanjaii",
+      "user": "tangjaii",
       "text": "I miss u so much that will just marry u now."
     },
     {
-      "user": "Doria",
+      "user": "doria",
       "text": "Bye"
     }
   ]
   },
   {
-    "chatter": [{ "dates": "5-Jan-2023"},
+    "chatter": [ {   "dates": "2023-01-04 23:45:41.098379"},
       {
-        "user": "tanjaii",
+        "user": "tangjaii",
         "text": "Hey I love u"
       },
       {
-        "user": "Doria",
+        "user": "doria",
         "text": "Bye"
       }
     ]
-    } 
+    } ,
+    {
+      "chatter": [ {   "dates": "2023-01-04 23:45:41.098379"},
+        {
+          "user": "tangjaii",
+          "text": "Hey I love u"
+        },
+        {
+          "user": "doria",
+          "text": "Bye"
+        }
+      ]
+      } ,
+      {
+        "chatter": [ {   "dates": "2023-01-04 23:45:41.098379"},
+          {
+            "user": "tangjaii",
+            "text": "Hey I love u"
+          },
+          {
+            "user": "doria",
+            "text": "Bye"
+          }
+        ]
+        } ,{
+          "chatter": [ {   "dates": "2023-01-04 23:45:41.098379"},
+            {
+              "user": "tangjaii",
+              "text": "Hey I love u"
+            },
+            {
+              "user": "doria",
+              "text": "Bye"
+            }
+          ]
+          } ,{
+            "chatter": [ {   "dates": "2023-01-04 23:45:41.098379"},
+              {
+                "user": "tangjaii",
+                "text": "Hey I love u"
+              },
+              {
+                "user": "doria",
+                "text": "Bye"
+              }
+            ]
+            } ,{
+              "chatter": [ {   "dates": "2023-01-04 23:45:41.098379"},
+                {
+                  "user": "tangjaii",
+                  "text": "Hey I love u"
+                },
+                {
+                  "user": "doria",
+                  "text": "Bye"
+                }
+              ]
+              } ,{
+                "chatter": [ {   "dates": "2023-01-04 23:45:41.098379"},
+                  {
+                    "user": "tangjaii",
+                    "text": "Hey I love u"
+                  },
+                  {
+                    "user": "doria",
+                    "text": "Bye"
+                  }
+                ]
+                } 
 ]
 }

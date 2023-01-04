@@ -78,16 +78,16 @@ class _ChatterState extends State<Chatter> {
       //data2 = data;
       data2 = data;
     });
-    print(data);
-    print("compare\n");
-    print(data2);
-    data2["chats"].forEach((value) {
-      value["chatter"].forEach((userchat) {
-        if (userchat["user"] == "tanjaii") {
-          print(userchat["text"].toString());
-        }
-      });
-    });
+    // print(data);
+    // print("compare\n");
+    // print(data2);
+    // data2["chats"].forEach((value) {
+    //   value["chatter"].forEach((userchat) {
+    //     if (userchat["user"] == "tanjaii") {
+    //       print(userchat["text"].toString());
+    //     }
+    //   });
+    // });
   }
 
   AudioPlayer audioPlayer = new AudioPlayer();
@@ -107,6 +107,7 @@ class _ChatterState extends State<Chatter> {
   @override
   Widget build(BuildContext context) {
     final now = new DateTime.now();
+    print(now);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -137,24 +138,18 @@ class _ChatterState extends State<Chatter> {
                       DateChip(
                         date: new DateTime(now.year, now.month, now.day - 2),
                       )
-                    else if (data2["chats"][i]["chatter"][j]["user"] ==
-                        "tanjaii")
-                      BubbleSpecialOne(
-                        text:
-                            data2["chats"][i]["chatter"][j]["text"].toString(),
-                        isSender: false,
-                        color: Colors.black,
-                        textStyle: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                        ),
-                      )
                     else
+                      // if (data2["chats"][i]["chatter"][j]["user"] ==
+                      //     "tanjaii")
                       BubbleSpecialOne(
                         text:
                             data2["chats"][i]["chatter"][j]["text"].toString(),
-                        isSender: true,
-                        color: Color(0xFF1B97F3),
+                        isSender: data2["chats"][i]["chatter"][j]["user"]
+                                    .toString() !=
+                                widget.title
+                            ? true
+                            : false,
+                        color: Colors.black,
                         textStyle: TextStyle(
                           fontSize: 20,
                           color: Colors.white,
