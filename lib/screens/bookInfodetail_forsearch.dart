@@ -170,7 +170,7 @@ class _InfoDetailPageSearchState extends State<InfoDetailPageSearch> {
                         ),
                         ElevatedButton.icon(
                           icon: Icon(Icons.add),
-                          label: Text("See profile" + info[3]),
+                          label: Text("See profile " + info[3]),
                           onPressed: () async {
                             print("Trade!Book hash is " + info[7]);
                             Navigator.push(
