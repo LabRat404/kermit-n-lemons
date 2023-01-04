@@ -133,7 +133,12 @@ class _ChatterState extends State<Chatter> {
 
                 for (int i = 0; i < data2["chats"].length; i++)
                   for (j = 0; j < data2["chats"][i]["chatter"].length; j++)
-                    if (data2["chats"][i]["chatter"][j]["user"] == "tanjaii")
+                    if (j == 0)
+                      DateChip(
+                        date: new DateTime(now.year, now.month, now.day - 2),
+                      )
+                    else if (data2["chats"][i]["chatter"][j]["user"] ==
+                        "tanjaii")
                       BubbleSpecialOne(
                         text:
                             data2["chats"][i]["chatter"][j]["text"].toString(),

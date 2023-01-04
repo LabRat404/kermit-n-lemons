@@ -3,8 +3,9 @@
   "notself" : "Doria",
   "chats": [
     {
-  "dates": "4-Jan-2023",
+ 
   "chatter": [
+    {   "dates": "4-Jan-2023"},
     {
       "user": "tanjaii",
       "text": "Hey I love u"
@@ -24,8 +25,7 @@
   ]
   },
   {
-    "dates": "5-Jan-2023",
-    "chatter": [
+    "chatter": [{ "dates": "5-Jan-2023"},
       {
         "user": "tanjaii",
         "text": "Hey I love u"
