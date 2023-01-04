@@ -149,7 +149,11 @@ class _ChatterState extends State<Chatter> {
                                 widget.title
                             ? true
                             : false,
-                        color: Colors.black,
+                        color: data2["chats"][i]["chatter"][j]["user"]
+                                    .toString() !=
+                                widget.title
+                            ? Colors.blue
+                            : Colors.black,
                         textStyle: TextStyle(
                           fontSize: 20,
                           color: Colors.white,
