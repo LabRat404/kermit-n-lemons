@@ -270,9 +270,9 @@ authRouter.post("/api/createnloadChat", async (req, res) => {
     try {
    
         //  };
-       
+       var datess=new Date();
         // print("asdsad");
-        console.log(req.body["self"] + req.body["notself"] + req.body["msg"]+  new Date() + req.body["randomhash"]);
+        console.log(req.body["self"] + req.body["notself"] + req.body["msg"]+   + req.body["randomhash"]);
         Chatters
         .find({$or: [
             {
@@ -294,10 +294,12 @@ authRouter.post("/api/createnloadChat", async (req, res) => {
                 self: req.body['self'],
                 notself: req.body['notself'],
                 randomhash: req.body["randomhash"],
-                chatter: [{dates: new Date().toString}, {user: req.body["self"],text: req.body["msg"]}]
+                lastdate:req.body["dates"],
+                chatter: [{dates: req.body["dates"]}, {user: req.body["self"],text: req.body["msg"]}]
+             
                 //{dates: new Date()}, {user: req.body["self"],text: msg}
               })
-            
+               console.log(datess);
           } 
             else{
                 console.log("already have");

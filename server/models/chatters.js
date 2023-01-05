@@ -12,6 +12,9 @@ var chatSchema = new mongoose.Schema({
     "randomhash":{
         "type": "String"
       },
+      "lastdate":{
+        "type": "String"
+      },
     "chatter": {
       "type": [
         "Mixed"

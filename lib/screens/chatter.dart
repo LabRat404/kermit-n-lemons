@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:trade_app/provider/user_provider.dart';
 import 'package:provider/provider.dart';
 import 'dart:math';
+import 'package:intl/intl.dart';
 
 class Chatter extends StatefulWidget {
   final String title;
@@ -73,6 +74,7 @@ class _ChatterState extends State<Chatter> {
   // }
   int j = 0;
   var resa;
+  var formatter = new DateFormat('yyyy-MM-dd');
   printchat(int i, int j) {}
 
   @override
@@ -97,8 +99,7 @@ class _ChatterState extends State<Chatter> {
                   tail: true,
                   delivered: true,
                   isSender:
-                      data2["chats"][0]["chatter"][1]["user"].toString() !=
-                              widget.title
+                      data2["chatter"][1]["user"].toString() != widget.title
                           ? false
                           : true,
                 ),
@@ -111,8 +112,8 @@ class _ChatterState extends State<Chatter> {
                 // });
 
                 for (int i = 0; i < data2["chatter"].length; i++)
-                  if (i == 0)
-                    DateChip(date: DateTime.parse(data2["chatter"][0]))
+                  if (data2["chatter"][i]["dates"] != null)
+                    DateChip(date: DateTime.parse(data2["chatter"][i]["dates"]))
                   else
                     BubbleSpecialOne(
                       text: data2["chatter"][i]["text"].toString(),
@@ -148,7 +149,10 @@ class _ChatterState extends State<Chatter> {
                       "self": self,
                       "notself": widget.title,
                       "msg": msg,
-                      "randomhash": random.nextInt(100000) + 10
+                      "randomhash": random.nextInt(100000) + 10,
+                      "dates": new DateFormat('yyyy-MM-dd')
+                          .format(new DateTime.now())
+                          .toString(),
                     }),
                     headers: <String, String>{
                       'Content-Type': 'application/json; charset=UTF-8',
