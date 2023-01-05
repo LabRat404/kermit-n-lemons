@@ -288,13 +288,13 @@ authRouter.post("/api/createnloadChat", async (req, res) => {
             if (e)
               res.send("Error not known");
           else if(results.length ==0){
-            console.log(results + "hi1");
+            // console.log(results + "hi1");
             Chatters
             .create({
                 self: req.body['self'],
                 notself: req.body['notself'],
                 randomhash: req.body["randomhash"],
-                chatter: [{dates: new Date()}, {user: req.body["self"],text: req.body["msg"]}]
+                chatter: [{dates: new Date().toString}, {user: req.body["self"],text: req.body["msg"]}]
                 //{dates: new Date()}, {user: req.body["self"],text: msg}
               })
             

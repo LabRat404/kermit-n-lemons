@@ -110,33 +110,25 @@ class _ChatterState extends State<Chatter> {
                 //   });
                 // });
 
-                for (int i = 0; i < data2["chats"].length; i++)
-                  for (j = 0; j < data2["chats"][i]["chatter"].length; j++)
-                    if (j == 0)
-                      DateChip(
-                          date: DateTime.parse(
-                              data2["chats"][i]["chatter"][j]["dates"]))
-                    else
-                      // if (data2["chats"][i]["chatter"][j]["user"] ==
-                      //     "tanjaii")
-                      BubbleSpecialOne(
-                        text:
-                            data2["chats"][i]["chatter"][j]["text"].toString(),
-                        isSender: data2["chats"][i]["chatter"][j]["user"]
-                                    .toString() !=
-                                widget.title
-                            ? true
-                            : false,
-                        color: data2["chats"][i]["chatter"][j]["user"]
-                                    .toString() !=
-                                widget.title
-                            ? Colors.blue
-                            : Colors.black,
-                        textStyle: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                        ),
+                for (int i = 0; i < data2["chatter"].length; i++)
+                  if (i == 0)
+                    DateChip(date: DateTime.parse(data2["chatter"][0]))
+                  else
+                    BubbleSpecialOne(
+                      text: data2["chatter"][i]["text"].toString(),
+                      isSender:
+                          data2["chatter"][i]["user"].toString() != widget.title
+                              ? true
+                              : false,
+                      color:
+                          data2["chatter"][i]["user"].toString() != widget.title
+                              ? Colors.blue
+                              : Colors.black,
+                      textStyle: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
                       ),
+                    ),
 
                 SizedBox(
                   height: 100,

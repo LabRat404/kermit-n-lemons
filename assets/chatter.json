@@ -1,115 +1,22 @@
 {
-  "self" : "tangjaii",
-  "notself" : "doria",
-  "chats": [
-    {
- 
+  "_id": {
+    "$oid": "63b6ef9e98989001c7e697ff"
+  },
+  "self": "doria",
+  "notself": "tangjaii",
+  "randomhash": "52137",
   "chatter": [
-    {   "dates": "2022-12-24"},
     {
-      "user": "tangjaii",
-      "text": "Hey I love u"
-    },
-    {
-      "user": "tangjaii",
-      "text": "I wana hug u QAQQQQQ"
-    },
-    {
-      "user": "tangjaii",
-      "text": "I miss u so much that will just marry u now."
+      "dates": {
+        "$date": {
+          "$numberLong": "1672933278245"
+        }
+      }
     },
     {
       "user": "doria",
       "text": "Bye"
     }
-  ]
-  },
-  {
-    "chatter": [ 
-      {   "dates": "2022-12-25"},
-      {
-        "user": "tangjaii",
-        "text": "Hey I love u"
-      },
-      {
-        "user": "doria",
-        "text": "Bye"
-      }
-    ]
-    } ,
-    {
-      "chatter": [
-        {   "dates": "2022-12-26"},
-        {
-          "user": "tangjaii",
-          "text": "Hey I love u"
-        },
-        {
-          "user": "doria",
-          "text": "Bye"
-        }
-      ]
-      } ,
-      {
-        "chatter": [ 
-          {   "dates": "2023-01-01"},
-          {
-            "user": "tangjaii",
-            "text": "Hey I love u"
-          },
-          {
-            "user": "doria",
-            "text": "Bye"
-          }
-        ]
-        } ,{
-          "chatter": [ 
-            {   "dates": "2023-01-02"},
-            {
-              "user": "tangjaii",
-              "text": "Hey I love u"
-            },
-            {
-              "user": "doria",
-              "text": "Bye"
-            }
-          ]
-          } ,{
-            "chatter": [ 
-              {   "dates": "2023-01-03"},
-              {
-                "user": "tangjaii",
-                "text": "Hey I love u"
-              },
-              {
-                "user": "doria",
-                "text": "Bye"
-              }
-            ]
-            } ,{
-              "chatter": [ 
-                {   "dates": "2023-01-04"},
-                {
-                  "user": "tangjaii",
-                  "text": "Hey I love u"
-                },
-                {
-                  "user": "doria",
-                  "text": "Bye"
-                }
-              ]
-              } ,{
-                "chatter": [ 
-                  {   "dates": "2023-01-05"},
-                  {
-                    "user": "tangjaii",
-                    "text": "Hey I love u"
-                  },
-                  {
-                    "user": "doria",
-                    "text": "Bye"
-                  }
-                ]
-                } 
-]
+  ],
+  "__v": 0
 }
