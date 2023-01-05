@@ -156,7 +156,7 @@ class _ChatterState extends State<Chatter> {
                       "self": self,
                       "notself": widget.title,
                       "msg": msg,
-                      "randomhash": random.nextInt(90) + 10
+                      "randomhash": random.nextInt(100000) + 10
                     }),
                     headers: <String, String>{
                       'Content-Type': 'application/json; charset=UTF-8',

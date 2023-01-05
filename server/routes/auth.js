@@ -287,8 +287,8 @@ authRouter.post("/api/createnloadChat", async (req, res) => {
           .exec( (e, results) => {
             if (e)
               res.send("Error not known");
-          else if(results == null){
-            console.log(results + "hi2");
+          else if(results.length ==0){
+            console.log(results + "hi1");
             Chatters
             .create({
                 self: "test",
@@ -300,15 +300,8 @@ authRouter.post("/api/createnloadChat", async (req, res) => {
             
           } 
             else{
-                console.log(results+ "hi2");
-                Chatters
-                .create({
-                    self: req.body['self'],
-                    notself: req.body['notself'],
-                    randomhash: req.body["randomhash"],
-                    chatter: [{dates: new Date()}, {user: req.body["self"],text: req.body["msg"]}]
-                    //{dates: new Date()}, {user: req.body["self"],text: msg}
-                  })
+                console.log("already have");
+           
             }
          }
          ); 
