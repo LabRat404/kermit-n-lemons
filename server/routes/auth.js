@@ -1,6 +1,7 @@
 const express = require('express');
 const User = require("../models/user");
 const Image2 = require("../models/uploadImage");
+const Chatters = require("../models/chatters");
 const isbn = require('node-isbn');
 const bcryptjs = require('bcryptjs');
 const jwt = require("jsonwebtoken");
@@ -206,6 +207,24 @@ authRouter.put("/api/changeavatar/:username", async (req, res) => {
 
 });
 
+authRouter.delete("/api/dellist/:dellist", async (req, res) => {
+    console.log("sadad");
+    Image2
+    .find({name : req.params["dellist"]})
+    .deleteOne()
+    .exec( (e, results) => {
+        if (e)
+          res.send("Error not known");
+      else if(results == null)
+          res.send("404 not found. No records found!", 404);
+        else{
+          
+        res.send(results);
+        }
+     }
+     );
+});
+
 //not yet done
 authRouter.delete("/api/deluser/:username", async (req, res) => {
     console.log(req.params["username"]);
@@ -223,27 +242,86 @@ authRouter.delete("/api/deluser/:username", async (req, res) => {
      );
 });
 
-
-authRouter.delete("/api/dellist/:dellist", async (req, res) => {
-    console.log("sadad");
-    Image2
-    .find({name : req.params["dellist"]})
-    .deleteOne()
+authRouter.get("/api/grabchat/:username", async (req, res) => {
+    console.log(req.params["username"]);
+    Chatters
+    .find({$or: [
+        {
+          self: req.params["username"]
+        },
+        {
+          notself: req.params["username"]
+        }
+      ]})
     .exec( (e, results) => {
         if (e)
           res.send("Error not known");
       else if(results == null)
-          res.send("404 not found. No records found!", 404);
+          res.send("Empty");
         else{
-          
         res.send(results);
         }
      }
-     );
-   
-     
-   
+     );   
 });
 
+
+authRouter.post("/api/createnloadChat", async (req, res) => {
+    try {
+   
+        //  };
+       
+        // print("asdsad");
+        console.log(req.body["self"] + req.body["notself"] + req.body["msg"]+  new Date() + req.body["randomhash"]);
+        Chatters
+        .find({$or: [
+            {
+              self: req.body["self"],
+              notself: req.body["notself"]
+            },
+            {
+              self: req.body["notself"],
+              notself: req.body["self"]
+            }
+          ]})
+          .exec( (e, results) => {
+            if (e)
+              res.send("Error not known");
+          else if(results == null){
+            console.log(results + "hi2");
+            Chatters
+            .create({
+                self: "test",
+                notself: req.body['notself'],
+                randomhash: req.body["randomhash"],
+                chatter: [null]
+                //{dates: new Date()}, {user: req.body["self"],text: msg}
+              })
+            
+          } 
+            else{
+                console.log(results+ "hi2");
+                Chatters
+                .create({
+                    self: req.body['self'],
+                    notself: req.body['notself'],
+                    randomhash: req.body["randomhash"],
+                    chatter: [{dates: new Date()}, {user: req.body["self"],text: req.body["msg"]}]
+                    //{dates: new Date()}, {user: req.body["self"],text: msg}
+                  })
+            }
+         }
+         ); 
+
+
+        
+        // get the data from client, 
+        // post that data in db
+        // return that data to the user
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
+});
+//Chatters
 
 module.exports = authRouter; //allow public access

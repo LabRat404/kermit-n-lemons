@@ -6,12 +6,6 @@ import 'package:provider/provider.dart';
 import 'package:trade_app/provider/user_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:trade_app/widgets/reusable_widget.dart';
-import 'package:http/http.dart' as http;
-import 'package:url_launcher/url_launcher.dart';
-import 'package:trade_app/screens/showOtherUser.dart';
 import 'package:trade_app/screens/chatter.dart';
 
 class SearchPage extends StatefulWidget {

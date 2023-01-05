@@ -2,41 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:chat_bubbles/chat_bubbles.dart';
 import 'package:audioplayers/audioplayers.dart';
 import "package:cached_network_image/cached_network_image.dart";
-import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:trade_app/widgets/reusable_widget.dart';
-import 'package:provider/provider.dart';
-import 'package:trade_app/provider/user_provider.dart';
-import 'package:http/http.dart' as http;
-import 'package:url_launcher/url_launcher.dart';
-import 'package:trade_app/widgets/nav_bar.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:babstrap_settings_screen/babstrap_settings_screen.dart';
-import 'package:trade_app/screens/information_page.dart';
-import 'package:trade_app/screens/login_page.dart';
-import 'package:trade_app/screens/change_page.dart';
-import 'package:trade_app/screens/avatarchange.dart';
-import 'package:trade_app/widgets/reusable_widget.dart';
-import 'package:trade_app/provider/user_provider.dart';
-import 'package:provider/provider.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:flutter/material.dart';
-import 'dart:convert';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
-import 'package:trade_app/services/auth/connector.dart';
 import 'package:trade_app/provider/user_provider.dart';
-import 'dart:convert';
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:trade_app/widgets/nav_bar.dart';
-import '../../constants/error_handling.dart';
-import 'package:trade_app/screens/login_page.dart';
 import 'package:provider/provider.dart';
-import 'package:trade_app/provider/user_provider.dart';
+import 'dart:math';
 
 class Chatter extends StatefulWidget {
   final String title;
@@ -101,11 +72,13 @@ class _ChatterState extends State<Chatter> {
   //   return
   // }
   int j = 0;
-
+  var resa;
   printchat(int i, int j) {}
 
   @override
   Widget build(BuildContext context) {
+    Random random = new Random();
+    var self = context.watch<UserProvider>().user.name;
     final now = new DateTime.now();
     print(now);
     return Scaffold(
@@ -123,6 +96,11 @@ class _ChatterState extends State<Chatter> {
                   color: Colors.purpleAccent,
                   tail: true,
                   delivered: true,
+                  isSender:
+                      data2["chats"][0]["chatter"][1]["user"].toString() !=
+                              widget.title
+                          ? false
+                          : true,
                 ),
                 //printchat(),data2["chats"].forEach((value) {
                 //   value["chatter"].forEach((userchat) {
@@ -167,7 +145,24 @@ class _ChatterState extends State<Chatter> {
             ),
           ),
           MessageBar(
-            onSend: (_) => print(_),
+            onSend: (msg) => {
+              {
+                print(msg),
+                http.post(
+                    //localhost
+                    //Uri.parse('http://172.20.10.3:3000/api/bookinfo'),
+                    Uri.parse('http://172.20.10.3:3000/api/createnloadChat'),
+                    body: jsonEncode({
+                      "self": self,
+                      "notself": widget.title,
+                      "msg": msg,
+                      "randomhash": random.nextInt(90) + 10
+                    }),
+                    headers: <String, String>{
+                      'Content-Type': 'application/json; charset=UTF-8',
+                    })
+              }
+            },
             actions: [
               InkWell(
                 child: Icon(
