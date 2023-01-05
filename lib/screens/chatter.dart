@@ -19,9 +19,14 @@ class Chatter extends StatefulWidget {
 }
 
 class _ChatterState extends State<Chatter> {
+  @override
   void initState() {
     super.initState();
-    readJson();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      final help = Provider.of<UserProvider>(context, listen: false);
+      String myuser = help.user.name;
+      readJson(myuser);
+    });
   }
 
   var data2;
@@ -29,27 +34,31 @@ class _ChatterState extends State<Chatter> {
   List _items = [];
 
   // Fetch content from the json file
-  Future<void> readJson() async {
+  Future<void> readJson(myuser) async {
     //load  the json here!!
     //fetch here
 
-    final String response = await rootBundle.loadString('assets/chatter.json');
+    // final String response = await rootBundle.loadString('assets/chatter.json');
     // final data = await json.decode(response);
-    // http.Response resaa = await http.get(
-    //     Uri.parse('http://172.20.10.3:3000/api/grabuserlist/tangjaii'),
-    //     headers: <String, String>{
-    //       'Content-Type': 'application/json; charset=UTF-8',
-    //     });
+
+    http.Response data = await http.get(
+        Uri.parse('http://172.20.10.3:3000/api/grabchat/$myuser'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        });
+
     // print(resaa);
 
-    final data = await json.decode(response);
-
+    //final data = await json.decode(response);
+    final abc = await json.decode(data.body);
     setState(() {
       // _items = data["items"];
       // _items = data;
       //data2 = data;
-      data2 = data;
+      data2 = abc[0];
     });
+    print(data2);
+    print("done");
     // print(data);
     // print("compare\n");
     // print(data2);
@@ -84,107 +93,179 @@ class _ChatterState extends State<Chatter> {
     final now = new DateTime.now();
     print(now);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                BubbleNormalImage(
-                  id: 'id001',
-                  image: _image(),
-                  color: Colors.purpleAccent,
-                  tail: true,
-                  delivered: true,
-                  isSender:
-                      data2["chatter"][1]["user"].toString() != widget.title
-                          ? false
-                          : true,
-                ),
-                //printchat(),data2["chats"].forEach((value) {
-                //   value["chatter"].forEach((userchat) {
-                //     if (userchat["user"] == "tanjaii") {
-                //       print(userchat["text"].toString());
-                //     }
-                //   });
-                // });
+        appBar: AppBar(
+          title: Text(widget.title),
+        ),
+        body: data2["chatter"] != null
+            ? Stack(
+                children: [
+                  SingleChildScrollView(
+                    child: Column(
+                      children: <Widget>[
+                        BubbleNormalImage(
+                          id: 'id001',
+                          image: _image(),
+                          color: Colors.purpleAccent,
+                          tail: true,
+                          delivered: true,
+                          isSender: data2["chatter"][1]["user"].toString() !=
+                                  widget.title
+                              ? false
+                              : true,
+                        ),
+                        //printchat(),data2["chats"].forEach((value) {
+                        //   value["chatter"].forEach((userchat) {
+                        //     if (userchat["user"] == "tanjaii") {
+                        //       print(userchat["text"].toString());
+                        //     }
+                        //   });
+                        // });
 
-                for (int i = 0; i < data2["chatter"].length; i++)
-                  if (data2["chatter"][i]["dates"] != null)
-                    DateChip(date: DateTime.parse(data2["chatter"][i]["dates"]))
-                  else
-                    BubbleSpecialOne(
-                      text: data2["chatter"][i]["text"].toString(),
-                      isSender:
-                          data2["chatter"][i]["user"].toString() != widget.title
-                              ? true
-                              : false,
-                      color:
-                          data2["chatter"][i]["user"].toString() != widget.title
-                              ? Colors.blue
-                              : Colors.black,
-                      textStyle: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                      ),
+                        for (int i = 0; i < data2["chatter"].length; i++)
+                          if (data2["chatter"][i]["dates"] != null)
+                            DateChip(
+                                date: DateTime.parse(
+                                    data2["chatter"][i]["dates"]))
+                          else
+                            BubbleSpecialOne(
+                              text: data2["chatter"][i]["text"].toString(),
+                              isSender:
+                                  data2["chatter"][i]["user"].toString() !=
+                                          widget.title
+                                      ? true
+                                      : false,
+                              color: data2["chatter"][i]["user"].toString() !=
+                                      widget.title
+                                  ? Colors.blue
+                                  : Colors.black,
+                              textStyle: TextStyle(
+                                fontSize: 20,
+                                color: Colors.white,
+                              ),
+                            ),
+
+                        SizedBox(
+                          height: 100,
+                        )
+                      ],
                     ),
-
-                SizedBox(
-                  height: 100,
-                )
-              ],
-            ),
-          ),
-          MessageBar(
-            onSend: (msg) => {
-              {
-                print(msg),
-                http.post(
-                    //localhost
-                    //Uri.parse('http://172.20.10.3:3000/api/bookinfo'),
-                    Uri.parse('http://172.20.10.3:3000/api/createnloadChat'),
-                    body: jsonEncode({
-                      "self": self,
-                      "notself": widget.title,
-                      "msg": msg,
-                      "randomhash": random.nextInt(100000) + 10,
-                      "dates": new DateFormat('yyyy-MM-dd')
-                          .format(new DateTime.now())
-                          .toString(),
-                    }),
-                    headers: <String, String>{
-                      'Content-Type': 'application/json; charset=UTF-8',
-                    })
-              }
-            },
-            actions: [
-              InkWell(
-                child: Icon(
-                  Icons.add,
-                  color: Colors.black,
-                  size: 24,
-                ),
-                onTap: () {},
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 8, right: 8),
-                child: InkWell(
-                  child: Icon(
-                    Icons.camera_alt,
-                    color: Colors.green,
-                    size: 24,
                   ),
-                  onTap: () {},
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-      // This trailing comma makes auto-formatting nicer for build methods.
-    );
+                  MessageBar(
+                    onSend: (msg) => {
+                      {
+                        print(msg),
+                        http.post(
+                            //localhost
+                            //Uri.parse('http://172.20.10.3:3000/api/bookinfo'),
+                            Uri.parse(
+                                'http://172.20.10.3:3000/api/createnloadChat'),
+                            body: jsonEncode({
+                              "self": self,
+                              "notself": widget.title,
+                              "msg": msg,
+                              "randomhash": random.nextInt(100000) + 10,
+                              "dates": new DateFormat('yyyy-MM-dd')
+                                  .format(new DateTime.now())
+                                  .toString(),
+                            }),
+                            headers: <String, String>{
+                              'Content-Type': 'application/json; charset=UTF-8',
+                            })
+                      }
+                    },
+                    actions: [
+                      InkWell(
+                        child: Icon(
+                          Icons.add,
+                          color: Colors.black,
+                          size: 30,
+                        ),
+                        onTap: () {},
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 8, right: 8),
+                        child: InkWell(
+                          child: Icon(
+                            Icons.camera_alt,
+                            color: Colors.green,
+                            size: 30,
+                          ),
+                          onTap: () {},
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              )
+            : Stack(
+                children: [
+                  SingleChildScrollView(
+                    child: Column(
+                      children: <Widget>[
+                        //printchat(),data2["chats"].forEach((value) {
+                        //   value["chatter"].forEach((userchat) {
+                        //     if (userchat["user"] == "tanjaii") {
+                        //       print(userchat["text"].toString());
+                        //     }
+                        //   });
+                        // });
+
+                        SizedBox(
+                          height: 100,
+                        )
+                      ],
+                    ),
+                  ),
+                  MessageBar(
+                    onSend: (msg) => {
+                      {
+                        print(msg),
+                        http.post(
+                            //localhost
+                            //Uri.parse('http://172.20.10.3:3000/api/bookinfo'),
+                            Uri.parse(
+                                'http://172.20.10.3:3000/api/createnloadChat'),
+                            body: jsonEncode({
+                              "self": self,
+                              "notself": widget.title,
+                              "msg": msg,
+                              "randomhash": random.nextInt(100000) + 10,
+                              "dates": new DateFormat('yyyy-MM-dd')
+                                  .format(new DateTime.now())
+                                  .toString(),
+                            }),
+                            headers: <String, String>{
+                              'Content-Type': 'application/json; charset=UTF-8',
+                            })
+                      }
+                    },
+                    actions: [
+                      InkWell(
+                        child: Icon(
+                          Icons.add,
+                          color: Colors.black,
+                          size: 30,
+                        ),
+                        onTap: () {},
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 8, right: 8),
+                        child: InkWell(
+                          child: Icon(
+                            Icons.camera_alt,
+                            color: Colors.green,
+                            size: 30,
+                          ),
+                          onTap: () {},
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              )
+
+        // This trailing comma makes auto-formatting nicer for build methods.
+        );
   }
 
   Widget _image() {

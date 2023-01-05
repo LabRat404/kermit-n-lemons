@@ -208,7 +208,6 @@ authRouter.put("/api/changeavatar/:username", async (req, res) => {
 });
 
 authRouter.delete("/api/dellist/:dellist", async (req, res) => {
-    console.log("sadad");
     Image2
     .find({name : req.params["dellist"]})
     .deleteOne()
@@ -243,7 +242,7 @@ authRouter.delete("/api/deluser/:username", async (req, res) => {
 });
 
 authRouter.get("/api/grabchat/:username", async (req, res) => {
-    console.log(req.params["username"]);
+
     Chatters
     .find({$or: [
         {
@@ -256,7 +255,7 @@ authRouter.get("/api/grabchat/:username", async (req, res) => {
     .exec( (e, results) => {
         if (e)
           res.send("Error not known");
-      else if(results == null)
+      else if(results.length == 0)
           res.send("Empty");
         else{
         res.send(results);
