@@ -291,10 +291,10 @@ authRouter.post("/api/createnloadChat", async (req, res) => {
             console.log(results + "hi1");
             Chatters
             .create({
-                self: "test",
+                self: req.body['self'],
                 notself: req.body['notself'],
                 randomhash: req.body["randomhash"],
-                chatter: [null]
+                chatter: [{dates: new Date()}, {user: req.body["self"],text: req.body["msg"]}]
                 //{dates: new Date()}, {user: req.body["self"],text: msg}
               })
             
