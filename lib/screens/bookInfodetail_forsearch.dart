@@ -122,7 +122,7 @@ class _InfoDetailPageSearchState extends State<InfoDetailPageSearch> {
                             icon: Icon(Icons.recycling),
                             label: Text("Chat with user " + info[3]),
                             onPressed: () async {
-                              print("Trade!Book hash is " + info[7]);
+                              // print("Trade!Book hash is " + info[7]);
                               // ScaffoldMessenger.of(context).showSnackBar(
                               //   const SnackBar(
                               //       content: Text('Trade Request Sent!')),
@@ -152,7 +152,7 @@ class _InfoDetailPageSearchState extends State<InfoDetailPageSearch> {
                           icon: Icon(Icons.add),
                           label: Text("See profile " + info[3]),
                           onPressed: () async {
-                            print("Trade!Book hash is " + info[7]);
+                            // print("Trade!Book hash is " + info[7]);
                             Navigator.push(
                               context,
                               MaterialPageRoute(

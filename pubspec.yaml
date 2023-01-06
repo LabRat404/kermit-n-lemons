@@ -59,6 +59,7 @@ dependencies:
   cached_network_image: ^3.2.3
   audioplayers: ^1.2.0
   intl: ^0.17.0
+  auto_reload: ^1.1.0
   
 
 dev_dependencies:

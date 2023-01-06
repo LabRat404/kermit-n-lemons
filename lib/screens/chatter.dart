@@ -174,7 +174,8 @@ class _ChatterState extends State<Chatter> {
                             headers: <String, String>{
                               'Content-Type': 'application/json; charset=UTF-8',
                             })
-                      }
+                      },
+                      (context as Element).reassemble(),
                     },
                     actions: [
                       InkWell(
