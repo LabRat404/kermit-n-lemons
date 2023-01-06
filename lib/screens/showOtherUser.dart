@@ -134,7 +134,7 @@ class _ShowotherUserState extends State<ShowotherUser> {
                               userName: username,
                               userProfilePic: NetworkImage(links),
                             ),
-                          if (links.isNotEmpty && self != username)
+                          if (index == 0)
                             ButtonBar(children: [
                               ElevatedButton.icon(
                                 icon: Icon(Icons.recycling),
