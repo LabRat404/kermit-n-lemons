@@ -242,6 +242,31 @@ authRouter.delete("/api/deluser/:username", async (req, res) => {
      );
 });
 
+authRouter.get("/api/graballchat/:self", async (req, res) => {
+
+    Chatters
+    .find({$or: [
+        {
+          self: req.params["self"],
+       
+        },
+        {
+       
+          notself: req.params["self"]
+        }
+      ]})
+    .exec( (e, results) => {
+        if (e)
+          res.send("Error not known");
+      else if(results.length == 0)
+          res.send(null);
+        else{
+        res.send(results);
+        }
+     }
+     );   
+});
+
 authRouter.post("/api/grabchat", async (req, res) => {
 
     Chatters
