@@ -96,7 +96,7 @@ class _ChatterState extends State<Chatter> {
         appBar: AppBar(
           title: Text(widget.title),
         ),
-        body: data2["chatter"] != null
+        body: data2 != null
             ? Stack(
                 children: [
                   SingleChildScrollView(

@@ -256,7 +256,7 @@ authRouter.get("/api/grabchat/:username", async (req, res) => {
         if (e)
           res.send("Error not known");
       else if(results.length == 0)
-          res.send("Empty");
+          res.send(null);
         else{
         res.send(results);
         }
@@ -269,7 +269,7 @@ authRouter.post("/api/createnloadChat", async (req, res) => {
     try {
    
         //  };
-       var datess=new Date();
+     
         // print("asdsad");
         console.log(req.body["self"] + req.body["notself"] + req.body["msg"]+   + req.body["randomhash"]);
         Chatters
@@ -300,10 +300,15 @@ authRouter.post("/api/createnloadChat", async (req, res) => {
               })
                console.log(datess);
           } 
-            else{
-                console.log("already have");
+          else if(results.length >0){
+                
+//if have previous chat, load it instead of reatying it
+//maybe use array push? idk bro
+
+
+                
            
-            }
+            }else{ res.send(null);}
          }
          ); 
 
