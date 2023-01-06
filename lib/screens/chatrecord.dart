@@ -62,9 +62,10 @@ class _ChatListState extends State<ChatList> {
           'Content-Type': 'application/json; charset=UTF-8',
         });
     //print(resaa);
-    final data = await json.decode(resaa.body);
     print("object");
-    print(data);
+    print(resaa.body);
+    final data = await json.decode(resaa.body);
+
     setState(() {
       _items = data;
     });

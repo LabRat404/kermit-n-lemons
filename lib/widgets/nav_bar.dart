@@ -5,6 +5,7 @@ import 'package:trade_app/screens/home_page.dart';
 import 'package:trade_app/screens/settings_page.dart';
 import 'package:trade_app/screens/upload_page.dart';
 import 'package:trade_app/screens/userbooklist.dart';
+import 'package:trade_app/screens/chatrecord.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({Key? key}) : super(key: key);
@@ -31,6 +32,7 @@ class _NavBarState extends State<NavBar> {
     const SearchPage(),
     UploadPage(),
     const UserList(),
+    const ChatList(),
     const SettingsPage(),
   ];
 
@@ -46,7 +48,7 @@ class _NavBarState extends State<NavBar> {
                   })
                 },
             gap: 0.5,
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 20),
             backgroundColor: Colors.black,
             color: Colors.white,
             activeColor: Colors.white,
@@ -73,8 +75,13 @@ class _NavBarState extends State<NavBar> {
                 onPressed: () => {},
               ),
               GButton(
+                icon: Icons.chat_bubble,
+                text: 'Chat',
+                onPressed: () => {},
+              ),
+              GButton(
                 icon: Icons.settings_outlined,
-                text: 'settings',
+                text: 'setting',
                 onPressed: () => {},
               ),
             ]));
