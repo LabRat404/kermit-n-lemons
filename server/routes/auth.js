@@ -5,6 +5,7 @@ const Chatters = require("../models/chatters");
 const isbn = require('node-isbn');
 const bcryptjs = require('bcryptjs');
 const jwt = require("jsonwebtoken");
+const { text } = require('body-parser');
 const authRouter = express.Router();
 
 authRouter.get("/test", (req, res) => {
@@ -298,16 +299,34 @@ authRouter.post("/api/createnloadChat", async (req, res) => {
              
                 //{dates: new Date()}, {user: req.body["self"],text: msg}
               })
-               console.log(datess);
+               //console.log(datess);
           } 
           else if(results.length >0){
-                
-//if have previous chat, load it instead of reatying it
-//maybe use array push? idk bro
-
-
-                
-           
+            Chatters
+        .find({$or: [
+            {
+              self: req.body["self"],
+              notself: req.body["notself"]
+            },
+            {
+              self: req.body["notself"],
+              notself: req.body["self"]
+            }
+          ]}).exec((e, results) => {
+            if (e)
+              res.send("Error not known");
+           else if(results.length >0){
+            let eve = {
+                "user": req.body['self'],
+                "text": req.body['msg']
+            }
+            console.log(results);
+results[0]["chatter"].push(eve);
+results[0].save();
+console.log(results);
+          } 
+        }
+          );
             }else{ res.send(null);}
          }
          ); 
