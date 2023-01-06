@@ -120,13 +120,13 @@ class _InfoDetailPageSearchState extends State<InfoDetailPageSearch> {
                         if (info[3] != self)
                           ElevatedButton.icon(
                             icon: Icon(Icons.recycling),
-                            label: Text("Trade with user " + info[3]),
+                            label: Text("Chat with user " + info[3]),
                             onPressed: () async {
                               print("Trade!Book hash is " + info[7]);
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text('Trade Request Sent!')),
-                              );
+                              // ScaffoldMessenger.of(context).showSnackBar(
+                              //   const SnackBar(
+                              //       content: Text('Trade Request Sent!')),
+                              // );
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(

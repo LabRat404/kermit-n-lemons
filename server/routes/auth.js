@@ -242,15 +242,17 @@ authRouter.delete("/api/deluser/:username", async (req, res) => {
      );
 });
 
-authRouter.get("/api/grabchat/:username", async (req, res) => {
+authRouter.post("/api/grabchat", async (req, res) => {
 
     Chatters
     .find({$or: [
         {
-          self: req.params["username"]
+          self: req.body["self"],
+          notself: req.body["notself"]
         },
         {
-          notself: req.params["username"]
+          self: req.body["notself"],
+          notself: req.body["self"]
         }
       ]})
     .exec( (e, results) => {
@@ -313,18 +315,28 @@ authRouter.post("/api/createnloadChat", async (req, res) => {
               notself: req.body["self"]
             }
           ]}).exec((e, results) => {
+            let x = new Date(req.body["dates"]);
+            let y = new Date(results[0]["lastdate"]);
             if (e)
               res.send("Error not known");
-           else if(results.length >0){
-            let eve = {
+           else if((x-y) > 86400000){
+            results[0]["lastdate"] = req.body["dates"];
+            let times ={"dates": req.body["dates"]}
+            results[0]["chatter"].push(times);
+            let mesg = {
                 "user": req.body['self'],
                 "text": req.body['msg']
             }
-            console.log(results);
-results[0]["chatter"].push(eve);
-results[0].save();
-console.log(results);
-          } 
+            results[0]["chatter"].push(mesg);
+            results[0].save();
+          }else{
+            let mesg = {
+                "user": req.body['self'],
+                "text": req.body['msg']
+            }
+            results[0]["chatter"].push(mesg);
+            results[0].save();
+          }
         }
           );
             }else{ res.send(null);}

@@ -41,9 +41,13 @@ class _ChatterState extends State<Chatter> {
     // final String response = await rootBundle.loadString('assets/chatter.json');
     // final data = await json.decode(response);
 
-    http.Response data = await http.get(
-        Uri.parse('http://172.20.10.3:3000/api/grabchat/$myuser'),
-        headers: <String, String>{
+    http.Response data =
+        await http.post(Uri.parse('http://172.20.10.3:3000/api/grabchat'),
+            body: jsonEncode({
+              "self": myuser,
+              "notself": widget.title,
+            }),
+            headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         });
 
@@ -57,8 +61,7 @@ class _ChatterState extends State<Chatter> {
       //data2 = data;
       data2 = abc[0];
     });
-    print(data2);
-    print("done");
+
     // print(data);
     // print("compare\n");
     // print(data2);
@@ -91,7 +94,7 @@ class _ChatterState extends State<Chatter> {
     Random random = new Random();
     var self = context.watch<UserProvider>().user.name;
     final now = new DateTime.now();
-    print(now);
+
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
@@ -219,7 +222,7 @@ class _ChatterState extends State<Chatter> {
                   MessageBar(
                     onSend: (msg) => {
                       {
-                        print(msg),
+                        // print(msg),
                         http.post(
                             //localhost
                             //Uri.parse('http://172.20.10.3:3000/api/bookinfo'),

@@ -130,17 +130,17 @@ class _SearchPageState extends State<SearchPage> {
                                   if (_items[index]["username"] != self)
                                     ElevatedButton.icon(
                                       icon: Icon(Icons.recycling),
-                                      label: Text("Trade with user " +
+                                      label: Text("Chat with user " +
                                           _items[index]["username"]),
                                       onPressed: () async {
                                         print("Trade!Book hash is " +
                                             _items[index]["name"]);
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          const SnackBar(
-                                              content:
-                                                  Text('Trade Request Sent!')),
-                                        );
+                                        // ScaffoldMessenger.of(context)
+                                        //     .showSnackBar(
+                                        //   const SnackBar(
+                                        //       content:
+                                        //           Text('Trade Request Sent!')),
+                                        // );
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
