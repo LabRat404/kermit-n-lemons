@@ -175,7 +175,12 @@ class _ChatterState extends State<Chatter> {
                               'Content-Type': 'application/json; charset=UTF-8',
                             })
                       },
-                      (context as Element).reassemble(),
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Chatter(title: widget.title)),
+                        (Route<dynamic> route) => false,
+                      )
                     },
                     actions: [
                       InkWell(
@@ -241,7 +246,8 @@ class _ChatterState extends State<Chatter> {
                             headers: <String, String>{
                               'Content-Type': 'application/json; charset=UTF-8',
                             })
-                      }
+                      },
+                      initState(),
                     },
                     actions: [
                       InkWell(
