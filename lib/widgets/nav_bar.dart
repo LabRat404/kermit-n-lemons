@@ -75,7 +75,7 @@ class _NavBarState extends State<NavBar> {
                 onPressed: () => {},
               ),
               GButton(
-                icon: Icons.chat_bubble,
+                icon: Icons.chat_outlined,
                 text: 'Chat',
                 onPressed: () => {},
               ),

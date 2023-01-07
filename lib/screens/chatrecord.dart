@@ -6,6 +6,8 @@ import 'package:trade_app/provider/user_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:trade_app/widgets/nav_bar.dart';
+import 'package:trade_app/screens/chatrecord.dart';
+import 'package:trade_app/screens/chatter.dart';
 
 class ISBN_info {
   final String title;
@@ -85,9 +87,10 @@ class _ChatListState extends State<ChatList> {
   //   print(resBody['title']);
   //   return "asdasdsad";
   // }
-
+  List<String> items = List<String>.generate(10, (i) => '$i');
   @override
   Widget build(BuildContext context) {
+    var myselfname = context.watch<UserProvider>().user.name;
     return Scaffold(
       appBar: ReusableWidgets.LoginPageAppBar("Chat Record"),
       body: Padding(
@@ -99,24 +102,36 @@ class _ChatListState extends State<ChatList> {
                     child: ListView.builder(
                       itemCount: _items.length,
                       itemBuilder: (context, index) {
-                        return ListTile(
-                            // leading: Image.network(link),
-                            // title: Text(result),
-                            // subtitle: Text(
-                            //   "Posted by user: " + usernames,
-                            //   style:
-                            //       TextStyle(color: Colors.black.withOpacity(0.6)),
-                            // ),
-                            // onTap: () {
-                            //   Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //       builder: (context) =>
-                            //           InfoDetailPageSearch(hashname: hashname),
-                            //     ),
-                            //   );
-                            // },
-                            );
+                        int long = _items[index]["chatter"].length;
+                        String who = "";
+                        if (_items[index]["notself"] == myselfname)
+                          who = _items[index]["self"];
+                        else
+                          who = _items[index]["notself"];
+                        return Column(children: <Widget>[
+                          ListTile(
+                            leading: CircleAvatar(
+                              backgroundImage: NetworkImage(
+                                  "https://i.imgur.com/k2XHNOy.jpg"),
+                            ),
+                            title: Text(
+                              who,
+                            ),
+                            subtitle: Text(
+                                _items[index]["chatter"][long - 1]["text"]),
+                            trailing: Icon(Icons.more_vert),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => Chatter(title: who),
+                                ),
+                              );
+                            },
+                          ),
+                          Divider(
+                              color: Colors.grey, endIndent: 24, indent: 24),
+                        ]);
                       },
                     ),
                   )

@@ -175,12 +175,12 @@ class _ChatterState extends State<Chatter> {
                               'Content-Type': 'application/json; charset=UTF-8',
                             })
                       },
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => Chatter(title: widget.title)),
-                        (Route<dynamic> route) => false,
-                      )
+                      // Navigator.pushAndRemoveUntil(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) => Chatter(title: widget.title)),
+                      //   (Route<dynamic> route) => false,
+                      // )
                     },
                     actions: [
                       InkWell(
