@@ -54,6 +54,7 @@ class _ChatListState extends State<ChatList> {
   // }
 
   List _items = [];
+  List loadusernameimage = [];
   // Fetch content from the json file
   Future<void> readJson(realusername) async {
     //load  the json here!!
@@ -64,12 +65,39 @@ class _ChatListState extends State<ChatList> {
           'Content-Type': 'application/json; charset=UTF-8',
         });
     //print(resaa);
-    print("object");
-    print(resaa.body);
+
     final data = await json.decode(resaa.body);
 
+    List whoimage = [];
+
+    for (int i = 0; i < data.length; i++) {
+      String nameping = data[i]["notself"];
+      if (nameping.toString() == realusername.toString()) {
+        var who = data[i]["self"];
+        http.Response imglink = await http.get(
+            Uri.parse('http://172.20.10.3:3000/api/loaduserimage/$who'),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+            });
+
+        whoimage.add(imglink.body.toString());
+      } else {
+        var who = data[i]["notself"];
+        http.Response imglink = await http.get(
+            Uri.parse('http://172.20.10.3:3000/api/loaduserimage/$who'),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+            });
+        //print(imglink.body);
+
+        whoimage.add(imglink.body.toString());
+      }
+    }
+    //print(whoimage[0]);
+    print("length : is :" + whoimage.length.toString());
     setState(() {
       _items = data;
+      loadusernameimage = whoimage;
     });
   }
 
@@ -111,8 +139,8 @@ class _ChatListState extends State<ChatList> {
                         return Column(children: <Widget>[
                           ListTile(
                             leading: CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                  "https://i.imgur.com/k2XHNOy.jpg"),
+                              backgroundImage:
+                                  NetworkImage(loadusernameimage[index]),
                             ),
                             title: Text(
                               who,

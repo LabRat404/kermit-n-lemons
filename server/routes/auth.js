@@ -187,7 +187,7 @@ authRouter.get("/api/grabuserdata/:username", async (req, res) => {
 
 
 authRouter.put("/api/changeavatar/:username", async (req, res) => {
-    console.log(req.params["username"]+ req.body['url']);
+    //console.log(req.params["username"]+ req.body['url']);
   
     User
     .findOne({name : req.params["username"]})
@@ -225,6 +225,24 @@ authRouter.delete("/api/dellist/:dellist", async (req, res) => {
      );
 });
 
+authRouter.get("/api/loaduserimage/:username", async (req, res) => {
+  
+    User
+    .find({name : req.params["username"]})
+    .exec( (e, results) => {
+        if (e)
+          res.send("Error not known");
+      else if(results == null)
+          res.send("404 not found. No records found!", 404);
+        else{
+    
+        res.send(results[0].address);
+   
+      
+        }
+     }
+     );
+});
 //not yet done
 authRouter.delete("/api/deluser/:username", async (req, res) => {
     console.log(req.params["username"]);
@@ -299,7 +317,7 @@ authRouter.post("/api/createnloadChat", async (req, res) => {
         //  };
      
         // print("asdsad");
-        console.log(req.body["self"] + req.body["notself"] + req.body["msg"]+   + req.body["randomhash"]);
+        //console.log(req.body["self"] + req.body["notself"] + req.body["msg"]+   + req.body["randomhash"]);
         Chatters
         .find({$or: [
             {
