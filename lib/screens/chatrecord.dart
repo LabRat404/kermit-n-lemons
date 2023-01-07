@@ -148,13 +148,15 @@ class _ChatListState extends State<ChatList> {
                             subtitle: Text(
                                 _items[index]["chatter"][long - 1]["text"]),
                             trailing: Icon(Icons.more_vert),
-                            onTap: () {
-                              Navigator.push(
+                            onTap: () async {
+                              final text = await Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => Chatter(title: who),
                                 ),
                               );
+                              print(text);
+                              readJson(myselfname);
                             },
                           ),
                           Divider(

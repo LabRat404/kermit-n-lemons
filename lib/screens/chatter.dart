@@ -34,7 +34,7 @@ class _ChatterState extends State<Chatter> {
   List _items = [];
 
   // Fetch content from the json file
-  Future<void> readJson(myuser) async {
+  Future<String> readJson(myuser) async {
     //load  the json here!!
     //fetch here
 
@@ -52,7 +52,7 @@ class _ChatterState extends State<Chatter> {
         });
 
     // print(resaa);
-
+    print("Im reading and doinng...");
     //final data = await json.decode(response);
     final abc = await json.decode(data.body);
     setState(() {
@@ -72,6 +72,7 @@ class _ChatterState extends State<Chatter> {
     //     }
     //   });
     // });
+    return ("tried");
   }
 
   AudioPlayer audioPlayer = new AudioPlayer();
@@ -80,6 +81,31 @@ class _ChatterState extends State<Chatter> {
   bool isPlaying = false;
   bool isLoading = false;
   bool isPause = false;
+
+  void sendmsg(self, msg, random) async {
+    // print(msg),
+    var resul = await http.post(
+        //localhost
+        //Uri.parse('http://172.20.10.3:3000/api/bookinfo'),
+        Uri.parse('http://172.20.10.3:3000/api/createnloadChat'),
+        body: jsonEncode({
+          "self": self,
+          "notself": widget.title,
+          "msg": msg,
+          "randomhash": random,
+          "dates": new DateFormat('yyyy-MM-dd')
+              .format(new DateTime.now())
+              .toString(),
+        }),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        });
+    print(resul.body);
+    String test = await readJson(self);
+    print(test);
+    print(data2);
+    readJson(self);
+  }
 
   // printchat() {
   //   return
@@ -98,6 +124,15 @@ class _ChatterState extends State<Chatter> {
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
+          leading: GestureDetector(
+            child: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.black,
+            ),
+            onTap: () {
+              Navigator.pop(context, "something");
+            },
+          ),
         ),
         body: data2 != null
             ? Stack(
@@ -155,32 +190,7 @@ class _ChatterState extends State<Chatter> {
                   ),
                   MessageBar(
                     onSend: (msg) => {
-                      {
-                        print(msg),
-                        http.post(
-                            //localhost
-                            //Uri.parse('http://172.20.10.3:3000/api/bookinfo'),
-                            Uri.parse(
-                                'http://172.20.10.3:3000/api/createnloadChat'),
-                            body: jsonEncode({
-                              "self": self,
-                              "notself": widget.title,
-                              "msg": msg,
-                              "randomhash": random.nextInt(100000) + 10,
-                              "dates": new DateFormat('yyyy-MM-dd')
-                                  .format(new DateTime.now())
-                                  .toString(),
-                            }),
-                            headers: <String, String>{
-                              'Content-Type': 'application/json; charset=UTF-8',
-                            })
-                      },
-                      // Navigator.pushAndRemoveUntil(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //       builder: (context) => Chatter(title: widget.title)),
-                      //   (Route<dynamic> route) => false,
-                      // )
+                      sendmsg(self, msg, random.nextInt(100000) + 10),
                     },
                     actions: [
                       InkWell(
@@ -227,27 +237,7 @@ class _ChatterState extends State<Chatter> {
                   ),
                   MessageBar(
                     onSend: (msg) => {
-                      {
-                        // print(msg),
-                        http.post(
-                            //localhost
-                            //Uri.parse('http://172.20.10.3:3000/api/bookinfo'),
-                            Uri.parse(
-                                'http://172.20.10.3:3000/api/createnloadChat'),
-                            body: jsonEncode({
-                              "self": self,
-                              "notself": widget.title,
-                              "msg": msg,
-                              "randomhash": random.nextInt(100000) + 10,
-                              "dates": new DateFormat('yyyy-MM-dd')
-                                  .format(new DateTime.now())
-                                  .toString(),
-                            }),
-                            headers: <String, String>{
-                              'Content-Type': 'application/json; charset=UTF-8',
-                            })
-                      },
-                      initState(),
+                      sendmsg(self, msg, random.nextInt(100000) + 10),
                     },
                     actions: [
                       InkWell(
