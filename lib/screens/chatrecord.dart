@@ -8,6 +8,10 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:trade_app/widgets/nav_bar.dart';
 import 'package:trade_app/screens/chatrecord.dart';
 import 'package:trade_app/screens/chatter.dart';
+import 'package:cron/cron.dart';
+import 'dart:async';
+import 'package:flutter/material.dart';
+import "dart:async";
 
 class ISBN_info {
   final String title;
@@ -45,8 +49,17 @@ class _ChatListState extends State<ChatList> {
       String realusername = help.user.name;
       readJson(realusername);
     });
+    startTask();
   }
 
+  startTask() {
+    final help = Provider.of<UserProvider>(context, listen: false);
+    String myuser = help.user.name;
+    var cron = new Cron();
+    cron.schedule(new Schedule.parse('*/1 * * * *'), () async {
+      readJson(myuser);
+    });
+  }
   // void didChangeDependencies() {
   //   debugPrint(
   //       'Child widget: didChangeDependencies(), counter = $realusername');
@@ -56,7 +69,7 @@ class _ChatListState extends State<ChatList> {
   List _items = [];
   List loadusernameimage = [];
   // Fetch content from the json file
-  Future<void> readJson(realusername) async {
+  Future<String> readJson(realusername) async {
     //load  the json here!!
     //fetch here
     http.Response resaa = await http.get(
@@ -99,6 +112,7 @@ class _ChatListState extends State<ChatList> {
       _items = data;
       loadusernameimage = whoimage;
     });
+    return ("tried");
   }
 
   // getdata(dbisbn) async {
@@ -122,65 +136,71 @@ class _ChatListState extends State<ChatList> {
     return Scaffold(
       appBar: ReusableWidgets.LoginPageAppBar("Chat Record"),
       body: Padding(
-        padding: const EdgeInsets.all(25),
-        child: Column(
-          children: [
-            _items.isNotEmpty
-                ? Expanded(
-                    child: ListView.builder(
-                      itemCount: _items.length,
-                      itemBuilder: (context, index) {
-                        int long = _items[index]["chatter"].length;
-                        String who = "";
-                        if (_items[index]["notself"] == myselfname)
-                          who = _items[index]["self"];
-                        else
-                          who = _items[index]["notself"];
-                        return Column(children: <Widget>[
-                          ListTile(
-                            leading: CircleAvatar(
-                              backgroundImage:
-                                  NetworkImage(loadusernameimage[index]),
-                            ),
-                            title: Text(
-                              who,
-                            ),
-                            subtitle: Text(
-                                _items[index]["chatter"][long - 1]["text"]),
-                            trailing: Icon(Icons.more_vert),
-                            onTap: () async {
-                              final text = await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => Chatter(title: who),
+          padding: const EdgeInsets.all(25),
+          child: RefreshIndicator(
+            onRefresh: () async {
+              var test = await readJson(myselfname);
+            },
+            child: Column(
+              children: [
+                _items.isNotEmpty
+                    ? Expanded(
+                        child: ListView.builder(
+                          itemCount: _items.length,
+                          itemBuilder: (context, index) {
+                            int long = _items[index]["chatter"].length;
+                            String who = "";
+                            if (_items[index]["notself"] == myselfname)
+                              who = _items[index]["self"];
+                            else
+                              who = _items[index]["notself"];
+                            return Column(children: <Widget>[
+                              ListTile(
+                                leading: CircleAvatar(
+                                  backgroundImage:
+                                      NetworkImage(loadusernameimage[index]),
                                 ),
-                              );
-                              print(text);
-                              readJson(myselfname);
-                            },
+                                title: Text(
+                                  who,
+                                ),
+                                subtitle: Text(
+                                    _items[index]["chatter"][long - 1]["text"]),
+                                trailing: Icon(Icons.more_vert),
+                                onTap: () async {
+                                  final text = await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => Chatter(title: who),
+                                    ),
+                                  );
+                                  print(text);
+                                  readJson(myselfname);
+                                },
+                              ),
+                              Divider(
+                                  color: Colors.grey,
+                                  endIndent: 24,
+                                  indent: 24),
+                            ]);
+                          },
+                        ),
+                      )
+                    : Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          new Text(
+                            'Bring doria back so its not empty here!',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 18),
                           ),
-                          Divider(
-                              color: Colors.grey, endIndent: 24, indent: 24),
-                        ]);
-                      },
-                    ),
-                  )
-                : Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      new Text(
-                        'Bring doria back so its not empty here!',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18),
+                          Center(
+                            child: Image.asset('assets/empty.png'),
+                          ),
+                        ],
                       ),
-                      Center(
-                        child: Image.asset('assets/empty.png'),
-                      ),
-                    ],
-                  ),
-          ],
-        ),
-      ),
+              ],
+            ),
+          )),
     );
   }
 }

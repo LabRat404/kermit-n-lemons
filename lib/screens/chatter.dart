@@ -9,6 +9,10 @@ import 'package:trade_app/provider/user_provider.dart';
 import 'package:provider/provider.dart';
 import 'dart:math';
 import 'package:intl/intl.dart';
+import 'package:cron/cron.dart';
+import 'dart:async';
+import 'package:flutter/material.dart';
+import "dart:async";
 
 class Chatter extends StatefulWidget {
   final String title;
@@ -27,6 +31,7 @@ class _ChatterState extends State<Chatter> {
       String myuser = help.user.name;
       readJson(myuser);
     });
+    startTask();
   }
 
   var data2;
@@ -81,6 +86,14 @@ class _ChatterState extends State<Chatter> {
   bool isPlaying = false;
   bool isLoading = false;
   bool isPause = false;
+  startTask() {
+    final help = Provider.of<UserProvider>(context, listen: false);
+    String myuser = help.user.name;
+    var cron = new Cron();
+    cron.schedule(new Schedule.parse('*/1 * * * *'), () async {
+      readJson(myuser);
+    });
+  }
 
   void sendmsg(self, msg, random) async {
     // print(msg),
