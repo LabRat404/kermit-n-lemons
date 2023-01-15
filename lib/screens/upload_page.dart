@@ -36,8 +36,8 @@ class _UploadPageState extends State<UploadPage> {
   void initState() {
     super.initState();
     //ISBNController = new TextEditingController(text: '9780547928227');
-    commentsController = new TextEditingController(
-        text: 'I really liked her but she dosnt know.');
+    // commentsController = new TextEditingController(
+    //     text: 'I really liked her but she dosnt know.');
     maxHeightController = new TextEditingController(text: '375');
     maxWidthController = new TextEditingController(text: '375');
     qualityController = new TextEditingController(text: '100');

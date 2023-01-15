@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
+import 'dart:async';
+import 'package:trade_app/screens/chatter.dart';
 
 class HomePage extends StatefulWidget {
   static const String routeName = '/home';
@@ -19,7 +21,31 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      final help = Provider.of<UserProvider>(context, listen: false);
+      String realusername = help.user.name;
+      readJson(realusername);
+    });
     //loadBookData();
+  }
+
+  late List _items = [];
+  // Fetch content from the json file
+  Future<void> readJson(realusername) async {
+    //load  the json here!!
+    //fetch here
+
+    http.Response resaa = await http.get(
+        Uri.parse('http://172.20.10.3:3000/api/grabrec/$realusername'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        });
+    //print(resaa);
+
+    final data = await json.decode(resaa.body);
+    setState(() {
+      _items = data;
+    });
   }
 
   //I dont like this, its hard coding and I tried not to, but maybe will fix it later
@@ -55,10 +81,6 @@ class _HomePageState extends State<HomePage> {
       if (data1["imageLinks"] != null)
         blink = data1["imageLinks"]["smallThumbnail"].toString();
       setState(() {});
-      print("title:" + btitle);
-      print("bauthors:" + bauthors);
-      print("infoLink:" + binfoLink);
-      print("blink:" + blink);
     }
     for (var i = 0; i < Recommendation.length; i++) {
       var res2 = await http.post(
@@ -80,10 +102,7 @@ class _HomePageState extends State<HomePage> {
       if (data2["infoLink"] != null) binfoLink = data2["infoLink"].toString();
       if (data2["imageLinks"] != null)
         blink = data2["imageLinks"]["smallThumbnail"].toString();
-      print("title:" + btitle);
-      print("bauthors:" + bauthors);
-      print("infoLink:" + binfoLink);
-      print("blink:" + blink);
+
       setState(() {});
     }
   }
@@ -170,70 +189,110 @@ class _HomePageState extends State<HomePage> {
     ],
   );
   //I dont like this, its hard coding and I tried not to, but maybe will fix it later
-  final loopRec = ImageSlideshow(
-    indicatorColor: Colors.white,
-    onPageChanged: (value) {
-      //debugPrint('Page changed: $value');
-    },
-    autoPlayInterval: 3000,
-    isLoop: true,
-    children: [
-      TextButton.icon(
-        style: ButtonStyle(backgroundColor: null),
-        onPressed: () async {
-          if (await canLaunchUrl(Uri.parse(
-              "http://books.google.com.hk/books?id=jD8iswEACAAJ&dq=isbn:9780984782857&hl=&source=gbs_api"))) {
-            launchUrl(Uri.parse(
-                "http://books.google.com.hk/books?id=jD8iswEACAAJ&dq=isbn:9780984782857&hl=&source=gbs_api"));
-          }
-        },
-        icon: Image.network(
-            "http://books.google.com/books/content?id=jD8iswEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api"),
-        label: Text(
-          'Cracking the Coding Interview' +
-              '\n' +
-              'By ' +
-              'Gayle Laakmann McDowell',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      TextButton.icon(
-        style: ButtonStyle(backgroundColor: null),
-        onPressed: () async {
-          if (await canLaunchUrl(Uri.parse(
-              "http://books.google.com.hk/books?id=AEO7bwAACAAJ&dq=isbn:9781406317848&hl=&source=gbs_api"))) {
-            launchUrl(Uri.parse(
-                "http://books.google.com.hk/books?id=AEO7bwAACAAJ&dq=isbn:9781406317848&hl=&source=gbs_api"));
-          }
-        },
-        icon: Image.network(
-            "http://books.google.com/books/content?id=AEO7bwAACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api"),
-        label: Text(
-          "Rosen's Sad Book" + '\n' + 'By ' + 'Michael Rosen',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      )
-    ],
-  );
+  loopRec() {
+    return ImageSlideshow(
+      indicatorColor: Colors.white,
+      onPageChanged: (value) {
+        //debugPrint('Page changed: $value');
+      },
+      autoPlayInterval: 3000,
+      isLoop: true,
+      children: [
+        if (_items.isNotEmpty)
+          for (int i = 0; i < _items.length; i++)
+            Column(
+              children: [
+                TextButton.icon(
+                  style: ButtonStyle(backgroundColor: null),
+                  onPressed: () async {
+                    if (await canLaunchUrl(
+                        Uri.parse(_items[i]["googlelink"]))) {
+                      launchUrl(Uri.parse(_items[i]["googlelink"]));
+                    }
+                  },
+                  icon: Image.network(_items[i]["url"],
+                      width: 140, height: 180, fit: BoxFit.fill),
+                  label: Text(
+                    _items[i]["booktitle"] + '\n' + 'By ' + _items[i]["author"],
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Center(
+                    child: ButtonBar(mainAxisSize: MainAxisSize.min, children: [
+                  ElevatedButton.icon(
+                    icon: Icon(Icons.chat_outlined),
+                    label: Text(
+                        "Chat with user " + _items[i]["username"].toString()),
+                    onPressed: () async {
+                      // print(
+                      //     "Trade!Book hash is " + _items[i]["name"].toString());
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Trade Request Sent!')),
+                      );
+
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => TradeList(),
+                      //   ),
+                      // );
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              Chatter(title: _items[i]["username"].toString()),
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                      shadowColor: Colors.orange,
+                    ),
+                  ),
+                ]))
+              ],
+            )
+        else
+          TextButton.icon(
+            style: ButtonStyle(backgroundColor: null),
+            onPressed: () async {
+              if (await canLaunchUrl(Uri.parse(
+                  "http://books.google.com.hk/books?id=AEO7bwAACAAJ&dq=isbn:9781406317848&hl=&source=gbs_api"))) {
+                launchUrl(Uri.parse(
+                    "http://books.google.com.hk/books?id=AEO7bwAACAAJ&dq=isbn:9781406317848&hl=&source=gbs_api"));
+              }
+            },
+            icon: Image.network(
+                "http://books.google.com/books/content?id=AEO7bwAACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api"),
+            label: Text(
+              "Rosen's Sad Book" + '\n' + 'By ' + 'Michael Rosen',
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          )
+      ],
+    );
+  }
+
   final bm = Text.rich(
     TextSpan(
       text: 'Books of the month! ',
 
-      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
       // default text style
     ),
     textAlign: TextAlign.left,
   );
   final heading = Text.rich(
     TextSpan(
-      text: 'Our Recommendations! ',
-      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+      text: 'Trade Recommendations! ',
+      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
       // default text style
     ),
   );
@@ -241,7 +300,7 @@ class _HomePageState extends State<HomePage> {
   final category_text = Text.rich(
     TextSpan(
       text: 'Recommended Categories',
-      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
       // default text style
     ),
   );
@@ -254,15 +313,14 @@ class _HomePageState extends State<HomePage> {
       appBar: ReusableWidgets.LoginPageAppBar('Welcome Back! $username'),
       body: Column(
         children: <Widget>[
-          SizedBox(height: 70.0),
+          SizedBox(height: 30.0),
           bm,
-          SizedBox(height: 20.0),
+
           loopBOM,
-          SizedBox(height: 70.0),
+
           heading,
-          SizedBox(height: 20.0),
-          loopRec,
-          SizedBox(height: 20.0),
+          loopRec(),
+
           //category_text,
         ],
       ),

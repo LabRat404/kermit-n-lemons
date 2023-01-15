@@ -49,17 +49,17 @@ class _ChatListState extends State<ChatList> {
       String realusername = help.user.name;
       readJson(realusername);
     });
-    startTask();
+    //startTask();
   }
 
-  startTask() {
-    final help = Provider.of<UserProvider>(context, listen: false);
-    String myuser = help.user.name;
-    var cron = new Cron();
-    cron.schedule(new Schedule.parse('*/1 * * * *'), () async {
-      readJson(myuser);
-    });
-  }
+  // startTask() {
+  //   final help = Provider.of<UserProvider>(context, listen: false);
+  //   String myuser = help.user.name;
+  //   var cron = new Cron();
+  //   cron.schedule(new Schedule.parse('*/1 * * * *'), () async {
+  //     readJson(myuser);
+  //   });
+  // }
   // void didChangeDependencies() {
   //   debugPrint(
   //       'Child widget: didChangeDependencies(), counter = $realusername');

@@ -31,7 +31,7 @@ class _ChatterState extends State<Chatter> {
       String myuser = help.user.name;
       readJson(myuser);
     });
-    startTask();
+    //startTask();
   }
 
   var data2;
@@ -86,14 +86,14 @@ class _ChatterState extends State<Chatter> {
   bool isPlaying = false;
   bool isLoading = false;
   bool isPause = false;
-  startTask() {
-    final help = Provider.of<UserProvider>(context, listen: false);
-    String myuser = help.user.name;
-    var cron = new Cron();
-    cron.schedule(new Schedule.parse('*/1 * * * *'), () async {
-      readJson(myuser);
-    });
-  }
+  //startTask() {
+  //   final help = Provider.of<UserProvider>(context, listen: false);
+  //   String myuser = help.user.name;
+  //   var cron = new Cron();
+  //   cron.schedule(new Schedule.parse('*/1 * * * *'), () async {
+  //     readJson(myuser);
+  //   });
+  // }
 
   void sendmsg(self, msg, random) async {
     // print(msg),
