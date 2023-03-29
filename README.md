@@ -1,5 +1,6 @@
 # kermit-n-lemon
-past and regrets\
+Past and regrets\
+
 My lonely journey to win her heart back. QAQ\
 To make it work 
 1. Add your copy & paste your main.dart into mine
