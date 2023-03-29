@@ -1,5 +1,5 @@
 # kermit-n-lemon
-Past and regrets\
+Past and regrets
 
 My lonely journey to win her heart back. QAQ\
 To make it work 
